@@ -4,15 +4,14 @@
     #To try create a connection
     try{
 
-       $dataSN = "mysql:dbhost=$dbHost; dbname=$dbName;";
+       $dataSN = "mysql:host=$dbHost; dbname=$dbName;";
        $connect = new PDO($dataSN, $dbUser, $dbPassword);
-       $connect -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+       $connect->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
     
-       echo "success";  #connects to DB
-    }catch (PDOException $exception) 
+       
+    } catch (PDOException $exception) 
+    
     {
-
     echo "<div class='error'>".$exception->getMessage()."</div>";
-
     }
 ?>

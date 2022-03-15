@@ -13,30 +13,38 @@
     <title>Aventura</title>
 </head>
 
-<body>
+<body >
+    <div class="container-fluid">
     <!-- Header section -->
     <header>
+        <!--An opening horizontal line for decoration-->
         <hr>
-        <div>
-            <!-- Aventura Logo -->
-            <div>
-                <a id="logo" href="#"><img src="img/abc.jpg" alt="Logo">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <!--Creating a logo with the span description-->
+                <a class="navbar-brand" id="logo" href="#"><img src="img/abc.jpg" alt="Logo">
                     <span title="Click logo for Home Page">Tanzanian Beauty</span>
                 </a>
-            </div>
-
-            <!-- Navigation links -->
-            <div>
-                <nav>
-                    <ul>
-                        <li><a href="gallery.html">Gallery</a></li>
-                        <li><a href="#">Login</a></li>
-                        <li><a href="#">SignUp</a></li>
-                        <li><a href="#">About</a></li>
+                <!--Creating a collapsible navigation button-->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#nav_collapse" aria-controls="nav_collapse" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!--Assigning the id of the buttion to the div class housing the varius links-->
+                <div class="collapse navbar-collapse" id="nav_collapse">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                        <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="signup.php">Signup</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">About</a></li>
                     </ul>
-                </nav>
+                </div>
             </div>
-        </div>
+        </nav>
+        <!--A closing horizontal line for decoration-->
+        <hr>
     </header>
 
 
@@ -48,29 +56,31 @@
             <div class="col-8">
                 <!--col 1-->
 
-                <div class="row">
+                <div class="d-flex justify-content-end">
                     <!--row 2 slide img-->
-                    <img src="Assets/Images/img_snowtops.jpg" alt="Snow">
+                    <img src="Assets/Images/img_snowtops.jpg" alt="Snow" style="width: 500px;">
                 </div>
 
-                <div class="row">
+                <div class="d-flex  justify-content-center">
                     <!--row 2 slide img-->
-                    <img src="Assets/Images/img_snowtops.jpg" alt="Snow">
+                    <img src="Assets/Images/img_snowtops.jpg" alt="Snow" style="width: 500px;">
                 </div>
-                <div class="row">
+                <div class="d-flex  justify-content-start">
                     <!--row 2 slide img-->
-                    <img src="Assets/Images/img_snowtops.jpg" alt="Snow">
+                    <img src="Assets/Images/img_snowtops.jpg" alt="Snow" style="width: 500px;">
                 </div>
 
             </div>
 
             <div class="col-4">
                 <!--col 1-->
+                <div class="d-flex flex-column align-items-center">
                 <p>Lorem ipsum dolor sit amet <br> consectetur adipisicing elit. Fugiat facilis <br> dolore ipsa
                     officiis
                     natus ex nam
                     odio tempora in.</p>
                     <a href="gallery.html" class="w3-button w3-black">Gallery</a> <!--change button class-->
+                </div>
             </div>
 
         </div>
@@ -93,7 +103,7 @@
     </footer>
 
 
-
+</div>
 </body>
 
 </html>

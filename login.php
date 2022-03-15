@@ -1,3 +1,12 @@
+<?php
+	session_start();			//retrieve session		
+
+	if (IsSet($_SESSION["userID"]) || IsSet($_SESSION["username"])){	//if  logged on	
+		header("Location: home.php");	   //redirect to home page
+        exit();         
+    }	
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,11 +65,16 @@
                     <hr>
                     <input type="text" name="username" placeholder="Username">
                     <input type="password" name="password" placeholder="Password">
-                    <input type="checkbox" name="remember" value="remember"> Keep me Signed in
-                    <input type="reset"><!--make this a round refresh sign-->
+                    
+                    <input type="reset"><!--reset pass-->
                     <button type="submit">Login</button> 
 
                 </form>
+
+                
+
+
+
                
             </div>
 

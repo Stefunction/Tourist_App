@@ -1,10 +1,10 @@
 <?php
-	session_start();			//retrieve session		
+session_start();            //retrieve session		
 
-	if (IsSet($_SESSION["userID"]) || IsSet($_SESSION["username"])){	//if  logged on	
-		header("Location: home.php");	   //redirect to home page
-        exit();         
-    }	
+if (isset($_SESSION["username"])) {   //if  logged on	
+    header("Location: home.php");       //redirect to home page
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -24,58 +24,62 @@
 
 <body>
     <!-- Header section -->
-    <header >
-        <hr>
-        <div>
-        <!-- Aventura Logo -->
-        <div>
-            <a id="logo" href="#"><img src="img/abc.jpg" alt="Logo">
-                <span title="Click logo for Home Page">Tanzanian Beauty</span>
-            </a>
-        </div>
-
-        <!-- Navigation links -->
-        <div>
-            <nav>
-                <ul>
-                    <li><a href="gallery.html">Gallery</a></li>
-                    <li><a href="#">Login</a></li>
-                    <li><a href="#">SignUp</a></li>
-                    <li><a href="#">About</a></li>
-                </ul>
+    <header class="sticky-top">
+            <!--An opening horizontal line for decoration-->
+            <hr>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <!--Creating a logo with the span description-->
+                    <a class="navbar-brand" id="logo" href="#"><img src="img/abc.jpg" alt="Logo">
+                        <span title="Click logo for Home Page">Tanzanian Beauty</span>
+                    </a>
+                    <!--Creating a collapsible navigation button-->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav_collapse" aria-controls="nav_collapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <!--Assigning the id of the buttion to the div class housing the varius links-->
+                    <div class="collapse navbar-collapse" id="nav_collapse">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                            <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
+                            <li class="nav-item"><a class="nav-link" href="signup.php">Signup</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                        </ul>
+                    </div>
+                </div>
             </nav>
-        </div>
-    </div>
-    </header>
+            <!--A closing horizontal line for decoration-->
+            <hr>
+        </header>
 
 
     <main class="container">
         <!--content-->
-        <div class="row"> <!--row-->
+        <div class="row">
+            <!--row-->
 
-            <div class="col"> <!--col 1-->
+            <div class="col">
+                <!--col 1-->
                 <p>Lorem ipsum dolor sit amet <br> consectetur adipisicing elit. Fugiat facilis <br> dolore ipsa officiis
-                natus ex nam
-                odio tempora in.</p>
+                    natus ex nam
+                    odio tempora in.</p>
             </div>
-           
-            <div class="col"> <!--col 1-->
+
+            <div class="col">
+                <!--col 1-->
                 <form id="login" method="post" action="verify.php">
                     <img src="#" alt="User logo">
                     <hr>
                     <input type="text" name="username" placeholder="Username">
                     <input type="password" name="password" placeholder="Password">
-                    
-                    <input type="reset"><!--reset pass-->
-                    <button type="submit">Login</button> 
+
+                    <input type="reset">
+                    <!--reset pass-->
+                    <button type="submit">Login</button>
 
                 </form>
 
-                
-
-
-
-               
             </div>
 
         </div>

@@ -1,1 +1,72 @@
-.errorsign {color: #FF0000;}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    display: flex;
+}
+
+/* styling the home page */
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 50px;
+    background-color: #2196F3;
+    padding: 20px;
+  }
+  
+  .grid-container > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px 0;
+  }
+  
+  @media only screen and (max-width: 1600px) {
+    .grid-container {max-height: fit-content;}
+    .img_1 { grid-area: 1 / 3 / 6/ 5;  }
+    .img_2 { grid-area: 3 / 2/ 8 / 4 ; }
+    .img_3 { grid-area: 5 / 1 / 10 / 3; }
+  
+  }
+  @media only screen and (max-width: 750px) {
+    .grid-container {row-gap: 10px; width: fit-content;}
+    .img_1 { grid-area: 1 / span 4;  }
+    .img_2 { grid-area: 2 / span 4; }
+    .img_3 { grid-area: 3 / span 4; }
+  }
+
+/* Styling the footer  */
+  footer .nav-link{
+    padding: 3px 0px ;
+  }
+  footer div{
+      padding-left: 30px;
+  }
+ 
+/* styling the sign up page */
+
+#signup{
+    overflow: hidden;
+    background: url("../Images/1647785545105.jpg"); 
+    background-position: center;
+    background-size: cover;
+    background-repeat: none;  
+ } 
+.form_contain{
+    background: rgba(76,86 ,96,0.3);
+    margin-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-top-left-radius: 50px;
+    border-bottom-right-radius: 100px;
+    /* box-shadow: 10px, 10px, 2px, #000; */
+}
+
+
+/* .errorsign {color: #FF0000;} */
+
+
+

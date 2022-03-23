@@ -14,10 +14,11 @@ $lastname = $_SESSION["lastname"];
 
 require "connect.php";
 
-$query = "select uploadPath, description, categoryName, date, url from uploads, category";
-$query .= " WHERE uploads.categoryID = category.categoryID and userName =  '$username' ";
+$query = "select userID, firstname, lastname, username, gender.genderName, email, role.role_Name FROM users, role, gender
+where users.roleID = role.roleID and users.genderID = gender.genderID";
+// $query .= "WHERE users.genderID = gender.genderID and users.roleID = role.roleID";
 
-
+// userID, firstname, lastname, username, gender.genderName, users.email, role.role_Name
 $result = $connect->query($query);    //execute SQL
 
 ?>
@@ -35,12 +36,18 @@ $result = $connect->query($query);    //execute SQL
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.css" />
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.js"></script> <!-- Preview JS for file Upload -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> <!-- Bootstrap with Popper -->
-
-
+    
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> <!-- Bootstrap with Popper -->
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    
 
     <script>
         // Script to open and close sidebar
@@ -64,6 +71,12 @@ $result = $connect->query($query);    //execute SQL
             document.getElementById("div_add").style.display = "none";
             document.getElementById("div_content").style.display = "block";
         }
+    </script>
+
+    <script>
+        $(document).ready( function () {
+            $('.userTable').DataTable();
+                } );
     </script>
 
 
@@ -92,7 +105,7 @@ $result = $connect->query($query);    //execute SQL
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
                     <!--Creating a logo with the span description-->
-                    <a class="navbar-brand" id="logo" href="#"><img src="img/abc.jpg" alt="Logo">
+                    <a class="navbar-brand" id="logo" href="#"><img src="" alt="Logo">
                         <span title="Click logo for Home Page">Tanzanian Beauty</span>
                     </a>
                     <!--Creating a collapsible navigation button-->
@@ -173,47 +186,45 @@ $result = $connect->query($query);    //execute SQL
 
                     <!-- Grid for Pictures-->
                     <div class="w3-row-padding">
-
-                    <?php
-
-                    if ($result->rowCount() == 0) { 
-
-                    ?>
-                    <div class="w3-third w3-container w3-margin-bottom">
-                            <img src="https://www.w3schools.com/w3images/nature.jpg" alt="No Uploaded Data in your Profile." style="width:100%" class="w3-hover-opacity">
-                            <div class="w3-container w3-white">
-                                <h5><b>Lorem Ipsum</b></h5><br>
-                                <p>No Uploaded Data in your Profile.!</p>
-                            </div>
-                        </div>
-
-                    <?php 
-                        } 
-                        else {
-   
-                        foreach ($result as $img) {
+                        <table class="userTable">
+                            <thead>
+                            <tr>
+                                <th>UserID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>UserName</th>
+                                <th>Gender</th>
+                                <th>Email</th>
+                                <th>User Role</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
                             
-                            $imgPath = $img["uploadPath"];       
-                            $imgDescription = $img["description"];
-                            $imgCategory = $img["categoryName"];
-                            $imgdate = $img["date"];
-                            $imgurl = $img["url"]; ?>
-
-
-                            <div class="w3-third w3-container w3-margin-bottom">
-                                <img src="<?php echo $imgPath ?>" alt="Uploaded_Pic Description" style="width:100%" class="w3-hover-opacity">
-
-                                <div class="w3-container w3-white">
-                                    <h5><b>Lorem Ipsum</b></h5><span><?php echo $imgdate ?></span><br>
-                                    <p class="p-2"><?php echo $imgDescription ?>!</p>
-                                </div>
-                            </div>
-
-                        <?php
-                        }
-                    }
-                        $connect = null;
-                        ?> 
+                            <tbody>
+                            <?php if ($result->rowCount() == 0) { 
+                                    echo "No data Retrieved";
+                                    }else{ 
+                                        foreach($result as $user){ 
+                                            ?> 
+                            <tr>
+                                        <td> <?php echo $user["userID"];   ?> </td>
+                                        <td> <?php echo $user["firstname"]; ?> </td>
+                                        <td> <?php echo $user["lastname"]; ?> </td>
+                                        <td> <?php echo $user["username"]; ?> </td>
+                                        <td> <?php echo $user["genderName"]; ?></td>
+                                        <td> <?php echo $user["email"]; ?> </td>
+                                        <td> <?php echo $user["role_Name"]; ?></td>
+                                        <td>
+                                            <form action=""> <input type="hidden" name="user-id" value="<?php echo $user["userID"];   ?>">
+                                                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                                        </form>
+                                    </td>
+                            </tr>
+                            <?php } } $connect = null; ?>
+                            </tbody>
+                                
+                        </table>
+                    
   
                     </div>
                 </div>

@@ -12,9 +12,9 @@ body{
 /* styling the home page */
 .grid-container {
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto;
     gap: 50px;
-    background-color: #2196F3;
+    /* background-color: #2196F3; */
     padding: 20px;
   }
   
@@ -65,8 +65,30 @@ body{
     /* box-shadow: 10px, 10px, 2px, #000; */
 }
 
-
 /* .errorsign {color: #FF0000;} */
 
+
+/* Styling the gallery page */
+.grid-container-gallery {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+    gap: 5px;
+    padding: 10px;
+  }
+  
+  .grid-container-gallery > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding: 20px 0;
+    font-size: 30px;
+  }
+  
+  .picture > img{
+      width: 30%;
+  }
+
+  .slideshow {
+    grid-area: 2 / 2 / 5 / 5;
+  }
 
 

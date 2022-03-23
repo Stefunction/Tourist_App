@@ -40,8 +40,15 @@
             $email = _checkInput($_POST["email"]);
             $password = _checkInput($_POST["password"]);
 
+            /* Hashing the Password */
+            $options = [ 
+                'cost' => 12,
+            ];
+            $hashed_password = password_hash($password, PASSWORD_BCRYPT, $options);
+
+
             $query = "Insert into Users (firstname, lastname, username, genderID, email, password)";
-            $query .= "Values ('$firstname', '$lastname', '$username', '$gender', '$email', '$password')";
+            $query .= "Values ('$firstname', '$lastname', '$username', '$gender', '$email', '$hashed_password')";
 
             $result=$connect->exec($query);	//execute SQL
 

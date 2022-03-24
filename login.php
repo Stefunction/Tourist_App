@@ -1,11 +1,16 @@
 <?php
-session_start();            //retrieve session		
+session_start();            #retrieve session		
 
-if (isset($_SESSION["username"])) {   //if  logged on	
-    header("Location: home.php");       //redirect to home page
+if (isset($_SESSION["username"]))        # if logged on	
+{
+    header("Location: home.php");       # redirect to home page
     exit();
 }
+
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,33 +30,33 @@ if (isset($_SESSION["username"])) {   //if  logged on
 <body>
     <!-- Header section -->
     <header class="sticky-top">
-            <!--An opening horizontal line for decoration-->
-            <hr>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <!--Creating a logo with the span description-->
-                    <a class="navbar-brand" id="logo" href="#"><img src="img/abc.jpg" alt="Logo">
-                        <span title="Click logo for Home Page">Tanzanian Beauty</span>
-                    </a>
-                    <!--Creating a collapsible navigation button-->
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav_collapse" aria-controls="nav_collapse" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <!--Assigning the id of the buttion to the div class housing the varius links-->
-                    <div class="collapse navbar-collapse" id="nav_collapse">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
-                            <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
-                            <li class="nav-item"><a class="nav-link" href="signup.php">Signup</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                        </ul>
-                    </div>
+        <!--An opening horizontal line for decoration-->
+        <hr>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <!--Creating a logo with the span description-->
+                <a class="navbar-brand" id="logo" href="#"><img src="img/abc.jpg" alt="Logo">
+                    <span title="Click logo for Home Page">Tanzanian Beauty</span>
+                </a>
+                <!--Creating a collapsible navigation button-->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav_collapse" aria-controls="nav_collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!--Assigning the id of the buttion to the div class housing the varius links-->
+                <div class="collapse navbar-collapse" id="nav_collapse">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="gallery.php">Gallery</a></li>
+                        <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="signup.php">Signup</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                    </ul>
                 </div>
-            </nav>
-            <!--A closing horizontal line for decoration-->
-            <hr>
-        </header>
+            </div>
+        </nav>
+        <!--A closing horizontal line for decoration-->
+        <hr>
+    </header>
 
 
     <main class="container">
@@ -67,18 +72,32 @@ if (isset($_SESSION["username"])) {   //if  logged on
             </div>
 
             <div class="col">
-                <!--col 1-->
-                <form id="login" method="post" action="verify.php">
-                    <img src="#" alt="User logo">
-                    <hr>
-                    <input type="text" name="username" placeholder="Username">
-                    <input type="password" name="password" placeholder="Password">
+                <div class="row">
+                    <form id="login" method="post" action="verify.php">
+                        <img src="#" alt="User logo">
+                        <hr>
+                        <input type="text" name="username" placeholder="Username">
+                        <input type="password" name="password" placeholder="Password">
 
-                    <input type="reset">
-                    <!--reset pass-->
-                    <button type="submit">Login</button>
+                        <button type="submit">Login</button>
 
-                </form>
+                    </form>
+                </div>
+                <div class="row">
+                    <h4>Forgot Password??</h4>
+                    <form method="POST" action="verify.php">
+                        <input type="text" name="username" placeholder="Username">
+
+         
+                        <input type="password" class="form-control" id="newpass" name="newpass" placeholder = "New Password" required>
+                        <input type="password" class="form-control" id="cnewpass" name="cnewpass" placeholder = "Confirm New Password" required>
+
+
+                        <button type="submit" name="resetPass">
+                            Reset Password
+                        </button>
+                    </form>
+                </div>
 
             </div>
 
@@ -104,6 +123,30 @@ if (isset($_SESSION["username"])) {   //if  logged on
 
 
 
+
 </body>
 
+<!-- Sweet Alert plugin and stylesheet -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<?php
+    if (isset($_SESSION["status"])) {
+?>
+ <script>
+    swal({
+    title: "<?php echo $_SESSION["status"] ?>",
+    text: "<?php echo $_SESSION["display"] ?>",,
+    icon: "<?php echo $_SESSION["icon"] ?>",
+    button: "Close!",
+        });
+</script>
+
+<?php
+    unset($_SESSION["status"]);
+    }
+?>
+
+
 </html>
+
+

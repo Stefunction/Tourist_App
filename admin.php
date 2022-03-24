@@ -2,8 +2,8 @@
 session_start();            //retrieve session		
 
 
-if (!isset($_SESSION["username"])) {            //if not previoulsly logged on	
-    header("Location: login.php");
+if (!isset($_SESSION["username"]) && $_SESSION["roleID"] == '1') {            //if not previoulsly logged on	
+    header("Location: home.php");
 }              //redirect to login page
 
 $username = $_SESSION["username"];    //get user name into variable $username
@@ -324,3 +324,6 @@ $result = $connect->query($query);    //execute SQL
 </body>
 
 </html>
+<?php
+    session_destroy(); 
+?>

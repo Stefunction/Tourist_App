@@ -1,18 +1,19 @@
 <?php
-session_start();            //retrieve session		
+session_start();            #retrieve session		
 
 
-if (!isset($_SESSION["username"])) {            //if not previoulsly logged on	
-    header("Location: login.php");
-}              //redirect to login page
+if (!isset($_SESSION["username"]))              # if not logged on	
+    {            
+        header("Location: login.php");          # redirect to login page
+    }              
 
-$username = $_SESSION["username"];    //get user name into variable $username
+$username = $_SESSION["username"];              # get user name into variable $username
 
-$firstname = $_SESSION["firstname"];  //get names into variable $username
+$firstname = $_SESSION["firstname"];            # get names into variable $username
 
 $lastname = $_SESSION["lastname"];
 
-require "connect.php";
+require "connect.php";                          # Establish a connection with the PDO object created
 
 $query = "select uploadPath, description, categoryName, date, url from uploads, category";
 $query .= " WHERE uploads.categoryID = category.categoryID and userName =  '$username' ";
@@ -313,3 +314,6 @@ $result = $connect->query($query);    //execute SQL
 </body>
 
 </html>
+<?php
+    session_destroy(); 
+?>

@@ -9,6 +9,7 @@ body{
     display: flex;
 }
 
+
 /* styling the home page */
 .grid-container {
     display: grid;
@@ -64,8 +65,6 @@ body{
     border-bottom-right-radius: 100px;
     /* box-shadow: 10px, 10px, 2px, #000; */
 }
-
-/* .errorsign {color: #FF0000;} */
 
 
 /* Styling the gallery page */

@@ -1,11 +1,12 @@
 <?php
 session_start();            #retrieve session		
 
+require "connect.php";     # Establish a connection with the PDO object created
 
 if (!isset($_SESSION["username"]))              # if not logged on	
-    {            
-        header("Location: login.php");          # redirect to login page
-    }              
+{
+    header("Location: login.php");          # redirect to login page
+}
 
 $username = $_SESSION["username"];              # get user name into variable $username
 
@@ -13,13 +14,16 @@ $firstname = $_SESSION["firstname"];            # get names into variable $usern
 
 $lastname = $_SESSION["lastname"];
 
-require "connect.php";                          # Establish a connection with the PDO object created
+$email = $_SESSION["email"];
+
+$password = $_SESSION["password"];
+
 
 $query = "select uploadPath, description, categoryName, date, url from uploads, category";
 $query .= " WHERE uploads.categoryID = category.categoryID and userName =  '$username' ";
 
-
 $result = $connect->query($query);    //execute SQL
+
 
 ?>
 
@@ -31,6 +35,7 @@ $result = $connect->query($query);    //execute SQL
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="assets/CSS/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <!-- <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet"> style font -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -59,11 +64,25 @@ $result = $connect->query($query);    //execute SQL
         function add_adventure() {
             document.getElementById("div_add").style.display = "block";
             document.getElementById("div_content").style.display = "none";
+            document.getElementById("edit_profile").style.display = "none";
         }
 
         function all_content() {
             document.getElementById("div_add").style.display = "none";
             document.getElementById("div_content").style.display = "block";
+            document.getElementById("edit_profile").style.display = "none";
+        }
+
+        function edit_personal() {
+            document.getElementById("div_add").style.display = "none";
+            document.getElementById("div_content").style.display = "none";
+            document.getElementById("edit_profile").style.display = "block";
+        }
+
+
+        function profile() {
+            var change = document.getElementById("user-account");
+            change.type = "text";
         }
     </script>
 
@@ -128,8 +147,8 @@ $result = $connect->query($query);    //execute SQL
                 </div>
 
                 <div class="w3-bar-block">
-                    <a href="#adventure" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>My Adventures</a>
-                    <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>My Personal Space</a>
+                    <a href="#adventure" onclick="w3_close(), all_content()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>My Adventures</a>
+                    <a href="#about" onclick="w3_close(), edit_personal()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>My Personal Space</a>
                     <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>Contact</a>
                     <a href="logout.php" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>Logout</a>
                 </div>
@@ -160,7 +179,7 @@ $result = $connect->query($query);    //execute SQL
                             <!-- <a href="#adventure" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>My adventures</a> -->
 
 
-                            <button class="w3-button w3-black" onclick="all_content()">ALL</button>
+                            <!-- <button class="w3-button w3-black" onclick="all_content(), add_adventure(), edit_profile()">ALL</button> -->
                             <button class="w3-button w3-white" onclick="add_adventure()"><i class="fa fa-diamond w3-margin-right"></i>Add Adventure</button>
                             <button class="w3-button w3-white w3-hide-small"><i class="fa fa-photo w3-margin-right"></i>Photos</button>
                             <button class="w3-button w3-white w3-hide-small"><i class="fa fa-map-pin w3-margin-right"></i>Art</button>
@@ -175,47 +194,46 @@ $result = $connect->query($query);    //execute SQL
                     <!-- Grid for Pictures-->
                     <div class="w3-row-padding">
 
-                    <?php
+                        <?php
 
-                    if ($result->rowCount() == 0) { 
+                        if ($result->rowCount() == 0) {
 
-                    ?>
-                    <div class="w3-third w3-container w3-margin-bottom">
-                            <img src="https://www.w3schools.com/w3images/nature.jpg" alt="No Uploaded Data in your Profile." style="width:100%" class="w3-hover-opacity">
-                            <div class="w3-container w3-white">
-                                <h5><b>Lorem Ipsum</b></h5><br>
-                                <p>No Uploaded Data in your Profile.!</p>
-                            </div>
-                        </div>
-
-                    <?php 
-                        } 
-                        else {
-   
-                        foreach ($result as $img) {
-                            
-                            $imgPath = $img["uploadPath"];       
-                            $imgDescription = $img["description"];
-                            $imgCategory = $img["categoryName"];
-                            $imgdate = $img["date"];
-                            $imgurl = $img["url"]; ?>
-
-
+                        ?>
                             <div class="w3-third w3-container w3-margin-bottom">
-                                <img src="<?php echo $imgPath ?>" alt="Uploaded_Pic Description" style="width:100%" class="w3-hover-opacity">
-
+                                <img src="https://www.w3schools.com/w3images/nature.jpg" alt="No Uploaded Data in your Profile." style="width:100%" class="w3-hover-opacity">
                                 <div class="w3-container w3-white">
-                                    <h5><b>Lorem Ipsum</b></h5><span><?php echo $imgdate ?></span><br>
-                                    <p class="p-2"><?php echo $imgDescription ?>!</p>
+                                    <h5><b>Lorem Ipsum</b></h5><br>
+                                    <p>No Uploaded Data in your Profile.!</p>
                                 </div>
                             </div>
 
+                            <?php
+                        } else {
+
+                            foreach ($result as $img) {
+
+                                $imgPath = $img["uploadPath"];
+                                $imgDescription = $img["description"];
+                                $imgCategory = $img["categoryName"];
+                                $imgdate = $img["date"];
+                                $imgurl = $img["url"]; ?>
+
+
+                                <div class="w3-third w3-container w3-margin-bottom">
+                                    <img src="<?php echo $imgPath ?>" alt="Uploaded_Pic Description" style="width:100%" class="w3-hover-opacity">
+
+                                    <div class="w3-container w3-white">
+                                        <h5><b>Lorem Ipsum</b></h5><span><?php echo $imgdate ?></span><br>
+                                        <p class="p-2"><?php echo $imgDescription ?>!</p>
+                                    </div>
+                                </div>
+
                         <?php
+                            }
                         }
-                    }
                         $connect = null;
-                        ?> 
-  
+                        ?>
+
                     </div>
                 </div>
                 <!-- End of Story Adventure Section -->
@@ -307,6 +325,121 @@ $result = $connect->query($query);    //execute SQL
                 </script>
 
 
+
+
+                <!-- Edit Profile Section (Initially hidden) -->
+                <div class="w3-row-padding" id="edit_profile" style="display: none;">
+
+                    <div class="w3-container w3-yellow w3-margin-bottom">
+                        <h3>About Me</h3>
+                    </div>
+                    <div class="w3-row-padding">
+                        <div class="w3-third">
+                            <img src="https://www.w3schools.com/w3images/avatar_g.jpg" alt="Me" style="width:100%">
+                        </div>
+
+                        <div class="w3-twothird">
+                            <table class="w3-table w3-bordered w3-card-4">
+                                <tr>
+                                    <th class="w3-red" style="width: 40%;">FirstName:</th>
+                                    <td class="w3-yellow" style="width: 60%;"><?php echo $firstname;   ?></td>
+                                </tr>
+                                <tr>
+                                    <th class="w3-red" style="width: 40%;">LastName:</th>
+                                    <td class="w3-yellow" style="width: 60%;"><?php echo $lastname;   ?></td>
+                                </tr>
+                                <tr>
+                                    <th class="w3-red" style="width: 40%;">UserName:</th>
+                                    <td class="w3-yellow" style="width: 60%;"><?php echo $username;   ?></td>
+                                </tr>
+                                <tr>
+                                    <th class="w3-red" style="width: 40%;">Email:</th>
+                                    <td class="w3-yellow" style="width: 60%;"><?php echo $email;   ?></td>
+                                </tr>
+                                <tr>
+                                    <th class="w3-red" style="width: 40%;">Change Password:</th>
+                                    <td class="w3-yellow" hidden><?php echo $password;   ?></td>
+                                </tr>
+
+                            </table>
+                        
+                            <div class="w3-row-padding">
+                            
+                                <button onclick="document.getElementById('edit').style.display='block'" class=" w3-col m6 btn btn-sm btn-warning" type="submit">Edit Details</button>
+                            
+                            
+                                <form action="update.php" method="POST"><input type="hidden" name="user-id" value="<?php echo $username;   ?>">
+                                    <button class="w3-col m6 btn btn-sm btn-danger" type="submit" name="delete">Delete Account</button>
+                                </form>
+                            
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    
+
+                    <div id="edit" class="w3-modal">
+                                <div class="w3-modal-content w3-card-4 w3-animate-left" style="max-width:500px">
+
+                                    <div class="w3-center"><br>
+                                        <span onclick="document.getElementById('edit').style.display='none'" class="w3-button w3-large w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+                                        <h4>Update Profile Details</h4>
+                                    </div>
+
+                                    <form class="w3-container" action="update.php" method="POST">
+                                        <div class="w3-section">
+                                            <div class="w3-row-padding">
+                                                <label for="firstname" class="form-label w3-col m4"><b>First name: </b></label>
+                                                <input type="text" class="w3-col m8 w3-input w3-margin-bottom" id="firstname" name="firstname">
+                                            </div>
+                                            <div class="w3-row-padding">
+                                                <label for="lastname" class="form-label w3-col m4"><b>Last name: </b></label>
+                                                <input type="text" class="w3-col m8 w3-input w3-margin-bottom " id="lastname" name="lastname">
+                                            </div>
+                                            <div class="w3-row-padding">
+                                                <label for="username" class="form-label w3-col m4"><b>User name: </b></label>
+                                                <input type="text" class="w3-col m8 w3-input w3-margin-bottom " id="username" name="username">
+                                            </div>
+                                            <div class="w3-row-padding">
+                                                <label for="email" class="form-label w3-col m4"><b>Email: </b></label>
+                                                <input type="email" class="w3-col m8 w3-input w3-margin-bottom" id="email" name="email">
+                                            </div>
+                                            <div class="w3-row-padding">
+                                                <label for="password" class="form-label w3-col m4"><b>Old Password: </b></label>
+                                                <input type="password" class="w3-col m8 w3-input w3-margin-bottom" id="password" name="password">
+                                            </div>
+                                            <div class="w3-row-padding">
+                                                <label for="new_password" class="form-label w3-col m4"><b>New Password: </b></label>
+                                                <input type="password" class="w3-col m8 w3-input w3-margin-bottom" id="new_password" name="new_password">
+                                            </div>
+                                            <div class="w3-row-padding">
+                                                <label for="confirm_password" class="form-label w3-col m4"><b>Confirm New Pass: </b></label>
+                                                <input type="password" class="w3-col m8 w3-input w3-margin-bottom" id="confirm_password" name="confirm_password">
+                                            </div>
+
+                                            <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit" name="update">Update Details</button>
+                                            
+                                        </div>
+                                    </form>
+
+                                    <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                                        <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+                                       
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+                </div>
             </div>
         </main>
     </div>
@@ -314,6 +447,3 @@ $result = $connect->query($query);    //execute SQL
 </body>
 
 </html>
-<?php
-    session_destroy(); 
-?>

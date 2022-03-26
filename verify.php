@@ -44,9 +44,9 @@ if (!empty($_POST["username"]) && !empty($_POST["password"])) {
     if (password_verify($password, $_SESSION["password"])) {     # Verify the password matches the hash
 
         #SQL statement to get details from the database where corresponding username matches
-        $queryID = "select userID, username, firstname, lastname, roleID FROM users Where username = '$username' ";
+        $queryID = "select userID, username, firstname, lastname, email, password, roleID FROM users Where username = '$username' ";
         $result = $connect->query($queryID);         # Execute query and store in variable result
-
+        
         # setting the fetch mode
         $result->setFetchMode(PDO::FETCH_ASSOC);
 
@@ -55,10 +55,17 @@ if (!empty($_POST["username"]) && !empty($_POST["password"])) {
             $_SESSION["username"] = $row['username'];
             $_SESSION["firstname"] = $row['firstname'];
             $_SESSION["lastname"] = $row['lastname'];
+            $_SESSION["email"] = $row['email'];
+            $_SESSION["password"] = $row['password'];
             $_SESSION["roleID"] = $row['roleID'];
+                   
         }
 
         if (isset($result)) {    # Double check the result is set
+
+            $login_date = date('Y-m-d');
+            $login_time = date('H:i:s');
+
 
             if ($_SESSION["roleID"] == 1) {        # If roleID variable is 1,
                 header("Location: home.php");    # Forward to the user home page
@@ -95,36 +102,42 @@ if (!empty($_POST["username"]) && !empty($_POST["password"])) {
             $hashed_password = password_hash($newpassword, PASSWORD_BCRYPT, $options);
             $resetquery = "Update users SET password = '$hashed_password' where username = '$username'";
 
-            $result = $connect->exec($resetquery);
+            $result = $connect->query($resetquery);
             if ($result) {
                 $_SESSION["status"] = "Updated Effected";
                 $_SESSION["icon"] = "success";
-                header("Location: login.php");
+                $location = "Location: login.php";
+                header($location);
                 exit();
+
             } else {
                 $_SESSION["status"] = "There seems to be an error??";
                 $_SESSION["icon"] = "error";
-                header("Location: login.php");
+                $location = "Location: login.php";
+                header($location);
                 exit();
             }
         } else {
-            $_SESSION["status"] = "Account Mismatch";
+            $_SESSION["status"] = "No account associated with username";  ##passed in
             $_SESSION["icon"] = "info";
-            $_SESSION["display"] = "No account associated with username";
-            header("Location: login.php");
+            $location = "Location: login.php";
+            header($location);
             exit();
         }
     } else {
-        $_SESSION["status"] = "Both Passwords are not the same";
+        $_SESSION["status"] = "Both Passwords are not the same";   ##passed in
         $_SESSION["icon"] = "warning";
-        header("Location: login.php");
+        $location = "Location: login.php";
+        header($location);
         exit();
     }
-}else {
+} else {
     session_destroy();
     header("Location: login.php");
     exit();
 }
 
 ?>
-        
+
+
+

@@ -6,12 +6,14 @@ require "connect.php";
 session_start();
 
 if (isset($_SESSION["username"])) {   //if  logged on
-    
+
     $_SESSION["status"] = "Already signed in";
     $_SESSION["icon"] = "info";
-    header("Location: home.php");
+    $_SESSION["display"] = "Redirecting....";
+    $location = "Location: home.php";
+    header($location);
     exit();
-    
+
 
     // echo "Already signed in";
     // header("Location: home.php");       //redirect to home page----- work on thiss to say already signed in
@@ -47,7 +49,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
         if ($probeEmailResult->rowCount() > 0) {
             $_SESSION["status"] = "Email already Registered";
             $_SESSION["icon"] = "error";
-            header("Location: signup.php");
+            $_SESSION["display"] = "Thank you...";
+            $location = "Location: signup.php";
+            header($location);
             exit();
         } else {
 
@@ -78,21 +82,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
                     $_SESSION["status"] = "Registration Successful!!!";
                     $_SESSION["icon"] = "success";
                     $_SESSION["display"] = "You can now login.";
-                    header("Location: login.php");
+                    $location = "Location: login.php";
+                    header($location);
                     exit();
                 } else {
                     $_SESSION["status"] = "Registration not Successful!!!";
                     $_SESSION["icon"] = "Error";
                     $_SESSION["display"] = "Try again Later";
-                    // header("Location: signup.php");
-                    // exit();
+                    $location = "Location: signup.php";
+                    header($location);
+                    exit();
                 }
             }
         }
     } else {
         $_SESSION["status"] = "Both Passwords are not the same";
         $_SESSION["icon"] = "warning";
-        header("Location: signup.php");
+        $_SESSION["display"] = "Retype please";
+        $location = "Location: signup.php";
+        header($location);
         exit();
     }
 
@@ -120,6 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+
 
 
 
@@ -318,20 +327,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <?php
-    if (isset($_SESSION["status"])) {
+if (isset($_SESSION["status"])) {
 ?>
- <script>
-    swal({
-    title: "<?php echo $_SESSION["status"] ?>",
-    text: "<?php echo $_SESSION["display"] ?>",,
-    icon: "<?php echo $_SESSION["icon"] ?>",
-    button: "Close!",
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            swal({
+                title: "<?php echo $_SESSION["status"] ?>",
+                text: "<?php echo $_SESSION["display"] ?>",
+                icon: "<?php echo $_SESSION["icon"] ?>",
+                button: "Close!",
+            });
         });
-</script>
+    </script>
+
 
 <?php
     unset($_SESSION["status"]);
-    }
+}
 ?>
 
 </html>

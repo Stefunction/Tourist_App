@@ -9,6 +9,28 @@ if (isset($_SESSION["username"]))        # if logged on
 
 ?>
 
+<head>
+<!-- Sweet Alert plugin and stylesheet -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+
+<?php
+if (isset($_SESSION["status"])) {
+?>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            swal({
+                title: "<?php echo $_SESSION["status"] ?>",
+                icon: "<?php echo $_SESSION["icon"] ?>",
+                button: "Close!",
+            });
+        });
+    </script>
+
+<?php
+    unset($_SESSION["status"]);
+}
+?>
 
 
 
@@ -21,10 +43,17 @@ if (isset($_SESSION["username"]))        # if logged on
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="Assets/CSS/style.css"> -->
     <link rel="stylesheet" href="Assets/CSS/w3.css">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Aventura</title>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <title>Login Page</title>
+
+
+
 </head>
 
 <body>
@@ -88,9 +117,9 @@ if (isset($_SESSION["username"]))        # if logged on
                     <form method="POST" action="verify.php">
                         <input type="text" name="username" placeholder="Username">
 
-         
-                        <input type="password" class="form-control" id="newpass" name="newpass" placeholder = "New Password" required>
-                        <input type="password" class="form-control" id="cnewpass" name="cnewpass" placeholder = "Confirm New Password" required>
+
+                        <input type="password" class="form-control" id="newpass" name="newpass" placeholder="New Password" required>
+                        <input type="password" class="form-control" id="cnewpass" name="cnewpass" placeholder="Confirm New Password" required>
 
 
                         <button type="submit" name="resetPass">
@@ -122,31 +151,9 @@ if (isset($_SESSION["username"]))        # if logged on
     </footer>
 
 
-
-
 </body>
 
-<!-- Sweet Alert plugin and stylesheet -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<?php
-    if (isset($_SESSION["status"])) {
-?>
- <script>
-    swal({
-    title: "<?php echo $_SESSION["status"] ?>",
-    text: "<?php echo $_SESSION["display"] ?>",,
-    icon: "<?php echo $_SESSION["icon"] ?>",
-    button: "Close!",
-        });
-</script>
-
-<?php
-    unset($_SESSION["status"]);
-    }
-?>
 
 
 </html>
-
-

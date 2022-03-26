@@ -23,7 +23,7 @@
                     </button>
                 </div>
 
-                <form action="insertcode.php" method="POST">
+                <form action="#" method="POST">
 
                     <div class="modal-body">
                         <div class="form-group">

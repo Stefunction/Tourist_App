@@ -27,6 +27,30 @@ $result = $connect->query($query);    //execute SQL
 
 ?>
 
+<head>
+    <!-- Sweet Alert plugin and stylesheet -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+
+<?php
+if (isset($_SESSION["status"])) {
+?>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            swal({
+                title: "<?php echo $_SESSION["status"] . $username ?> ",
+                icon: "<?php echo $_SESSION["icon"] ?>",
+                
+                button: "Close!",
+            });
+        });
+    </script>
+
+<?php
+    unset($_SESSION["status"]);
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -45,6 +69,7 @@ $result = $connect->query($query);    //execute SQL
 
     <script src="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.js"></script> <!-- Preview JS for file Upload -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> <!-- Bootstrap with Popper -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 
@@ -71,6 +96,7 @@ $result = $connect->query($query);    //execute SQL
             document.getElementById("div_add").style.display = "none";
             document.getElementById("div_content").style.display = "block";
             document.getElementById("edit_profile").style.display = "none";
+            document.getElementById("adventure_edit").style.display = "none";
         }
 
         function edit_personal() {
@@ -79,11 +105,17 @@ $result = $connect->query($query);    //execute SQL
             document.getElementById("edit_profile").style.display = "block";
         }
 
-
-        function profile() {
-            var change = document.getElementById("user-account");
-            change.type = "text";
+        function advent_edit(){
+            document.getElementById("adventure_edit").style.display = "block";
+            document.getElementById("div_content").style.display = "block";
+            document.getElementById("div_add").style.display = "none";
+            document.getElementById("edit_profile").style.display = "none";
         }
+
+        // function profile() {
+        //     var change = document.getElementById("user-account");
+        //     change.type = "text";
+        // }
     </script>
 
 
@@ -181,7 +213,7 @@ $result = $connect->query($query);    //execute SQL
 
                             <!-- <button class="w3-button w3-black" onclick="all_content(), add_adventure(), edit_profile()">ALL</button> -->
                             <button class="w3-button w3-white" onclick="add_adventure()"><i class="fa fa-diamond w3-margin-right"></i>Add Adventure</button>
-                            <button class="w3-button w3-white w3-hide-small"><i class="fa fa-photo w3-margin-right"></i>Photos</button>
+                            <button class="w3-button w3-white w3-hide-small" onclick="advent_edit()"><i class="fa fa-photo w3-margin-right"></i>Edit Adventure</button>
                             <button class="w3-button w3-white w3-hide-small"><i class="fa fa-map-pin w3-margin-right"></i>Art</button>
                         </div>
                     </div>
@@ -223,9 +255,13 @@ $result = $connect->query($query);    //execute SQL
                                     <img src="<?php echo $imgPath ?>" alt="Uploaded_Pic Description" style="width:100%" class="w3-hover-opacity">
 
                                     <div class="w3-container w3-white">
-                                        <h5><b>Lorem Ipsum</b></h5><span><?php echo $imgdate ?></span><br>
-                                        <p class="p-2"><?php echo $imgDescription ?>!</p>
+                                        <h5><b><?php echo $imgCategory ?></b></h5><span><?php echo $imgdate ?></span><br>
+                                        <p class="p-2"><?php echo $imgDescription ?>!</p><span><?php echo $imgurl ?></span>
+                                        <button onclick="document.getElementById('edit').style.display='block'" class=" btn btn-sm btn-info" id="adventure_edit" type="submit">Edit</button>
+                                        <button onclick="document.getElementById('edit').style.display='block'" class=" btn btn-sm btn-warning" id="adventure_edit" type="submit">Cancel</button>
+                                        <button onclick="document.getElementById('edit').style.display='block'" class=" btn btn-sm btn-danger" id="adventure_edit" type="submit">Delete</button>
                                     </div>
+                                    
                                 </div>
 
                         <?php
@@ -339,39 +375,43 @@ $result = $connect->query($query);    //execute SQL
                         </div>
 
                         <div class="w3-twothird">
+                        <div class="w3-row-padding">
                             <table class="w3-table w3-bordered w3-card-4">
                                 <tr>
-                                    <th class="w3-red" style="width: 40%;">FirstName:</th>
-                                    <td class="w3-yellow" style="width: 60%;"><?php echo $firstname;   ?></td>
+                                    <th class="w3-red" style="width: 30%;">FirstName:</th>
+                                    <td class="w3-yellow" style="width: 50%;"><?php echo $firstname;   ?></td>
+                                    
                                 </tr>
                                 <tr>
-                                    <th class="w3-red" style="width: 40%;">LastName:</th>
-                                    <td class="w3-yellow" style="width: 60%;"><?php echo $lastname;   ?></td>
+                                    <th class="w3-red" style="width: 30%;">LastName:</th>
+                                    <td class="w3-yellow" style="width: 50%;"><?php echo $lastname;   ?></td>
                                 </tr>
                                 <tr>
-                                    <th class="w3-red" style="width: 40%;">UserName:</th>
-                                    <td class="w3-yellow" style="width: 60%;"><?php echo $username;   ?></td>
+                                    <th class="w3-red" style="width: 30%;">UserName:</th>
+                                    <td class="w3-yellow" style="width: 50%;"><?php echo $username;   ?></td>
                                 </tr>
                                 <tr>
-                                    <th class="w3-red" style="width: 40%;">Email:</th>
-                                    <td class="w3-yellow" style="width: 60%;"><?php echo $email;   ?></td>
+                                    <th class="w3-red" style="width: 30%;">Email:</th>
+                                    <td class="w3-yellow" style="width: 50%;"><?php echo $email;   ?></td>
                                 </tr>
                                 <tr>
-                                    <th class="w3-red" style="width: 40%;">Change Password:</th>
+                                    <th class="w3-red" style="width: 30%;">Change Password:</th>
                                     <td class="w3-yellow" hidden><?php echo $password;   ?></td>
                                 </tr>
 
                             </table>
-                        
+                        </div>
+
                             <div class="w3-row-padding">
-                            
-                                <button onclick="document.getElementById('edit').style.display='block'" class=" w3-col m6 btn btn-sm btn-warning" type="submit">Edit Details</button>
-                            
-                            
-                                <form action="update.php" method="POST"><input type="hidden" name="user-id" value="<?php echo $username;   ?>">
-                                    <button class="w3-col m6 btn btn-sm btn-danger" type="submit" name="delete">Delete Account</button>
+
+                                <button onclick="document.getElementById('edit').style.display='block'" class=" btn btn-sm btn-warning" type="submit">Edit Profile</button>
+                                <button onclick="document.getElementById('change_pass').style.display='block'" class="  btn btn-sm btn-warning" type="submit">Change Password</button> 
+
+
+                                <form action="update.php" method="POST">
+                                    <button class=" btn btn-sm btn-danger" type="submit" name="delete">Delete Account</button>
                                 </form>
-                            
+
                             </div>
 
                         </div>
@@ -379,66 +419,88 @@ $result = $connect->query($query);    //execute SQL
                     </div>
 
 
-                    
+
 
                     <div id="edit" class="w3-modal">
-                                <div class="w3-modal-content w3-card-4 w3-animate-left" style="max-width:500px">
+                        <div class="w3-modal-content w3-card-4 w3-animate-left" style="max-width:500px">
 
-                                    <div class="w3-center"><br>
-                                        <span onclick="document.getElementById('edit').style.display='none'" class="w3-button w3-large w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
-                                        <h4>Update Profile Details</h4>
-                                    </div>
-
-                                    <form class="w3-container" action="update.php" method="POST">
-                                        <div class="w3-section">
-                                            <div class="w3-row-padding">
-                                                <label for="firstname" class="form-label w3-col m4"><b>First name: </b></label>
-                                                <input type="text" class="w3-col m8 w3-input w3-margin-bottom" id="firstname" name="firstname">
-                                            </div>
-                                            <div class="w3-row-padding">
-                                                <label for="lastname" class="form-label w3-col m4"><b>Last name: </b></label>
-                                                <input type="text" class="w3-col m8 w3-input w3-margin-bottom " id="lastname" name="lastname">
-                                            </div>
-                                            <div class="w3-row-padding">
-                                                <label for="username" class="form-label w3-col m4"><b>User name: </b></label>
-                                                <input type="text" class="w3-col m8 w3-input w3-margin-bottom " id="username" name="username">
-                                            </div>
-                                            <div class="w3-row-padding">
-                                                <label for="email" class="form-label w3-col m4"><b>Email: </b></label>
-                                                <input type="email" class="w3-col m8 w3-input w3-margin-bottom" id="email" name="email">
-                                            </div>
-                                            <div class="w3-row-padding">
-                                                <label for="password" class="form-label w3-col m4"><b>Old Password: </b></label>
-                                                <input type="password" class="w3-col m8 w3-input w3-margin-bottom" id="password" name="password">
-                                            </div>
-                                            <div class="w3-row-padding">
-                                                <label for="new_password" class="form-label w3-col m4"><b>New Password: </b></label>
-                                                <input type="password" class="w3-col m8 w3-input w3-margin-bottom" id="new_password" name="new_password">
-                                            </div>
-                                            <div class="w3-row-padding">
-                                                <label for="confirm_password" class="form-label w3-col m4"><b>Confirm New Pass: </b></label>
-                                                <input type="password" class="w3-col m8 w3-input w3-margin-bottom" id="confirm_password" name="confirm_password">
-                                            </div>
-
-                                            <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit" name="update">Update Details</button>
-                                            
-                                        </div>
-                                    </form>
-
-                                    <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                                        <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
-                                       
-                                    </div>
-
-                                </div>
+                            <div class="w3-center"><br>
+                                <span onclick="document.getElementById('edit').style.display='none'" class="w3-button w3-large w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+                                <h4>Update Profile Details</h4>
                             </div>
 
+                            <form class="w3-container" action="update.php" method="POST">
+                                <div class="w3-section">
+                                    <div class="w3-row-padding">
+                                        <label for="firstname" class="form-label w3-col m4"><b>First name: </b></label>
+                                        <input type="text" class="w3-col m8 w3-input w3-margin-bottom" id="firstname" name="firstname" value="<?php echo $firstname;  ?>">
+                                    </div>
+                                    <div class="w3-row-padding">
+                                    <label for="lastname" class="form-label w3-col m4"><b>Last name: </b></label>
+                                        <input type="text" class="w3-col m8 w3-input w3-margin-bottom " id="lastname" name="lastname" value="<?php echo $lastname;  ?>">
+                                    </div>
+                                    <div class="w3-row-padding">
+                                        <label for="username" class="form-label w3-col m4"><b>User name: </b></label>
+                                        <input type="text" class="w3-col m8 w3-input w3-margin-bottom " id="username" name="username" value="<?php echo $_SESSION["username"] ?>">
+                                    </div>
+                                    <div class="w3-row-padding">
+                                        <label for="email" class="form-label w3-col m4"><b>Email: </b></label>
+                                        <input type="email" class="w3-col m8 w3-input w3-margin-bottom" id="email" name="email" value="<?php echo $_SESSION["email"] ?>">
+                                    </div>
+                                    
+                                    <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit" name="update">Update Details</button>
+
+                                </div>
+                            </form>
+
+                            <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                                <button onclick="document.getElementById('edit').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+
+                            </div>
+
+                        </div>
+                    </div>
 
 
 
+                    
 
+                    <div id="change_pass" class="w3-modal">
+                        <div class="w3-modal-content w3-card-4 w3-animate-left" style="max-width:500px">
 
+                            <div class="w3-center"><br>
+                                <span onclick="document.getElementById('change_pass').style.display='none'" class="w3-button w3-large w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+                                <h4>Change Password</h4>
+                            </div>
 
+                            <form class="w3-container" action="update.php" method="POST">
+                                <div class="w3-section">
+                                  
+                                    <div class="w3-row-padding">
+                                        <label for="password" class="form-label w3-col m4"><b>Old Password: </b></label>
+                                        <input type="password" class="w3-col m8 w3-input w3-margin-bottom" id="password" name="password">
+                                    </div>
+                                    <div class="w3-row-padding">
+                                        <label for="new_password" class="form-label w3-col m4"><b>New Password: </b></label>
+                                        <input type="password" class="w3-col m8 w3-input w3-margin-bottom" id="new_password" name="new_password">
+                                    </div>
+                                    <div class="w3-row-padding">
+                                        <label for="confirm_password" class="form-label w3-col m4"><b>Confirm New Pass: </b></label>
+                                        <input type="password" class="w3-col m8 w3-input w3-margin-bottom" id="confirm_password" name="confirm_password">
+                                    </div>
+
+                                    <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit" name="change">Change Password</button>
+
+                                </div>
+                            </form>
+
+                            <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                                <button onclick="document.getElementById('change_pass').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>

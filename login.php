@@ -12,6 +12,7 @@ if (isset($_SESSION["username"]))        # if logged on
 <head>
 <!-- Sweet Alert plugin and stylesheet -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </head>
 
 <?php
@@ -31,6 +32,28 @@ if (isset($_SESSION["status"])) {
     unset($_SESSION["status"]);
 }
 ?>
+
+<?php
+if (isset($_SESSION["del_account"])) {
+?>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            swal({
+                title: "<?php echo $_SESSION["del_account"] ?>",
+                icon: "<?php echo $_SESSION["icon"] ?>",
+                button: "Close!",
+            });
+        });
+    </script>
+
+<?php
+    session_destroy();
+}
+?>
+
+
+
+
 
 
 

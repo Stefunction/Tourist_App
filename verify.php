@@ -68,7 +68,12 @@ if (!empty($_POST["username"]) && !empty($_POST["password"])) {
 
 
             if ($_SESSION["roleID"] == 1) {        # If roleID variable is 1,
-                header("Location: home.php");    # Forward to the user home page
+                $_SESSION["status"] = "Welcome ";  ##passed in
+                $_SESSION["icon"] = "success";
+                $location = "Location: home.php";
+                header($location);
+                exit();
+                // header("Location: home.php");    # Forward to the user home page
             } else {
                 header("Location: admin.php");   # Else forward to the admin Page
             }
@@ -82,9 +87,12 @@ if (!empty($_POST["username"]) && !empty($_POST["password"])) {
         # }
 
     } else {
-        session_destroy();
-        header("Location: login.php");
+        $_SESSION["status"] = "Incorrect Username or password";  ##passed in
+        $_SESSION["icon"] = "info";
+        $location = "Location: login.php";
+        header($location);
         exit();
+
     }
 } elseif (isset($_POST["resetPass"])) {
 

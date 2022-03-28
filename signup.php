@@ -1,7 +1,7 @@
 <?php
-error_reporting(E_ALL);
+error_reporting(E_ALL);         #Errors encountered are reported
 
-require "connect.php";
+require "connect.php";          #Establish a connection with the PDO object created
 
 session_start();
 
@@ -14,10 +14,6 @@ if (isset($_SESSION["username"])) {   //if  logged on
     header($location);
     exit();
 
-
-    // echo "Already signed in";
-    // header("Location: home.php");       //redirect to home page----- work on thiss to say already signed in
-    // exit();
 }
 
 function _checkInput($data)

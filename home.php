@@ -19,7 +19,7 @@ $email = $_SESSION["email"];
 $password = $_SESSION["password"];
 
 
-$query = "select uploadPath, description, categoryName, date, url from uploads, category";
+$query = "select uploadID, uploadPath, description, categoryName, date, url from uploads, category";
 $query .= " WHERE uploads.categoryID = category.categoryID and userName =  '$username' ";
 
 $result = $connect->query($query);    //execute SQL
@@ -90,32 +90,34 @@ if (isset($_SESSION["status"])) {
             document.getElementById("div_add").style.display = "block";
             document.getElementById("div_content").style.display = "none";
             document.getElementById("edit_profile").style.display = "none";
+            document.getElementById("adventure_edit").style.display = "none";
         }
 
         function all_content() {
             document.getElementById("div_add").style.display = "none";
             document.getElementById("div_content").style.display = "block";
             document.getElementById("edit_profile").style.display = "none";
-            document.getElementById("adventure_edit").style.display = "none";
+            document.getElementById("come_on").style.display = "none";
         }
 
         function edit_personal() {
             document.getElementById("div_add").style.display = "none";
             document.getElementById("div_content").style.display = "none";
             document.getElementById("edit_profile").style.display = "block";
+            document.getElementById("adventure_edit").style.display = "none";
         }
 
         function advent_edit(){
-            document.getElementById("adventure_edit").style.display = "block";
-            document.getElementById("div_content").style.display = "block";
-            document.getElementById("div_add").style.display = "none";
-            document.getElementById("edit_profile").style.display = "none";
-        }
+            // document.getElementById("adventure_edit").style.display = "block";
+            // document.getElementById("div_content").style.display = "none";
+            // document.getElementById("div_add").style.display = "none";
+            // document.getElementById("edit_profile").style.display = "none";
 
-        // function profile() {
-        //     var change = document.getElementById("user-account");
-        //     change.type = "text";
-        // }
+            document.getElementById("div_add").style.display = "none";
+            document.getElementById("div_content").style.display = "block";
+            document.getElementById("edit_profile").style.display = "none";
+            document.getElementById("come_on").style.display = "block";
+        }
     </script>
 
 
@@ -213,7 +215,7 @@ if (isset($_SESSION["status"])) {
 
                             <!-- <button class="w3-button w3-black" onclick="all_content(), add_adventure(), edit_profile()">ALL</button> -->
                             <button class="w3-button w3-white" onclick="add_adventure()"><i class="fa fa-diamond w3-margin-right"></i>Add Adventure</button>
-                            <button class="w3-button w3-white w3-hide-small" onclick="advent_edit()"><i class="fa fa-photo w3-margin-right"></i>Edit Adventure</button>
+                            <button class="w3-button w3-white " onclick="advent_edit()"><i class="fa fa-photo w3-margin-right"></i>Edit Adventure</button>
                             <button class="w3-button w3-white w3-hide-small"><i class="fa fa-map-pin w3-margin-right"></i>Art</button>
                         </div>
                     </div>
@@ -248,7 +250,8 @@ if (isset($_SESSION["status"])) {
                                 $imgDescription = $img["description"];
                                 $imgCategory = $img["categoryName"];
                                 $imgdate = $img["date"];
-                                $imgurl = $img["url"]; ?>
+                                $imgurl = $img["url"];
+                                $imgID = $img["uploadID"] ?>
 
 
                                 <div class="w3-third w3-container w3-margin-bottom">
@@ -256,10 +259,11 @@ if (isset($_SESSION["status"])) {
 
                                     <div class="w3-container w3-white">
                                         <h5><b><?php echo $imgCategory ?></b></h5><span><?php echo $imgdate ?></span><br>
-                                        <p class="p-2"><?php echo $imgDescription ?>!</p><span><?php echo $imgurl ?></span>
-                                        <button onclick="document.getElementById('edit').style.display='block'" class=" btn btn-sm btn-info" id="adventure_edit" type="submit">Edit</button>
-                                        <button onclick="document.getElementById('edit').style.display='block'" class=" btn btn-sm btn-warning" id="adventure_edit" type="submit">Cancel</button>
-                                        <button onclick="document.getElementById('edit').style.display='block'" class=" btn btn-sm btn-danger" id="adventure_edit" type="submit">Delete</button>
+                                        <p class="p-2"><?php echo $imgDescription ?></p><span><?php echo $imgurl ?></span>
+                                        <div><input type="hidden" name="img-id" value="<?php echo $imgID;   ?>">
+                                        <button id="come_on" onclick="document.getElementById('redo').style.display='block'" class=" btn btn-sm btn-info" type="submit">Edit</button>
+                                        <button id="come_on" onclick="document.getElementById('edit').style.display='block'" class=" btn btn-sm btn-danger"  type="submit">Delete</button>
+                            </div>
                                     </div>
                                     
                                 </div>
@@ -271,10 +275,80 @@ if (isset($_SESSION["status"])) {
                         ?>
 
                     </div>
+
+
+                    
+                    <div id="redo" class="w3-modal" >
+                        <div class="w3-modal-content w3-card-4 w3-animate-left" style="max-width:500px">
+
+                            <div class="w3-center"><br>
+                                <span onclick="document.getElementById('redo').style.display='none'" class="w3-button w3-large w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+                                <h4>Change Adventure Details</h4>
+                            </div>
+
+
+                            <form class="w3-container" action="update.php" method="POST">
+                                <div class="w3-section">
+                                    <div class="w3-row-padding">
+                                        <label for="change_description" class="form-label w3-col m4"><b>Change Description: </b></label>
+                                        <textarea class="w3-input w3-hover-yellow w3-animate-input" name="change_description" type="text" style="width: 100px;" placeholder="<?php echo $imgDescription ?>" rows="3" cols="40"></textarea>
+                                    </div>
+
+                                    <hr>
+                                    <br>
+
+                                    <div class="w3-row-padding">
+                                        <select class="w3-select" name="change_category">
+                                            <option value="<?php echo $imgCategory ?>" selected><?php echo $imgCategory ?></option>
+                                                <option value="" disabled >Choose a Category</option>
+                                                <option value="C1">Food</option>
+                                                <option value="C2">Culture</option>
+                                                <option value="C3">Adventure</option>
+                                                <option value="C4">History</option>
+                                                <option value="C5">Others</option>
+                                            </select>
+                                    </div>
+
+                                    <hr>
+                                    <br>
+
+                                    <div class="w3-row-padding">
+                                        <label for="change_date" class="form-label w3-col m4"><b>Change Date Entered: </b></label>
+                                        <input class="w3-input w3-animate-input" name="change_date" type="date" value="<?php echo $imgdate ?>" style="width: 100px;">
+                                    </div>
+                                    
+                                    <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit" name="update">Update Details</button>
+
+                                </div>
+                            </form>
+
+
+                            <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                                <button onclick="document.getElementById('edit').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
                 </div>
                 <!-- End of Story Adventure Section -->
 
                 <br><br>
+
+                
+
+
+
+
 
                 <!-- Add Adventure Section (Initially hidden) -->
                 <div class="w3-row-padding" id="div_add" style="display: none;">

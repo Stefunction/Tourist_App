@@ -1,9 +1,10 @@
+
 <?php
 session_start();            //retrieve session		
 
 
-if (!isset($_SESSION["username"]) && $_SESSION["roleID"] == '1') {            //if not previoulsly logged on	
-    header("Location: home.php");
+if (!isset($_SESSION["username"]) && ($_SESSION["roleID"] == '1')) {            //if not previoulsly logged on	
+    header("Location: login.php");
 }              //redirect to login page
 
 $username = $_SESSION["username"];    //get user name into variable $username
@@ -23,6 +24,8 @@ $result = $connect->query($query);    //execute SQL
 
 ?>
 
+
+
 <!DOCTYPE html>
 <html>
 
@@ -36,18 +39,18 @@ $result = $connect->query($query);    //execute SQL
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.css" />
-    
+
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.js"></script> <!-- Preview JS for file Upload -->
-    
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> <!-- Bootstrap with Popper -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> <!-- Bootstrap with Popper -->
     <link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    
+
 
     <script>
         // Script to open and close sidebar
@@ -74,9 +77,9 @@ $result = $connect->query($query);    //execute SQL
     </script>
 
     <script>
-        $(document).ready( function () {
+        $(document).ready(function() {
             $('.userTable').DataTable();
-                } );
+        });
     </script>
 
 
@@ -91,6 +94,7 @@ $result = $connect->query($query);    //execute SQL
             font-family: "Raleway", sans-serif
         }
     </style>
+
 
 
 </head>
@@ -184,53 +188,221 @@ $result = $connect->query($query);    //execute SQL
                 <!-- Adventure Story Section -->
                 <div id="div_content">
 
-                    <!-- Grid for Pictures-->
+                    <!-- Table for Users-->
                     <div class="w3-row-padding">
                         <table class="userTable">
                             <thead>
-                            <tr>
-                                <th>UserID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>UserName</th>
-                                <th>Gender</th>
-                                <th>Email</th>
-                                <th>User Role</th>
-                                <th>Actions</th>
-                            </tr>
+                                <tr>
+                                    <th>UserID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>UserName</th>
+                                    <th>Gender</th>
+                                    <th>Email</th>
+                                    <th>User Role</th>
+                                    <th>Actions</th>
+                                </tr>
                             </thead>
-                            
+
                             <tbody>
-                            <?php if ($result->rowCount() == 0) { 
+                                <?php if ($result->rowCount() == 0) {
                                     echo "No data Retrieved";
-                                    }else{ 
-                                        foreach($result as $user){ 
-                                            ?> 
-                            <tr>
-                                        <td> <?php echo $user["userID"];   ?> </td>
-                                        <td> <?php echo $user["firstname"]; ?> </td>
-                                        <td> <?php echo $user["lastname"]; ?> </td>
-                                        <td> <?php echo $user["username"]; ?> </td>
-                                        <td> <?php echo $user["genderName"]; ?></td>
-                                        <td> <?php echo $user["email"]; ?> </td>
-                                        <td> <?php echo $user["role_Name"]; ?></td>
-                                        <td>
-                                            <form action=""> <input type="hidden" name="user-id" value="<?php echo $user["userID"];   ?>">
-                                                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
-                                        </form>
-                                    </td>
-                            </tr>
-                            <?php } } $connect = null; ?>
+                                } else {
+                                    foreach ($result as $user) {
+                                ?>
+                                        <tr>
+                                            <td> <?php echo $user["userID"];   ?> </td>
+                                            <td> <?php echo $user["firstname"]; ?> </td>
+                                            <td> <?php echo $user["lastname"]; ?> </td>
+                                            <td> <?php echo $user["username"]; ?> </td>
+                                            <td> <?php echo $user["genderName"]; ?></td>
+                                            <td> <?php echo $user["email"]; ?> </td>
+                                            <td> <?php echo $user["role_Name"]; ?></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-primary" data-bs-target="#resetPasswordModal" data-bs-toggle="modal" data-bs-userId="<?php echo $user["userID"]; ?>">
+                                                    Reset
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" data-bs-target="#deleteModal" data-bs-toggle="modal" data-bs-userIdInput="<?php echo $user["userID"]; ?>">
+                                                    Delete
+                                                </button>
+                                            </td>
+
+                                        </tr>
+                                <?php }
+                                }
+                                $connect = null; ?>
                             </tbody>
-                                
+
                         </table>
-                    
-  
+
+
+                
+
+   <!-- RESET PASSWORD MODAL -->
+   <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="resetPasswordModalLabel">Reset Password</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+
+                    <div class="modal-body">
+
+                        <!-- FORM -->
+                        <form id="resetPasswordForm" action="admin_reset.php" method="POST">
+
+                        <!-- New Role Designation -->
+                        <div class="mb-3">
+                                <select class="form-select"  name="user_role">
+                                    <option disabled selected>Choose Category</option>
+                                    <option value="Admin">Administrator</option>
+                                    <option value="User">User</option>
+                                </select>
+                            </div>
+
+
+                            <!-- NEW PASSWORD -->
+                            <div class="mb-3">
+                                <label for="new-password" class="col-form-label">New Password:</label>
+                                <input type="text"
+                                       name="new_password"
+                                       class="form-control"
+                                       id="new-password"
+                                       placeholder="Enter temporary password">
+                            </div>
+
+                            <!-- HIDDEN INPUT WITH USER ID, USE JAVASCRIPT TO CHANGE VALUE LINE 102 -->
+                            <input id="user-id-input" type="hidden" name="user_id">
+
+                            <!-- SUBMIT BUTTON -->
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary" name="reset_user">RESET</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+                         <!-- JavaScript to Add Hidden Input When You Trigger Modal -->
+    <script>
+        // Get the modal
+        var resetPasswordModal = document.querySelector("#resetPasswordModal");
+
+        // HOOK INTO THE EVENT WHEN BOOTSTRAP LAUNCHES THE MODAL
+        resetPasswordModal.addEventListener('show.bs.modal', function(event) {
+            // Get the Button That Triggered The Modal
+            var triggerButton = event.relatedTarget;
+
+            // Reset the Form
+            document.querySelector('#resetPasswordForm').reset();
+
+            // Get the User Id from the data attribute in the link
+            var userId = triggerButton.getAttribute('data-bs-userId');
+
+            // Get the Hidden input from the Modal
+            var userIdInput = document.querySelector('#user-id-input');
+
+            // Change the value of the hidden input in the modal form to the user Id
+            userIdInput.value = userId;
+        });
+    </script>
+
+
+
+
+
+
+
+
+<!-- DELETE PASSWORD MODAL -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Delete User</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <!-- FORM -->
+                        <form id="deleteForm" action="admin_reset.php" method="POST">
+
+                            <!-- HIDDEN INPUT WITH USER ID, USE JAVASCRIPT TO CHANGE VALUE LINE 102 -->
+                            <input id="delete-user-id" type="hidden" name="user_id">
+
+                            <!-- SUBMIT BUTTON -->
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-danger" name="delete_user">DELETE USER</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+
+
+                         <!-- JavaScript to Add Hidden Input When You Trigger Modal -->
+    <script>
+        // Get the modal
+        var deleteModal = document.querySelector("#deleteModal");
+
+        // HOOK INTO THE EVENT WHEN BOOTSTRAP LAUNCHES THE MODAL
+        deleteModal.addEventListener('show.bs.modal', function(event) {
+            // Get the Button That Triggered The Modal
+            var triggerButton = event.relatedTarget;
+
+            // Reset the Form
+            document.querySelector('#deleteForm').reset();
+
+            // Get the User Id from the data attribute in the link
+            var useridInput = triggerButton.getAttribute('data-bs-userIdInput');
+
+            // Get the Hidden input from the Modal
+            var userIdDelete = document.querySelector('#delete-user-id');
+
+            // Change the value of the hidden input in the modal form to the user Id
+            userIdDelete.value = useridInput;
+        });
+    </script>
+
+
+
+
+                    </div>
+
+
+
+
                 </div>
                 <!-- End of Story Adventure Section -->
 
                 <br><br>
+
+
+
+
+
+
+
+
+
+
 
                 <!-- Add Adventure Section (Initially hidden) -->
                 <div class="w3-row-padding" id="div_add" style="display: none;">
@@ -323,7 +495,29 @@ $result = $connect->query($query);    //execute SQL
 
 </body>
 
+
+
 </html>
+<head>
+<!-- Sweet Alert plugin and stylesheet -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
 <?php
-    session_destroy(); 
+if (isset($_SESSION["status"])) {
 ?>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            swal({
+                title: "<?php echo $_SESSION["status"] ?>",
+                icon: "<?php echo $_SESSION["icon"] ?>",
+                button: "Close!",
+            });
+        });
+    </script>
+
+<?php
+    unset($_SESSION["status"]);
+}
+?>
+
+

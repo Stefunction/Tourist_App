@@ -10,7 +10,7 @@ session_start();            //retrieve session
 
 require "connect.php";
 
-$query = "select uploadPath, description, categoryName, date, url from uploads, category";
+$query = "select userName, uploadPath, description, categoryName, date, url from uploads, category";
 $query .= " WHERE uploads.categoryID = category.categoryID";
 
 
@@ -164,6 +164,7 @@ $result = $connect->query($query);    //execute SQL
 
                             foreach ($result as $img) {
 
+                                $imgOwner = $img["userName"];
                                 $imgPath = $img["uploadPath"];
                                 $imgDescription = $img["description"];
                                 $imgCategory = $img["categoryName"];
@@ -171,33 +172,16 @@ $result = $connect->query($query);    //execute SQL
                                 $imgurl = $img["url"];
                             ?>
 
-                                <div class="w3-card-4 w3-third w3-container w3-margin-bottom">
+                                <div class="w3-card-4 w3-third w3-display-container w3-margin-bottom">
                                     <img src="<?php echo $imgPath ?>" alt="Uploaded_Pic Description" style="width:100%" class="w3-hover-opacity">
-
+                                    <div class="w3-display-topleft w3-container w3-text-black">
+                                        <h5 style="color: white;"><?php echo $imgOwner ?></h5>
+                                    </div>
                                     <div class="w3-container w3-white">
                                         <h5><b>Lorem Ipsum</b></h5><span><?php echo $imgdate ?></span><br>
                                         <p class="p-2"><?php echo $imgDescription ?>!</p>
                                     </div>
                                 </div>
-
-
-
-
-
-
-
-
-
-
-
-                                <!-- <div class="w3-card-4 w3-third w3-container w3-margin-bottom">
-                        <img src="assets/Images/testing mountains.jpg" alt="Uploaded_Pic Description" style="width:100%" class="w3-hover-opacity">
-
-                        <div class="w3-container w3-white">
-                            <h5><b>Lorem Ipsum</b></h5><span>22/03/21</span><br>
-                            <p class="p-2">Testing here</p>
-                        </div>
-                    </div> -->
 
 
 

@@ -13,13 +13,12 @@ function _checkInput($data)     # To validate input
     return $data;
 }
 
-# Validate the value from the Modal and store in variables
-$new_password = _checkInput($_POST['new_password']);
-$user_id = _checkInput($_POST['user_id']);
-
 
 if(isset($_POST['reset_user'])){        # If reset button is activated 
     
+    # Validate the value from the Modal and store in variables
+    $new_password = _checkInput($_POST['new_password']);
+    $user_id = _checkInput($_POST['user_id']);
     $role  = _checkInput($_POST['user_role']);      # Validate the role value from the Modal and store in variables
     
     if(!empty($role) && !empty($new_password)){     # Check to see role and password input is not empty
@@ -71,6 +70,9 @@ if(isset($_POST['reset_user'])){        # If reset button is activated
     
 if(isset($_POST["delete_user"])){          #If the delete button is activated 
 
+    # Validate the value from the Modal and store in variables
+    $user_id = _checkInput($_POST['user_id']);
+    
     /* Carry Out SQL Query to get specific User */
     $user = "SELECT username FROM users where userID = '$user_id'";
     $user_result = $connect->query($user);
@@ -99,6 +101,32 @@ if(isset($_POST["delete_user"])){          #If the delete button is activated
         exit();
     }
     
+}
+
+if(isset($_POST['delete_story'])){
+
+    $imgID = $_POST['delete_story'];
+
+    /* Carry Out SQL Query to delete specific Upload from DB*/
+    $delete_query = "DELETE FROM uploads where uploadID = '$imgID'";
+    $result = $connect->query($delete_query);
+
+    if($result){                           # If successful, store the following into different session variables
+
+        $_SESSION["status"] = "Story deleted successfully!!!";
+        $_SESSION["icon"] = "success";
+        $location = "Location: admin.php";
+        header($location);
+        exit();
+        
+    }else{                                 # Else send an error message to the admin to show not effected!!!
+        $_SESSION["status"] = "Story not deleted... ERROR!!!";
+        $_SESSION["icon"] = "error";
+        $location = "Location: admin.php";
+        header($location);
+        exit();
+    } 
+
 }
 
 ?>

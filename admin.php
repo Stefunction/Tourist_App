@@ -1,26 +1,30 @@
-
 <?php
 session_start();            //retrieve session		
 
 
-if (!isset($_SESSION["username"]) && ($_SESSION["roleID"] == '1')) {            //if not previoulsly logged on	
-    header("Location: login.php");
-}              //redirect to login page
+if (!isset($_SESSION["username"]) && ($_SESSION["roleID"] == '1')) {            //if not previoulsly logged on and role is not admin	
+    header("Location: login.php");                                              //redirect to login page
+}
 
-$username = $_SESSION["username"];    //get user name into variable $username
+$username = $_SESSION["username"];    // get user name into variable $username
 
-$firstname = $_SESSION["firstname"];  //get names into variable $username
+$firstname = $_SESSION["firstname"];  // get names into variable $username
 
 $lastname = $_SESSION["lastname"];
 
-require "connect.php";
+require "connect.php";                  // Establish a connection with the PDO object created
 
+/* SQL statement to select relevant user data from DB */
 $query = "select userID, firstname, lastname, username, gender.genderName, email, role.role_Name FROM users, role, gender
 where users.roleID = role.roleID and users.genderID = gender.genderID";
-// $query .= "WHERE users.genderID = gender.genderID and users.roleID = role.roleID";
 
-// userID, firstname, lastname, username, gender.genderName, users.email, role.role_Name
-$result = $connect->query($query);    //execute SQL
+$result = $connect->query($query);    // Execute SQL
+
+/* SQL statement to select the gallery upload of evry user */
+$gallery_query = "select uploadID, userName, uploadPath, description, categoryName, date, url from uploads, category";
+$gallery_query .= " WHERE uploads.categoryID = category.categoryID";
+
+$gallery_result = $connect->query($gallery_query);   //Execute SQL
 
 ?>
 
@@ -28,6 +32,8 @@ $result = $connect->query($query);    //execute SQL
 
 <!DOCTYPE html>
 <html>
+
+<!-- Beginning of head content Tag -->
 
 <head>
     <title>User Home</title>
@@ -50,7 +56,28 @@ $result = $connect->query($query);    //execute SQL
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> <!-- Bootstrap with Popper -->
     <link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    
+    <!-- Sweet Alert plugin and stylesheet -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+    <!-- PHP script to print out messages if set -->
+    <?php
+    if (isset($_SESSION["status"])) {
+    ?>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                swal({
+                    title: "<?php echo $_SESSION["status"] ?>",
+                    icon: "<?php echo $_SESSION["icon"] ?>",
+                    button: "Close!",
+                });
+            });
+        </script>
+
+    <?php
+        unset($_SESSION["status"]);
+    }
+    ?>
 
     <script>
         // Script to open and close sidebar
@@ -65,43 +92,44 @@ $result = $connect->query($query);    //execute SQL
         }
 
         // Script to include and exclude adventure and add section
-        function add_adventure() {
-            document.getElementById("div_add").style.display = "block";
-            document.getElementById("div_content").style.display = "none";
+        function user_adventure() {
+            document.getElementById("user_gallery").style.display = "block";
+            document.getElementById("div_users").style.display = "none";
         }
 
-        function all_content() {
-            document.getElementById("div_add").style.display = "none";
-            document.getElementById("div_content").style.display = "block";
+        function all_users() {
+            document.getElementById("user_gallery").style.display = "none";
+            document.getElementById("div_users").style.display = "block";
         }
     </script>
 
+    <!-- Script to tabulate DataTable -->
     <script>
         $(document).ready(function() {
             $('.userTable').DataTable();
         });
     </script>
 
-
+    <!--Styling the header Body  -->
     <style>
         body,
         h1,
         h2,
         h3,
-        h4,
         h5,
         h6 {
             font-family: "Raleway", sans-serif
         }
     </style>
 
-
-
 </head>
+<!-- End of head content Tag -->
 
+<!-- Beginning of the body Tag -->
 
 <body class="w3-light-grey w3-content" style="max-width:1600px">
     <div class="container-fluid">
+
         <!-- Header section -->
         <header class="sticky-top">
             <!--An opening horizontal line for decoration-->
@@ -131,6 +159,10 @@ $result = $connect->query($query);    //execute SQL
             <!--A closing horizontal line for decoration-->
             <hr>
         </header>
+        <!-- End of Header Section -->
+
+
+        <!-- Beginning of main tag -->
         <main>
             <!-- Profile Sidebar Menu -->
             <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="profile_Side"><br>
@@ -176,40 +208,49 @@ $result = $connect->query($query);    //execute SQL
                             <!-- <a href="#adventure" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>My adventures</a> -->
 
 
-                            <button class="w3-button w3-black" onclick="all_content()">ALL</button>
-                            <button class="w3-button w3-white" onclick="add_adventure()"><i class="fa fa-diamond w3-margin-right"></i>Add Adventure</button>
-                            <button class="w3-button w3-white w3-hide-small"><i class="fa fa-photo w3-margin-right"></i>Photos</button>
-                            <button class="w3-button w3-white w3-hide-small"><i class="fa fa-map-pin w3-margin-right"></i>Art</button>
+                            <button class="w3-button w3-black" onclick="all_users()">USERS REGISTERED</button>
+                            <button class="w3-button w3-white" onclick="user_adventure()"><i class="fa fa-diamond w3-margin-right"></i>User Adventure</button>
                         </div>
                     </div>
                 </header>
                 <!-- End of Body Header -->
 
-                <!-- Adventure Story Section -->
-                <div id="div_content">
 
-                    <!-- Table for Users-->
+                <!-- Users List Section -->
+                <div id="div_users">
+
+                    <!-- Table Executions -->
                     <div class="w3-row-padding">
+                        <!-- Table for Users-->
                         <table class="userTable">
+
+                            <!-- Table Header -->
                             <thead>
                                 <tr>
                                     <th>UserID</th>
                                     <th>First Name</th>
                                     <th>Last Name</th>
                                     <th>UserName</th>
-                                    <th>Gender</th>
+                                    <th>Gender</th>         
                                     <th>Email</th>
                                     <th>User Role</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
 
+                            <!-- Table Body -->
                             <tbody>
-                                <?php if ($result->rowCount() == 0) {
-                                    echo "No data Retrieved";
-                                } else {
+                                <?php if ($result->rowCount() == 0) {           # If result count doesnt return anything
+                                ?> 
+                                    <!-- Respond with the statement -->
+                                   <h5>No data Retrieved... Possibly No user has Updated Yet</h5>   
+
+                                <?php 
+                                }   else {
                                     foreach ($result as $user) {
                                 ?>
+                                        <!-- Beginning of each row -->
+                                        <!-- Store the array of results as different variables -->
                                         <tr>
                                             <td> <?php echo $user["userID"];   ?> </td>
                                             <td> <?php echo $user["firstname"]; ?> </td>
@@ -218,6 +259,8 @@ $result = $connect->query($query);    //execute SQL
                                             <td> <?php echo $user["genderName"]; ?></td>
                                             <td> <?php echo $user["email"]; ?> </td>
                                             <td> <?php echo $user["role_Name"]; ?></td>
+
+                                            <!-- Set the Action buttons -->
                                             <td>
                                                 <button class="btn btn-sm btn-primary" data-bs-target="#resetPasswordModal" data-bs-toggle="modal" data-bs-userId="<?php echo $user["userID"]; ?>">
                                                     Reset
@@ -228,296 +271,228 @@ $result = $connect->query($query);    //execute SQL
                                             </td>
 
                                         </tr>
+                                        <!-- End of each row -->
                                 <?php }
                                 }
-                                $connect = null; ?>
+                                $connect = null;    // Set the PDO object to null afterwards?>  
                             </tbody>
+                            <!-- End of Table Body -->
 
                         </table>
+                        <!-- End of Table for Users-->
 
+
+                        <!-- Reset Password Modal initiated when the Reset button is activated from the Table-->
+                        <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="resetPasswordModalLabel">Reset Password</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+
+                                    <!-- Modal Body -->
+                                    <div class="modal-body">
+
+                                        <!-- Form for Reset password and User -->
+                                        <form id="resetPasswordForm" action="admin_reset.php" method="POST">
+
+                                            <!-- New Role Designation -->
+                                            <div class="mb-3">
+                                                <select class="form-select" name="user_role">
+                                                    <option disabled selected>Choose Category</option>
+                                                    <option value="Admin">Administrator</option>
+                                                    <option value="User">User</option>
+                                                </select>
+                                            </div>
+
+                                            <!-- New Password Input -->
+                                            <div class="mb-3">
+                                                <label for="new-password" class="col-form-label">New Password:</label>
+                                                <input type="text" name="new_password" class="form-control" id="new-password" placeholder="Enter temporary password">
+                                            </div>
+
+                                            <!-- Hidden Input with UserID, JavaScript changes its value -->
+                                            <input id="user-id-input" type="hidden" name="user_id">
+
+                                            <!-- Reset Submit Button -->
+                                            <div class="d-flex justify-content-center">
+                                                <button type="submit" class="btn btn-primary" name="reset_user">RESET</button>
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+                                    <!--End of Modal Body -->
+                                </div>
+                            </div>
+                        </div>
+                    <!-- End of Reset Password Modal initiated when the Reset button is activated from the Table-->
+
+
+                        <!-- JavaScript to Add Hidden Input When You Trigger Reset Modal -->
+                        <script>
+                            /* Fetch the Reset Modal */
+                            var resetPasswordModal = document.querySelector("#resetPasswordModal");
+
+                            /* When Reset Modal is launched, get the event */
+                            resetPasswordModal.addEventListener('show.bs.modal', function(event) {
+
+                                /* Fetch the Modal trigger Button */
+                                var triggerButton = event.relatedTarget;
+
+                                /* Re-initialize the Form */
+                                document.querySelector('#resetPasswordForm').reset();
+
+                                /* Fetch the userID from the data attribute in the trigger */
+                                var userId = triggerButton.getAttribute('data-bs-userId');
+
+                                /* Fetch the userID hidden input from the modal */
+                                var userIdInput = document.querySelector('#user-id-input');
+
+                                /* Assign the value of the data attribute from trigger to hidden input in modal */
+                                userIdInput.value = userId;
+                            });
+                        </script>
+
+
+                        <!-- Delete User Modal initiated when the Delete button is activated from the Table-->
+                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel">Delete User</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+
+                                    <!-- Modal Body -->
+                                    <div class="modal-body">
+
+                                        <!-- Form to delete User -->
+                                        <form id="deleteForm" action="admin_reset.php" method="POST">
+
+                                            <!-- Hidden Input with UserID, JavaScript changes its value -->
+                                            <input id="delete-user-id" type="hidden" name="user_id">
+
+                                            <!-- Delete Submit Button -->
+                                            <div class="d-flex justify-content-center">
+                                                <button type="submit" class="btn btn-danger" name="delete_user">DELETE USER</button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- JavaScript to Add Hidden Input When You Trigger Delete Modal -->
+                        <script>
+                            /* Fetch the Delete Modal */
+                            var deleteModal = document.querySelector("#deleteModal");
+
+                            /* When Delete Modal is launched, get the event */
+                            deleteModal.addEventListener('show.bs.modal', function(event) {
+
+                                /* Fetch the Modal trigger Button */
+                                var triggerButton = event.relatedTarget;
+
+                                /* Re-initialize the Form */
+                                document.querySelector('#deleteForm').reset();
+
+                                /* Fetch the userID from the data attribute in the trigger */
+                                var useridInput = triggerButton.getAttribute('data-bs-userIdInput');
+
+                                /* Fetch the userID hidden input from the modal */
+                                var userIdDelete = document.querySelector('#delete-user-id');
+
+                                /* Assign the value of the data attribute from trigger to hidden input in modal */
+                                userIdDelete.value = useridInput;
+                            });
+                        </script>
+
+                    </div>
+                    <!-- End of Table Executions -->
+
+                </div>
+                <!-- End of Users List Section -->
 
                 
 
-   <!-- RESET PASSWORD MODAL -->
-   <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
+                <!-- User List gallery Section (Initially hidden) -->
+                <div class="w3-row-padding" id="user_gallery" style="display: none;">
 
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="resetPasswordModalLabel">Reset Password</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
+                    <h3>User Uploads</h3>
 
-                    <div class="modal-body">
+                    <?php 
+                        if ($gallery_result->rowCount() == 0)               # If result count doesnt return anything
+                    { ?>        
 
-                        <!-- FORM -->
-                        <form id="resetPasswordForm" action="admin_reset.php" method="POST">
+                        <!-- Place a thumbnail with a message -->
+                        <div class="w3-card-4 w3-third w3-container w3-margin-bottom">
 
-                        <!-- New Role Designation -->
-                        <div class="mb-3">
-                                <select class="form-select"  name="user_role">
-                                    <option disabled selected>Choose Category</option>
-                                    <option value="Admin">Administrator</option>
-                                    <option value="User">User</option>
-                                </select>
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <title>Picture Holder</title>
+                                <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                            </svg>
+
+
+                            <div class="w3-container w3-white">
+                                <h5><b>Lorem Ipsum</b></h5><span> -- / -- / ----</span><br>
+                                <p class="p-2">No Data Entered by any User yet</p>
                             </div>
-
-
-                            <!-- NEW PASSWORD -->
-                            <div class="mb-3">
-                                <label for="new-password" class="col-form-label">New Password:</label>
-                                <input type="text"
-                                       name="new_password"
-                                       class="form-control"
-                                       id="new-password"
-                                       placeholder="Enter temporary password">
-                            </div>
-
-                            <!-- HIDDEN INPUT WITH USER ID, USE JAVASCRIPT TO CHANGE VALUE LINE 102 -->
-                            <input id="user-id-input" type="hidden" name="user_id">
-
-                            <!-- SUBMIT BUTTON -->
-                            <div class="d-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary" name="reset_user">RESET</button>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-                         <!-- JavaScript to Add Hidden Input When You Trigger Modal -->
-    <script>
-        // Get the modal
-        var resetPasswordModal = document.querySelector("#resetPasswordModal");
-
-        // HOOK INTO THE EVENT WHEN BOOTSTRAP LAUNCHES THE MODAL
-        resetPasswordModal.addEventListener('show.bs.modal', function(event) {
-            // Get the Button That Triggered The Modal
-            var triggerButton = event.relatedTarget;
-
-            // Reset the Form
-            document.querySelector('#resetPasswordForm').reset();
-
-            // Get the User Id from the data attribute in the link
-            var userId = triggerButton.getAttribute('data-bs-userId');
-
-            // Get the Hidden input from the Modal
-            var userIdInput = document.querySelector('#user-id-input');
-
-            // Change the value of the hidden input in the modal form to the user Id
-            userIdInput.value = userId;
-        });
-    </script>
-
-
-
-
-
-
-
-
-<!-- DELETE PASSWORD MODAL -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModalLabel">Delete User</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body">
-
-                        <!-- FORM -->
-                        <form id="deleteForm" action="admin_reset.php" method="POST">
-
-                            <!-- HIDDEN INPUT WITH USER ID, USE JAVASCRIPT TO CHANGE VALUE LINE 102 -->
-                            <input id="delete-user-id" type="hidden" name="user_id">
-
-                            <!-- SUBMIT BUTTON -->
-                            <div class="d-flex justify-content-center">
-                                <button type="submit" class="btn btn-danger" name="delete_user">DELETE USER</button>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-    </script>
-
-
-                         <!-- JavaScript to Add Hidden Input When You Trigger Modal -->
-    <script>
-        // Get the modal
-        var deleteModal = document.querySelector("#deleteModal");
-
-        // HOOK INTO THE EVENT WHEN BOOTSTRAP LAUNCHES THE MODAL
-        deleteModal.addEventListener('show.bs.modal', function(event) {
-            // Get the Button That Triggered The Modal
-            var triggerButton = event.relatedTarget;
-
-            // Reset the Form
-            document.querySelector('#deleteForm').reset();
-
-            // Get the User Id from the data attribute in the link
-            var useridInput = triggerButton.getAttribute('data-bs-userIdInput');
-
-            // Get the Hidden input from the Modal
-            var userIdDelete = document.querySelector('#delete-user-id');
-
-            // Change the value of the hidden input in the modal form to the user Id
-            userIdDelete.value = useridInput;
-        });
-    </script>
-
-
-
-
-                    </div>
-
-
-
-
-                </div>
-                <!-- End of Story Adventure Section -->
-
-                <br><br>
-
-
-
-
-
-
-
-
-
-
-
-                <!-- Add Adventure Section (Initially hidden) -->
-                <div class="w3-row-padding" id="div_add" style="display: none;">
-                    <h3>File Upload</h3>
-                    <form action="upload.php" method="post" enctype="multipart/form-data">
-                        <div class="custom-file-container" data-upload-id="imageFileID">
-
-                            <!--Preview of the uploaded Images  -->
-                            <div class="w3-half w3-container w3-margin-bottom">
-                                <label>Upload Image
-                                    <!-- Clear Button -->
-                                    <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">
-                                        &times;
-                                    </a>
-                                </label>
-
-                                <label class="custom-file-container__custom-file">
-                                    <input class="custom-file-container__custom-file__custom-file-input" type="file" name="FTU" id="FTU" accept="*" aria-label="Choose File" />
-                                    <input type="hidden" name="MAX_FILE_SIZE" value="512000" />
-
-                                    <span class="custom-file-container__custom-file__custom-file-control"></span>
-                                </label>
-                                <div class="custom-file-container__image-preview"></div>
-                            </div>
-
-
-                            <!-- Form Section to take descripton of upload -->
-                            <div class="w3-half w3-container w3-white">
-
-                                <div class="w3-card-4">
-                                    <div class="w3-container w3-green">
-                                        <h2>Tell Us More!!!</h2>
-                                    </div>
-
-
-                                    <div class=" w3-row-padding">
-                                        <textarea class="w3-input w3-hover-yellow w3-animate-input" name="description" type="text" style="width: 100px;" placeholder="Description" rows="3" cols="40" required></textarea>
-                                    </div>
-
-                                    <div class=" w3-row-padding">
-                                        <div class="w3-half">
-                                            <input class="w3-input w3-animate-input" name="date" type="date" placeholder="Date Experienced" style="width: 100px;">
-                                        </div>
-                                        <div class="w3-half">
-                                            <select class="w3-select" name="category" required>
-                                                <option value="" disabled selected>Choose a Category</option>
-                                                <option value="C1">Food</option>
-                                                <option value="C2">Culture</option>
-                                                <option value="C3">Adventure</option>
-                                                <option value="C4">History</option>
-                                                <option value="C5">Others</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <br>
-
-
-                                    <br>
-
-                                    <div class=" w3-row-padding ">
-                                        <span>You can include a URL here:</span>
-                                        <input type="url" class="w3-animate-input" name="url" id="url">
-                                    </div>
-
-                                    <br>
-
-                                </div>
-                            </div>
-
-                            <div class="w3-container">
-                                <p><button class="w3-btn w3-red" value="Upload" name="upload">Add new Adventure</button></p>
-                            </div>
-
                         </div>
-                    </form>
+
+                        <?php } 
+                        
+                        else {
+ 
+                        // Store the array of results as different variables 
+                        foreach ($gallery_result as $img) {
+
+                            $imgID = $img["uploadID"];
+                            $imgOwner = $img["userName"];
+                            $imgPath = $img["uploadPath"];
+                            $imgDescription = $img["description"];
+                            $imgCategory = $img["categoryName"];
+                            $imgdate = $img["date"];
+                            $imgurl = $img["url"];
+                            
+                        ?>
+                            <div class="w3-card-4 w3-third w3-display-container w3-margin-bottom">
+                                <img src="<?php echo $imgPath ?>" alt="Uploaded_Pic Description" style="width:100%" class="w3-hover-opacity">
+                                <div class="w3-display-topleft w3-container w3-text-black">
+                                    <h5 style="color: white;"><?php echo $imgOwner ?></h5>
+                                </div>
+                                <div class="w3-container w3-white">
+                                    <h5><b>Lorem Ipsum</b></h5><span><?php echo $imgdate ?></span><br>
+                                    <p class="p-2"><?php echo $imgDescription ?>!</p>
+                                </div>
+
+                                <!-- Delete Story Button -->
+                                <form class="d-flex justify-content-center" action="admin_reset.php" method="POST"> 
+                                    <button class="w3-button w3-inline w3-red w3-section w3-padding" type="submit" name="delete_story" value="<?php echo $imgID; ?>">Delete User Story</button>
+                                </form>
+                            </div>
+
+                    <?php }
+                    }
+                    $connect = null; ?>
+
                 </div>
-                <!-- End Add Adventure Section (Initially hidden) -->
-
-
-                <!--File Upload With Preview Initialization  -->
-                <script>
-                    let upload = new FileUploadWithPreview("imageFileID"); // use input id
-                </script>
-
+                <!-- End of User List gallery Section (Initially hidden) -->
 
             </div>
         </main>
+        <!-- End of main tag -->
     </div>
 
 </body>
-
-
+<!-- End of the body Tag -->
 
 </html>
-<head>
-<!-- Sweet Alert plugin and stylesheet -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-</head>
-<?php
-if (isset($_SESSION["status"])) {
-?>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            swal({
-                title: "<?php echo $_SESSION["status"] ?>",
-                icon: "<?php echo $_SESSION["icon"] ?>",
-                button: "Close!",
-            });
-        });
-    </script>
-
-<?php
-    unset($_SESSION["status"]);
-}
-?>
-
 

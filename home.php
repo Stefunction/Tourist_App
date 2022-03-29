@@ -159,7 +159,7 @@ if (isset($_SESSION["status"])) {
                             <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
                             <li class="nav-item"><a class="nav-link" href="logout.php">Login</a></li>
-                            <li class="nav-item"><a class="nav-link" href="signup.php">Signup</a></li>
+                            <li class="nav-item"><a class="nav-link" href="home.php">My Space</a></li>
                             <li class="nav-item"><a class="nav-link" href="#">About</a></li>
                         </ul>
                     </div>

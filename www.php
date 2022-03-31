@@ -1,15 +1,15 @@
 <?php
-session_start();            //retrieve session		
+// session_start();            //retrieve session		
 
 
-if (!isset($_SESSION["username"])) { //if not previoulsly logged on	
-  header("Location: login.php");
-}              //redirect to login page
-$username = $_SESSION["username"];    //get user name into variable $username
+// if (!isset($_SESSION["username"])) { //if not previoulsly logged on	
+  // header("Location: login.php");
+// }              //redirect to login page
+// $username = $_SESSION["username"];    //get user name into variable $username
 
-$firstname = $_SESSION["firstname"];  //get first name into variable $username
+// $firstname = $_SESSION["firstname"];  //get first name into variable $username
 
-$lastname = $_SESSION["lastname"];
+// $lastname = $_SESSION["lastname"];
 
 
 ?>

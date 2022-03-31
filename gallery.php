@@ -57,77 +57,37 @@ $result = $connect->query($query);    //execute SQL
 <body>
     <!-- Header section -->
     <div class="container-fluid">
-        <header class="sticky-top">
-            <!--An opening horizontal line for decoration-->
-            <hr>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <!--Creating a logo with the span description-->
-                    <a class="navbar-brand" id="logo" href="#"><img src="img/abc.jpg" alt="Logo">
-                        <span title="Click logo for Home Page">Tanzanian Beauty</span>
-                    </a>
-                    <!--Creating a collapsible navigation button-->
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav_collapse" aria-controls="nav_collapse" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <!--Assigning the id of the buttion to the div class housing the varius links-->
-                    <div class="collapse navbar-collapse" id="nav_collapse">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
-                            <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
-                            <li class="nav-item"><a class="nav-link" href="signup.php">Signup</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-            <!--A closing horizontal line for decoration-->
-            <hr>
-        </header>
-
-
-
-
+        <?php include("navbar.php") ?>
 
         <main class="container-fluid">
             <div class="w3-row">
                 <div class="w3-quarter">
-                    <form>
-                        <div class="row">
-                            <!--col for filter and buttons-->
-
-                            <div class="col">
-                                <label for="date">Date: </label>
-                                <input type="date" name="date" min="2022-01-01">
+                    <form action="filter-gallery.php" method="POST" class="me-1">
+                        <div class="row mb-3">
+                            <label for="date-input" class="col-sm-3 col-form-label">Date:</label>
+                            <div class="col-sm-9">
+                                <input type="date" name="date" class="form-control" id="date-input">
                             </div>
-
-                            <div class="col">
-                                <label for="date">Category: </label>
-                                <input list="category">
-                                <datalist id="category" name="category">
-                                    <option value="testing"></option>
-                                    <!--append value from database-->
-                                    <option value="Firefox">
-                                    <option value="Chrome">
-                                    <option value="Opera">
-                                </datalist>
-                                <!--select from list in database-->
-                            </div>
-
-                            <div class="col">
-                                <label for="date">Location: </label>
-                                <datalist id="location" name="location">
-                                    <option value="testing"></option>
-                                    <!--append value from database-->
-
-                                </datalist>
-                                <!--select from list in database-->
-                            </div>
-
                         </div>
-                        <div class="row">
-                            <button type="submit">Submit</button>
+
+                        <div class="row mb-3">
+                            <label for="category-input" class="col-sm-3 col-form-label">Category:</label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" name="category" list="datalistOptions" id="category-input" placeholder="Type to search...">
+                                <datalist id="datalistOptions">
+                                    <option value="Food">
+                                    <option value="Culture">
+                                    <option value="Adventure">
+                                    <option value="History">
+                                    <option value="Others">
+                                </datalist>
+                            </div>
+                        </div>
+
+
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary">Sign in</button>
                         </div>
                     </form>
                 </div>
@@ -204,7 +164,7 @@ $result = $connect->query($query);    //execute SQL
                 </div>
                 <div class="picture" style="border: 1px solid red; max-width: 200px;">
                     <img class="img-fluid" src="Assets/Images/img_snowtops.jpg" alt="Snow">
-                </div> --> -->
+                </div> -->
                         <!-- <div class="item1">1</div>
                 <div class="item2">2</div>
                 <div class="item3">3</div>  
@@ -225,22 +185,7 @@ $result = $connect->query($query);    //execute SQL
         </main>
 
         <!--Footer-->
-        <footer>
-            <div>
-                <p>Lorem ipsum dolor sit amet <br> consectetur adipisicing elit. Fugiat facilis <br> dolore ipsa
-                    officiis
-                    natus ex nam
-                    odio tempora in.</p>
-            </div>
-            <div>
-
-            </div>
-            <div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat facilis dolore ipsa officiis natus ex
-                    nam
-                    odio tempora in.</p>
-            </div>
-        </footer>
+        <?php include("footer.php") ?>
 
 
     </div>

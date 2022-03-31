@@ -22,7 +22,13 @@ body {
   font-family: Cinzel, serif;
   font-size: 18px;  
   font-weight: 100;
-  background: #df9336;
+  background: hsla(0, 0%, 90%, 0.8);
+  
+}
+
+.footer-inner {
+  background: hsla(0, 0%, 90%, 0.8);
+  
 }
 
 /* Home Page */
@@ -30,6 +36,10 @@ body {
   background-image: url(../Images/warm.jpeg);
   background-repeat: no-repeat;
   background-size:cover;
+}
+
+.login-left-text {
+  font-size: 24px;
 }
 
 /* logo */
@@ -65,7 +75,7 @@ hr{
   .share{margin-top: 70px; padding: 100px 30px 10px 0px;}
   .share p{
     color:rgb(247, 210, 0);
-    font-weight: 300;
+    font-weight: 500;
     text-align: center;
     font-size: 20px;
   }  
@@ -74,7 +84,7 @@ hr{
     .share{margin-top: 30px; padding: 40px 0px;}
     .share p{
       color:rgb(194, 87, 87);
-      font-weight: 300;
+      font-weight: bold;
       text-align: center;
       font-size: 17px;
     }
@@ -108,12 +118,12 @@ hr{
   }
 
 /* Styling the footer  */
-  footer .nav-link{
-    padding: 3px 0px ;
-  }
-  footer div{
-      padding-left: 30px;
-  }
+.bi {
+  vertical-align: -.125em;
+  fill: currentColor;}
+
+ 
+ 
  
 /* styling the sign up page */
 

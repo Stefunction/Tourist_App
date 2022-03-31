@@ -107,7 +107,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
 
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -117,15 +116,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SignUp page</title>
-    <link rel="stylesheet" href="Assets/CSS/style.css">
-    <link rel="stylesheet" href="Assets/CSS/w3.css">
-    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel|Fauna+One">
+    
+    <!-- <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet"> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-
-
+    <link rel="stylesheet" href="Assets/CSS/w3.css">
+    <link rel="stylesheet" href="Assets/CSS/style.css">
+    <title>SignUp page</title>
 
 
     <script>
@@ -168,56 +167,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
 <body id="signup">
     <div class="container-fluid">
         <!-- Header section -->
-        <header class="sticky-top">
-            <!--An opening horizontal line for decoration-->
-            <hr>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <!--Creating a logo with the span description-->
-                    <a class="navbar-brand" id="logo" href="#"><img src="img/abc.jpg" alt="Logo">
-                        <span title="Click logo for Home Page">Tanzanian Beauty</span>
-                    </a>
-                    <!--Creating a collapsible navigation button-->
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav_collapse" aria-controls="nav_collapse" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <!--Assigning the id of the buttion to the div class housing the varius links-->
-                    <div class="collapse navbar-collapse" id="nav_collapse">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
-                            <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
-                            <li class="nav-item"><a class="nav-link" href="signup.php">Signup</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-            <!--A closing horizontal line for decoration-->
-            <hr>
-        </header>
+    <?php include("navbar.php") ?>
 
 
         <main class="container">
 
-            <div class="row">
+            <div class="row text-white">
                 <div class="col-7">
                     <div class="d-flex flex-column">
                         <form class="form_contain needs-validation" novalidate method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
-                            <div class="row">
-                                <h5>Signup Here</h5>
+                            <div class="row text-center">
+                                <h3>SIGNUP HERE</h3>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="firstname" class="form-label col-3">First name: </label>
+                                    <label for="firstname" class="form-label">First name: </label>
                                     <input type="text" class="form-control " id="firstname" name="firstname" required>
                                     <div class="invalid-feedback">First Name Please</div>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="lastname" class="form-label col-3">Last name: </label>
+                                    <label for="lastname" class="form-label">Last name: </label>
                                     <input type="text" class="form-control" id="lastname" name="lastname" required>
                                     <div class="invalid-feedback">Last name Please</div><br>
                                 </div>
@@ -276,12 +248,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
                                     <button type="submit" class="btn btn-primary">SignUp</button>
                                 </div>
 
-                                <div class="col-12">
-                                    <p>----- OR -----</p>
-                                </div>
-                                <div class="col-12">
-                                    <p>Sign up with <a href="#"><img src="#" alt="google link"></a></p>
-                                </div>
+                               
                             </div>
                         </form>
 
@@ -301,21 +268,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
 
         </main>
 
-        <!--Footer-->
-        <!-- <footer>
-        <div>
-            <p>Lorem ipsum dolor sit amet <br> consectetur adipisicing elit. Fugiat facilis <br> dolore ipsa officiis
-                natus ex nam
-                odio tempora in.</p>
-        </div>
-        <div>
-
-        </div>
-        <div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat facilis dolore ipsa officiis natus ex nam
-                odio tempora in.</p>
-        </div>
-    </footer> -->
+      
     </div>
 </body>
 

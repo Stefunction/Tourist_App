@@ -3,10 +3,12 @@ session_start();            #retrieve session
 
 if (isset($_SESSION["username"]))        # if logged on	
 {
-    header("Location: home.php");       # redirect to home page
+    $_SESSION["status"] = "Already signed in ";     // Prompt user to remind 
+    $_SESSION["icon"] = "info";
+    $location = "Location: home.php";
+    header($location);
     exit();
 }
-
 ?>
 
 <head>

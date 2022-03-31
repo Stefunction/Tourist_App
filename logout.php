@@ -1,31 +1,28 @@
 <?php
-	session_start();				//retrieve session
-	
-	require "connect.php"; 
-	
-	
-	if(isset($_SESSION["username"])){
+session_start();				//retrieve session
 
-		$username = $_SESSION["username"];
-		$login_time = $_SESSION["login_time"];
-	}
-	
-			$logout_time = date('Y-m-d H:i:s');
-			
-            
-            // $time = "Insert into access (userName, login_Time, logout_Time) Values ('$username', '$login_time', '$logout_time') ";
-            // $time_query = $connect->query($time);
+require "connect.php";         // Establish a connection with the PDO object created
 
-			// && !empty($_SESSION["login_time"])
-	// session_destroy();				// destroy
-	// header("Location: login.php");	//redirect to login page
+if (isset($_SESSION["username"])) {
 
-	$_SESSION["del_account"] = "Logged Out " . $username ;
-    $_SESSION["icon"] = "success";
-    unset($_SESSION["username"]);
-    $location = "Location: login.php";
-    header($location);
-    exit();
+	$username = $_SESSION["username"];   // Store username to session variable
+}
 
+// Take note of the logout time
+$logout_time = date('Y-m-d H:i:s');
 
-?>
+// Carry Out SQL statement to update access log table
+$time = "Update access SET logout_Time = '$logout_time' where userName = '$username'";
+$time_query = $connect->query($time);
+
+// Store logout messages to display
+$_SESSION["del_account"] = "Logged Out " . $username;
+$_SESSION["icon"] = "success";
+
+// Terminate session
+unset($_SESSION["username"]);
+
+// Redirect to the login page
+$location = "Location: login.php";
+header($location);
+exit();

@@ -1,8 +1,8 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    /* font-family: Arial, Helvetica, sans-serif; */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* font-family: Arial, Helvetica, sans-serif; */
 }
 
 /* body{
@@ -14,28 +14,28 @@ body {
   display: flex;
   margin: 0px;
   font-family: 'Fauna One', serif;
-  font-size: 16px; 
+  font-size: 16px;
 }
 
 /* Styling the navigation Bar */
 .bars {
   font-family: Cinzel, serif;
-  font-size: 18px;  
+  font-size: 18px;
   font-weight: 100;
   background: hsla(0, 0%, 90%, 0.8);
-  
+
 }
 
 .footer-inner {
   background: hsla(0, 0%, 90%, 0.8);
-  
+
 }
 
 /* Home Page */
-.home{
+.home {
   background-image: url(../Images/warm.jpeg);
   background-repeat: no-repeat;
-  background-size:cover;
+  background-size: cover;
 }
 
 .login-left-text {
@@ -48,19 +48,20 @@ body {
   text-decoration: none;
   width: 50%;
 } */
-#logo img    {
+#logo img {
   /* width: 40px; */
   width: 70px;
   /* border-radius: 70%; */
   /* margin-right: 8px; */
   /* vertical-align: middle; */
 }
-#logo span   {
+
+#logo span {
   /* display: inline-block; */
 }
 
 /* Stling the Horizontal lines */
-hr{
+hr {
   /* height: 3px; */
   border: none;
   border-top: 3px dashed #75f4f4;
@@ -71,102 +72,135 @@ hr{
 }
 
 /* Controlling response of side text on home page */
-@media only screen and (max-width: 1600px){
-  .share{margin-top: 70px; padding: 100px 30px 10px 0px;}
-  .share p{
-    color:rgb(247, 210, 0);
+@media only screen and (max-width: 1600px) {
+  .share {
+    margin-top: 70px;
+    padding: 100px 30px 10px 0px;
+  }
+
+  .share p {
+    color: rgb(247, 210, 0);
     font-weight: 500;
     text-align: center;
     font-size: 20px;
-  }  
+  }
 }
-  @media only screen and (max-width: 650px) {
-    .share{margin-top: 30px; padding: 40px 0px;}
-    .share p{
-      color:rgb(194, 87, 87);
-      font-weight: bold;
-      text-align: center;
-      font-size: 17px;
-    }
+
+@media only screen and (max-width: 650px) {
+  .share {
+    margin-top: 30px;
+    padding: 40px 0px;
   }
 
-  /* Controlling response of images on home page */
+  .share p {
+    color: rgb(194, 87, 87);
+    font-weight: bold;
+    text-align: center;
+    font-size: 17px;
+  }
+}
+
+/* Controlling response of images on home page */
 .grid-container {
-    display: grid;
-    grid-template-columns: auto auto auto auto auto;
-    gap: 50px;
-    padding: 20px;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  gap: 50px;
+  padding: 20px;
+}
+
+.grid-container>div {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px 0;
+}
+
+@media only screen and (max-width: 1600px) {
+  .grid-container {
+    max-height: fit-content;
   }
-  
-  .grid-container > div {
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 20px 0;
+
+  .img_1 {
+    grid-area: 1 / 3 / 6/ 5;
   }
-  
-  @media only screen and (max-width: 1600px) {
-    .grid-container {max-height: fit-content;}
-    .img_1 { grid-area: 1 / 3 / 6/ 5;  }
-    .img_2 { grid-area: 3 / 2/ 7 / 4 ; }
-    .img_3 { grid-area: 5 / 1 / 10 / 3; }
-  
+
+  .img_2 {
+    grid-area: 3 / 2/ 7 / 4;
   }
-  @media only screen and (max-width: 750px) {
-    .grid-container {row-gap: 10px; width: fit-content;}
-    .img_1 { grid-area: 1 / span 4;  }
-    .img_2 { grid-area: 2 / span 4; }
-    .img_3 { grid-area: 3 / span 4; }
+
+  .img_3 {
+    grid-area: 5 / 1 / 10 / 3;
   }
+
+}
+
+@media only screen and (max-width: 750px) {
+  .grid-container {
+    row-gap: 10px;
+    width: fit-content;
+  }
+
+  .img_1 {
+    grid-area: 1 / span 4;
+  }
+
+  .img_2 {
+    grid-area: 2 / span 4;
+  }
+
+  .img_3 {
+    grid-area: 3 / span 4;
+  }
+}
 
 /* Styling the footer  */
 .bi {
   vertical-align: -.125em;
-  fill: currentColor;}
+  fill: currentColor;
+}
 
- 
- 
- 
+
+
+
 /* styling the sign up page */
 
-#signup{
-    overflow: hidden;
-    background: url("../Images/1647785545105.jpg"); 
-    background-position: center;
-    background-size: cover;
-    background-repeat: none;  
- } 
-.form_contain{
-    background: rgba(76,86 ,96,0.3);
-    margin-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 15px;
-    padding-right: 15px;
-    border-top-left-radius: 50px;
-    border-bottom-right-radius: 100px;
-    /* box-shadow: 10px, 10px, 2px, #000; */
+#signup {
+  overflow: hidden;
+  background: url("../Images/1647785545105.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: none;
+}
+
+.form_contain {
+  background: rgba(76, 86, 96, 0.3);
+  margin-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-top-left-radius: 50px;
+  border-bottom-right-radius: 100px;
+  /* box-shadow: 10px, 10px, 2px, #000; */
 }
 
 
 /* Styling the gallery page */
 .grid-container-gallery {
-    display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto;
-    gap: 5px;
-    padding: 10px;
-  }
-  
-  .grid-container-gallery > div {
-    background-color: rgba(255, 255, 255, 0.8);
-    text-align: center;
-    padding: 20px 0;
-    font-size: 30px;
-  }
-  
-  .picture > img{
-      width: 30%;
-  }
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto;
+  gap: 5px;
+  padding: 10px;
+}
 
-  .slideshow {
-    grid-area: 2 / 2 / 5 / 5;
-  }
+.grid-container-gallery>div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+}
 
+.picture>img {
+  width: 30%;
+}
 
+.slideshow {
+  grid-area: 2 / 2 / 5 / 5;
+}

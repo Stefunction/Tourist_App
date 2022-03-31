@@ -1,13 +1,6 @@
 <?php
 session_start();            //retrieve session		
 
-
-// if (!isset($_SESSION["username"])) {            //if not previoulsly logged on	
-
-// }              //do not display comment section--- to do
-
-// $username = $_SESSION["username"];    //get user name into variable $username
-
 require "connect.php";
 
 $query = "select userName, uploadPath, description, categoryName, date, url from uploads, category";
@@ -47,7 +40,11 @@ $result = $connect->query($query);    //execute SQL
     <script src="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.js"></script> <!-- Preview JS for file Upload -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> <!-- Bootstrap with Popper -->
 
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
 
+    <!-- Load the JavaScript which set up the event handler, etc. -->
+    <script src="galleryAjax.js"></script>
+    <!-- <script src="timeAjax.js"></script> -->
 
 
 
@@ -62,34 +59,39 @@ $result = $connect->query($query);    //execute SQL
         <main class="container-fluid">
             <div class="w3-row">
                 <div class="w3-quarter">
-                    <form action="filter-gallery.php" method="POST" class="me-1">
-                        <div class="row mb-3">
-                            <label for="date-input" class="col-sm-3 col-form-label">Date:</label>
-                            <div class="col-sm-9">
-                                <input type="date" name="date" class="form-control" id="date-input">
-                            </div>
+
+                    <!-- <form action="filter-gallery.php" method="POST" class="me-1"> -->
+                    <!-- <div class="row mb-3">
+                        <label for="date-input" class="col-sm-3 col-form-label">Date:</label>
+                        <div class="col-sm-9">
+                            <input type="date" name="date" class="form-control" id="dateInput">
                         </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary" id="dateSearch">Search</button>
+                    </div> -->
 
-                        <div class="row mb-3">
-                            <label for="category-input" class="col-sm-3 col-form-label">Category:</label>
+                    <div class="row mb-3 mt-5">
+                        <label for="category-input" class="col-sm-3 col-form-label">Category:</label>
 
-                            <div class="col-sm-9">
-                                <input class="form-control" name="category" list="datalistOptions" id="category-input" placeholder="Type to search...">
-                                <datalist id="datalistOptions">
-                                    <option value="Food">
-                                    <option value="Culture">
-                                    <option value="Adventure">
-                                    <option value="History">
-                                    <option value="Others">
-                                </datalist>
-                            </div>
+                        <div class="col-sm-9">
+                            <input id="keyword" class="form-control" name="category" list="datalistOptions" placeholder="Type to search...">
+                            <datalist id="datalistOptions">
+                                <option value="Food">
+                                <option value="Culture">
+                                <option value="Adventure">
+                                <option value="History">
+                                <option value="Others">
+                            </datalist>
                         </div>
+                    </div>
 
 
-                        <div class="d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary">Sign in</button>
-                        </div>
-                    </form>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary" id="searchButton">Search</button>
+                    </div>
+                    <!-- </form> -->
+
                 </div>
 
                 <div class="w3-threequarter">
@@ -100,10 +102,7 @@ $result = $connect->query($query);    //execute SQL
                         if ($result->rowCount() == 0) {
 
                         ?>
-                            <!-- <div class="picture" style="background-image:url(Assets/Images/img_snowtops.jpg) ; background-position: center;
-                    background-size: contain; width: 400px; height: 300px; background-repeat: no-repeat;">
-                
-                </div> -->
+
                             <div class="w3-card-4 w3-third w3-container w3-margin-bottom">
                                 <!-- <img src="<?php echo $imgPath ?>" alt="Uploaded_Pic Description" style="width:100%" class="w3-hover-opacity"> -->
 
@@ -119,36 +118,27 @@ $result = $connect->query($query);    //execute SQL
                                 </div>
                             </div>
 
-                            <?php
-                        } else {
+                        <?php
+                        } else { ?>
 
-                            foreach ($result as $img) {
+                            <!-- foreach ($result as $img) {
 
                                 $imgOwner = $img["userName"];
                                 $imgPath = $img["uploadPath"];
                                 $imgDescription = $img["description"];
                                 $imgCategory = $img["categoryName"];
                                 $imgdate = $img["date"];
-                                $imgurl = $img["url"];
-                            ?>
+                                $imgurl = $img["url"]; -->
+                            <div id="gallery-grid">
 
-                                <div class="w3-card-4 w3-third w3-display-container w3-margin-bottom">
-                                    <img src="<?php echo $imgPath ?>" alt="Uploaded_Pic Description" style="width:100%" class="w3-hover-opacity">
-                                    <div class="w3-display-topleft w3-container w3-text-black">
-                                        <h5 style="color: white;"><?php echo $imgOwner ?></h5>
-                                    </div>
-                                    <div class="w3-container w3-white">
-                                        <h5><b>Lorem Ipsum</b></h5><span><?php echo $imgdate ?></span><br>
-                                        <p class="p-2"><?php echo $imgDescription ?>!</p>
-                                    </div>
-                                </div>
 
+                            </div>
 
 
 
 
                         <?php
-                            }
+
                         }
                         $connect = null;
                         ?>

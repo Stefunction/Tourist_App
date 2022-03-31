@@ -24,12 +24,6 @@ $query .= " WHERE uploads.categoryID = category.categoryID and userName =  '$use
 
 $result = $connect->query($query);    //execute SQL
 
-//  SQL statements to carry out instructions
-$query2 = "select uploadID, uploadPath, description, categoryName, date, url from uploads, category";
-$query2 .= " WHERE uploads.categoryID = category.categoryID and userName =  '$username' ";
-
-$result2 = $connect->query($query2);    //execute SQL
-
 ?>
 
 <head>
@@ -102,7 +96,7 @@ if (isset($_SESSION["status"])) {
             document.getElementById("div_add").style.display = "none";
             document.getElementById("div_content").style.display = "block";
             document.getElementById("edit_profile").style.display = "none";
-            // document.getElementById("come_on").style.display = "none";
+            document.getElementById("come_on").style.display = "none";
             document.getElementById("adventure_edit").style.display = "none";
         }
 
@@ -115,24 +109,14 @@ if (isset($_SESSION["status"])) {
 
         function advent_edit() {
             document.getElementById("adventure_edit").style.display = "block";
+            // document.getElementById("div_content").style.display = "none";
+            // document.getElementById("div_add").style.display = "none";
+            // document.getElementById("edit_profile").style.display = "none";
+
             document.getElementById("div_add").style.display = "none";
-            document.getElementById("div_content").style.display = "none";
+            document.getElementById("div_content").style.display = "block";
             document.getElementById("edit_profile").style.display = "none";
-
-        }
-
-        function launchRedo(imgID) {
-            document.getElementById('redo').style.display = 'block';
-            var imageInput = document.querySelector("#uploadID");
-            imageInput.value = imgID;
-
-        }
-
-        function launchDelete(imgID) {
-            document.getElementById('delete_adventure').style.display = 'block';
-            var adventureInput = document.querySelector("#adventureID");
-            adventureInput.value = imgID;
-
+            document.getElementById("come_on").style.display = "block";
         }
     </script>
 
@@ -202,7 +186,7 @@ if (isset($_SESSION["status"])) {
                             <span class="w3-margin-right">Filter:</span>
 
                             <button class="w3-button w3-white" onclick="add_adventure()"><i class="fa fa-diamond w3-margin-right"></i>Add Adventure</button>
-                            <button class="w3-button w3-white" onclick="advent_edit()"><i class="fa fa-photo w3-margin-right"></i>Edit Adventure</button>
+                            <button class="w3-button w3-white " onclick="advent_edit()"><i class="fa fa-photo w3-margin-right"></i>Edit Adventure</button>
                             <button class="w3-button w3-white w3-hide-small"><i class="fa fa-map-pin w3-margin-right"></i>Art</button>
                         </div>
                     </div>
@@ -282,15 +266,15 @@ if (isset($_SESSION["status"])) {
 
 
 
-                <!-- Edit Adventure Story Section -->
-                <div id="adventure_edit" style="display: none;">
+                <!-- Adventure Story Section -->
+                <div id="adventure_edit">
 
                     <!-- Grid for Pictures-->
-                    <div class=" w3-row-padding">
+                    <div class="w3-row-padding">
 
                         <?php
 
-                        if ($result2->rowCount() == 0) {
+                        if ($result->rowCount() == 0) {
 
                         ?>
                             <div class="w3-third w3-container w3-margin-bottom">
@@ -304,7 +288,7 @@ if (isset($_SESSION["status"])) {
                             <?php
                         } else {
 
-                            foreach ($result2 as $img) {
+                            foreach ($result as $img) {
 
                                 $imgPath = $img["uploadPath"];
                                 $imgDescription = $img["description"];
@@ -320,9 +304,9 @@ if (isset($_SESSION["status"])) {
                                     <div class="w3-container w3-white">
                                         <h5><b><?php echo $imgCategory ?></b></h5><span><?php echo $imgdate ?></span><br>
                                         <p class="p-2"><?php echo $imgDescription ?></p><span><?php echo $imgurl ?></span>
-                                        <div>
-                                            <button onclick="launchRedo(<?php echo $imgID; ?>)" class=" btn btn-sm btn-info" type="submit">Edit</button>
-                                            <button onclick="launchDelete(<?php echo $imgID; ?>)" class=" btn btn-sm btn-danger" type="submit">Delete</button>
+                                        <div><input type="hidden" name="img-id" value="<?php echo $imgID;   ?>">
+                                            <button id="come_on" onclick="document.getElementById('redo').style.display='block'" class=" btn btn-sm btn-info" type="submit">Edit</button>
+                                            <button id="come_on" onclick="document.getElementById('edit').style.display='block'" class=" btn btn-sm btn-danger" type="submit">Delete</button>
                                         </div>
                                     </div>
 
@@ -337,7 +321,7 @@ if (isset($_SESSION["status"])) {
                     </div>
 
 
-                    <!-- UPDATE ADVENTURE MODAL -->
+
                     <div id="redo" class="w3-modal">
                         <div class="w3-modal-content w3-card-4 w3-animate-left" style="max-width:500px">
 
@@ -348,11 +332,10 @@ if (isset($_SESSION["status"])) {
 
 
                             <form class="w3-container" action="update.php" method="POST">
-                                <input type="hidden" name="img_id" id="uploadID" value="">
                                 <div class="w3-section">
                                     <div class="w3-row-padding">
                                         <label for="change_description" class="form-label w3-col m4"><b>Change Description: </b></label>
-                                        <textarea class="w3-input w3-hover-yellow w3-animate-input" name="change_description" type="text" style="width: 100px;" placeholder="<?php echo $imgDescription ?>" rows="3" cols="40" required></textarea>
+                                        <textarea class="w3-input w3-hover-yellow w3-animate-input" name="change_description" type="text" style="width: 100px;" placeholder="<?php echo $imgDescription ?>" rows="3" cols="40"></textarea>
                                     </div>
 
                                     <hr>
@@ -378,14 +361,14 @@ if (isset($_SESSION["status"])) {
                                         <input class="w3-input w3-animate-input" name="change_date" type="date" value="<?php echo $imgdate ?>" style="width: 100px;">
                                     </div>
 
-                                    <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit" name="update_adventure">Update Details</button>
+                                    <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit" name="update">Update Details</button>
 
                                 </div>
                             </form>
 
 
                             <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                                <button onclick="document.getElementById('redo').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+                                <button onclick="document.getElementById('edit').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
 
                             </div>
 
@@ -393,39 +376,9 @@ if (isset($_SESSION["status"])) {
                     </div>
 
 
-                    <!-- DELETE ADVENTURE MODAL -->
-                    <div id="delete_adventure" class="w3-modal">
-                        <div class="w3-modal-content w3-card-4 w3-animate-left" style="max-width:500px">
-
-                            <div class="w3-center"><br>
-                                <span onclick="document.getElementById('delete_adventure').style.display='none'" class="w3-button w3-large w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
-                                <h4>Delete Adventure Details</h4>
-                            </div>
 
 
-                            <form class="w3-container" action="update.php" method="POST">
-                                <input type="hidden" name="adventure_id" id="adventureID" value="">
-                                <div class="w3-section">
-                                    <div class="w3-row-padding">
-                                        <h4>Confirm Delete Selection ???</h4>
-                                    </div>
 
-                                    <hr>
-                                    <br>
-
-                                    <button class="w3-button w3-block w3-red w3-section w3-padding" type="submit" name="delete_adventure">Delete Adventure</button>
-
-                                </div>
-                            </form>
-
-
-                            <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                                <button onclick="document.getElementById('delete_adventure').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
-
-                            </div>
-
-                        </div>
-                    </div>
 
 
 
@@ -528,7 +481,7 @@ if (isset($_SESSION["status"])) {
 
 
 
-                <!-- Profile Section (Initially hidden) -->
+                <!-- Edit Profile Section (Initially hidden) -->
                 <div class="w3-row-padding" id="edit_profile" style="display: none;">
 
                     <div class="w3-container w3-yellow w3-margin-bottom">
@@ -585,7 +538,7 @@ if (isset($_SESSION["status"])) {
 
 
 
-                    <!-- UPDATE PROFILE MODAL -->
+
                     <div id="edit" class="w3-modal">
                         <div class="w3-modal-content w3-card-4 w3-animate-left" style="max-width:500px">
 
@@ -613,7 +566,7 @@ if (isset($_SESSION["status"])) {
                                         <input type="email" class="w3-col m8 w3-input w3-margin-bottom" id="email" name="email" value="<?php echo $_SESSION["email"] ?>">
                                     </div>
 
-                                    <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit" name="update_profile">Update Details</button>
+                                    <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit" name="update">Update Details</button>
 
                                 </div>
                             </form>
@@ -629,7 +582,7 @@ if (isset($_SESSION["status"])) {
 
 
 
-                    <!-- CHANGE PASSWORD MODAL -->
+
                     <div id="change_pass" class="w3-modal">
                         <div class="w3-modal-content w3-card-4 w3-animate-left" style="max-width:500px">
 

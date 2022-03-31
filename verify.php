@@ -46,7 +46,7 @@ if (!empty($_POST["username"]) && !empty($_POST["password"])) {
         #SQL statement to get details from the database where corresponding username matches
         $queryID = "select userID, username, firstname, lastname, email, password, roleID FROM users Where username = '$username' ";
         $result = $connect->query($queryID);         # Execute query and store in variable result
-        
+
         # setting the fetch mode
         $result->setFetchMode(PDO::FETCH_ASSOC);
 
@@ -58,13 +58,16 @@ if (!empty($_POST["username"]) && !empty($_POST["password"])) {
             $_SESSION["email"] = $row['email'];
             $_SESSION["password"] = $row['password'];
             $_SESSION["roleID"] = $row['roleID'];
-                   
         }
 
         if (isset($result)) {    # Double check the result is set
 
-            $login_date = date('Y-m-d');
-            $login_time = date('H:i:s');
+            // $login_date = date('Y-m-d');
+            // $login_time = date('H:i:s');
+            $login_time = date('Y-m-d H:i:s');
+
+            $time = "Insert into access (userName, login_Time) Values ('$username', '$login_time') ";
+            $time_query = $connect->query($time);
 
 
             if ($_SESSION["roleID"] == 1) {        # If roleID variable is 1,
@@ -75,7 +78,11 @@ if (!empty($_POST["username"]) && !empty($_POST["password"])) {
                 exit();
                 // header("Location: home.php");    # Forward to the user home page
             } else {
-                header("Location: admin.php");   # Else forward to the admin Page
+                $_SESSION["status"] = "Admin Logged IN";  ##passed in
+                $_SESSION["icon"] = "success";
+                $location = "Location: admin.php";     # Else forward to the admin Page
+                header($location);
+                exit();
             }
 
             exit();                                # Exit from here, no continuation. 
@@ -92,7 +99,6 @@ if (!empty($_POST["username"]) && !empty($_POST["password"])) {
         $location = "Location: login.php";
         header($location);
         exit();
-
     }
 } elseif (isset($_POST["resetPass"])) {
 
@@ -117,7 +123,6 @@ if (!empty($_POST["username"]) && !empty($_POST["password"])) {
                 $location = "Location: login.php";
                 header($location);
                 exit();
-
             } else {
                 $_SESSION["status"] = "There seems to be an error??";
                 $_SESSION["icon"] = "error";
@@ -144,8 +149,3 @@ if (!empty($_POST["username"]) && !empty($_POST["password"])) {
     header("Location: login.php");
     exit();
 }
-
-?>
-
-
-

@@ -4,7 +4,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-secondary text-dark fw-bold">
         <div class="bars container-fluid">
             <!--Creating a logo with the span description-->
-            <a class="navbar-brand" id="logo" href="#">
+            <a class="navbar-brand" id="logo" href="index.php">
                 <img src="Assets/Images/logo2.png" alt="Logo">
                 <span title="Click logo for Home Page">Tanzanian Beauty</span>
             </a>
@@ -19,6 +19,7 @@
                     <li class="nav-item"><a class="nav-link" href="gallery.php">Gallery</a></li>
                     <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
                     <li class="nav-item"><a class="nav-link" href="signup.php">Signup</a></li>
+                    <li class="nav-item"><a class="nav-link" href="home.php">My Space</a></li>
                 </ul>
             </div>
         </div>

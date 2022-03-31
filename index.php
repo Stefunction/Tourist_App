@@ -24,21 +24,13 @@
 
 
         <main class="container-fluid">
-
             <div class="row">
-
                 <div class="col-8 col-md-8">
-
                     <div class="grid-container">
-
                         <img class="img-fluid img_1" src="Assets/Images/elephants.jpg" alt="Snow">
-
                         <img class="img-fluid img_2" src="Assets/Images/mountain_top.jpg" alt="Snow"">
-                  
-                            <img class=" img-fluid img_3" src="Assets/Images/tan_1.jpg" alt="Snow"">
-                      
+                        <img class=" img-fluid img_3" src="Assets/Images/tan_1.jpg" alt="Snow"">
                     </div>
-
                 </div>
 
                 <div class=" col-4 col-md-4">

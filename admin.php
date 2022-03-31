@@ -39,24 +39,27 @@ $gallery_result = $connect->query($gallery_query);   //Execute SQL
     <title>User Home</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- w3 CSS -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- Font Styling -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-    <!-- <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet"> style font -->
+    <!-- Font- Awesome (ICon) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Boostrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Image Preview CSS-->
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.css" />
-
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.js"></script> <!-- Preview JS for file Upload -->
-
+    <!-- bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> <!-- Bootstrap with Popper -->
+    <!-- image preview JS -->
+    <script src="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.js"></script> <!-- Preview JS for file Upload -->
+    <!-- DataTable CSS -->
     <link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <!-- DataTable JS -->
     <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    
+
     <!-- Sweet Alert plugin and stylesheet -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -231,7 +234,7 @@ $gallery_result = $connect->query($gallery_query);   //Execute SQL
                                     <th>First Name</th>
                                     <th>Last Name</th>
                                     <th>UserName</th>
-                                    <th>Gender</th>         
+                                    <th>Gender</th>
                                     <th>Email</th>
                                     <th>User Role</th>
                                     <th>Actions</th>
@@ -241,14 +244,14 @@ $gallery_result = $connect->query($gallery_query);   //Execute SQL
                             <!-- Table Body -->
                             <tbody>
                                 <?php if ($result->rowCount() == 0) {           # If result count doesnt return anything
-                                ?> 
-                                    <!-- Respond with the statement -->
-                                   <h5>No data Retrieved... Possibly No user has Updated Yet</h5>   
-
-                                <?php 
-                                }   else {
-                                    foreach ($result as $user) {
                                 ?>
+                                    <!-- Respond with the statement -->
+                                    <h5>No data Retrieved... Possibly No user has Updated Yet</h5>
+
+                                    <?php
+                                } else {
+                                    foreach ($result as $user) {
+                                    ?>
                                         <!-- Beginning of each row -->
                                         <!-- Store the array of results as different variables -->
                                         <tr>
@@ -274,7 +277,8 @@ $gallery_result = $connect->query($gallery_query);   //Execute SQL
                                         <!-- End of each row -->
                                 <?php }
                                 }
-                                $connect = null;    // Set the PDO object to null afterwards?>  
+                                $connect = null;    // Set the PDO object to null afterwards
+                                ?>
                             </tbody>
                             <!-- End of Table Body -->
 
@@ -329,7 +333,7 @@ $gallery_result = $connect->query($gallery_query);   //Execute SQL
                                 </div>
                             </div>
                         </div>
-                    <!-- End of Reset Password Modal initiated when the Reset button is activated from the Table-->
+                        <!-- End of Reset Password Modal initiated when the Reset button is activated from the Table-->
 
 
                         <!-- JavaScript to Add Hidden Input When You Trigger Reset Modal -->
@@ -421,16 +425,16 @@ $gallery_result = $connect->query($gallery_query);   //Execute SQL
                 </div>
                 <!-- End of Users List Section -->
 
-                
+
 
                 <!-- User List gallery Section (Initially hidden) -->
                 <div class="w3-row-padding" id="user_gallery" style="display: none;">
 
                     <h3>User Uploads</h3>
 
-                    <?php 
-                        if ($gallery_result->rowCount() == 0)               # If result count doesnt return anything
-                    { ?>        
+                    <?php
+                    if ($gallery_result->rowCount() == 0)               # If result count doesnt return anything
+                    { ?>
 
                         <!-- Place a thumbnail with a message -->
                         <div class="w3-card-4 w3-third w3-container w3-margin-bottom">
@@ -447,10 +451,8 @@ $gallery_result = $connect->query($gallery_query);   //Execute SQL
                             </div>
                         </div>
 
-                        <?php } 
-                        
-                        else {
- 
+                        <?php } else {
+
                         // Store the array of results as different variables 
                         foreach ($gallery_result as $img) {
 
@@ -461,7 +463,7 @@ $gallery_result = $connect->query($gallery_query);   //Execute SQL
                             $imgCategory = $img["categoryName"];
                             $imgdate = $img["date"];
                             $imgurl = $img["url"];
-                            
+
                         ?>
                             <div class="w3-card-4 w3-third w3-display-container w3-margin-bottom">
                                 <img src="<?php echo $imgPath ?>" alt="Uploaded_Pic Description" style="width:100%" class="w3-hover-opacity">
@@ -474,7 +476,7 @@ $gallery_result = $connect->query($gallery_query);   //Execute SQL
                                 </div>
 
                                 <!-- Delete Story Button -->
-                                <form class="d-flex justify-content-center" action="admin_reset.php" method="POST"> 
+                                <form class="d-flex justify-content-center" action="admin_reset.php" method="POST">
                                     <button class="w3-button w3-inline w3-red w3-section w3-padding" type="submit" name="delete_story" value="<?php echo $imgID; ?>">Delete User Story</button>
                                 </form>
                             </div>
@@ -495,4 +497,3 @@ $gallery_result = $connect->query($gallery_query);   //Execute SQL
 <!-- End of the body Tag -->
 
 </html>
-

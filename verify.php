@@ -62,8 +62,7 @@ if (!empty($_POST["username"]) && !empty($_POST["password"])) {
 
         if (isset($result)) {    # Double check the result is set
 
-            // $login_date = date('Y-m-d');
-            // $login_time = date('H:i:s');
+            // To take the login Time
             $login_time = date('Y-m-d H:i:s');
 
             $time = "Insert into access (userName, login_Time) Values ('$username', '$login_time') ";

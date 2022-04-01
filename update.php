@@ -214,8 +214,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         #SQL statement to delete details from the database where corresponding username matches
         $delete = "DELETE FROM uploads WHERE uploadID = '$adventure_id' ";
         $result_delete = $connect->query($delete);
-        print_r($result_delete);
-        die();
 
         if ($result_delete) {
 

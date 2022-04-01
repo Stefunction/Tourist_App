@@ -181,6 +181,10 @@ hr {
   /* box-shadow: 10px, 10px, 2px, #000; */
 }
 
+.signup_Image {
+  border-top-left-radius: 50px;
+  border-bottom-right-radius: 100px;
+}
 
 /* Styling the gallery page */
 .grid-container-gallery {
@@ -201,6 +205,6 @@ hr {
   width: 30%;
 }
 
-.slideshow {
-  grid-area: 2 / 2 / 5 / 5;
+.mySlides {
+  display: none;
 }

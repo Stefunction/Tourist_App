@@ -258,10 +258,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
 
                 <div class="col-5">
                     <aside>
-                        <img src="#" alt="Video/slideshow">
+                        <!-- <img src="#" alt="Video/slideshow"> -->
                         <!--add a slideshow-->
+
+                        <div class="w3-content w3-section" style="max-width:500px">
+                            <img class="mySlides signup_Image" src="assets/Images/test2.jpg" style="width:100%">
+                            <img class="mySlides signup_Image" src="assets/Images/test3.jpg" style="width:100%">
+                            <img class="mySlides signup_Image" src="assets/Images/mountain_top.jpg" style="width:100%">
+                        </div>
                         <p>add some smal captions that explains the video </p>
                     </aside>
+
                 </div>
             </div>
 
@@ -273,6 +280,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
 
 <!-- Sweet Alert plugin and stylesheet -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    var myIndex = 0;
+    carousel();
+
+    function carousel() {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        myIndex++;
+        if (myIndex > x.length) {
+            myIndex = 1
+        }
+        x[myIndex - 1].style.display = "block";
+        setTimeout(carousel, 1700); // Change image every 2 seconds
+    }
+</script>
+
 
 <?php
 if (isset($_SESSION["status"])) {

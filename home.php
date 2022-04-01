@@ -8,6 +8,7 @@ if (!isset($_SESSION["username"]))          # if not logged on
     header("Location: login.php");          # redirect to login page
 }
 
+
 $username = $_SESSION["username"];              # get user name into variable $username
 
 $firstname = $_SESSION["firstname"];            # get names into variable $username
@@ -269,19 +270,6 @@ if (isset($_SESSION["status"])) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
                 <!-- Edit Adventure Story Section -->
                 <div id="adventure_edit" style="display: none;">
 
@@ -437,10 +425,6 @@ if (isset($_SESSION["status"])) {
 
 
 
-
-
-
-
                 <!-- Add Adventure Section (Initially hidden) -->
                 <div class="w3-row-padding" id="div_add" style="display: none;">
                     <h3>File Upload</h3>
@@ -524,7 +508,6 @@ if (isset($_SESSION["status"])) {
                 <script>
                     let upload = new FileUploadWithPreview("imageFileID"); // use input id
                 </script>
-
 
 
 

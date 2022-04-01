@@ -14,6 +14,7 @@ $(function () {
 } //end document ready function
 );
 
+
 //  Function to handle search button.
 
 function search_Gallery() {
@@ -37,19 +38,15 @@ function populateGrid(keyword) {
             $("#gallery-grid").empty();   //remove all children first
             for (var index in result)       //iterate through the reply (in JSON)
             {
-                var gal = result[index];                      //get a single DVD from result array             
+                var gal = result[index];                      //get a single  from result array             
 
-                var htmlCode = "<div class='w3-card-4 w3-third w3-display-container w3-margin-bottom'>";
-                htmlCode += "<img src=" + gal["uploadPath"] + " alt='Uploaded_Pic Description' style='width:100%' class='w3-hover-opacity'>";
-                htmlCode += "<div class='w3-display-topleft w3-container w3-text-black'>";
-                htmlCode += "<h5 style='color: white;'>" + gal["userName"] + "</h5></div>";
-                htmlCode += "<div class='w3-container w3-white'>";
-                htmlCode += "<h5 class='p-2'><b>Lorem Ipsum</b></h5>";
-                htmlCode += "<div class='row'>";
-                htmlCode += "<p class='col-md-6'>" + gal["categoryName"] + "</p>";
-                htmlCode += "<p class='col-md-6'>" + gal["date"] + "</p>";
-                htmlCode += "<p class='me-2'>" + gal["description"] + "!</p>";
-                htmlCode += "</div></div></div>";
+                var htmlCode = "<div class='col-md-4'><div class='card'>";
+                htmlCode += "<img src=" + gal["uploadPath"] + " alt='Uploaded_Pic Description' style='width:100%' class='w3-hover-opacity card-img-top'>";
+                htmlCode += "<div class='card-body'><h5 class='p-2'><b>" + gal["categoryName"] + "</b></h5><div class='row'>";
+                htmlCode += "<p class='col-md-6'>Owner: " + gal["userName"] + "</p>";
+                htmlCode += "<p class='col-md-6'>Date: " + gal["date"] + "</p>";
+                htmlCode += "<p class='col'><strong>Description:</strong> " + gal["description"] + "</p>";
+                htmlCode += "</div></div></div></div>";
                 $("#gallery-grid").append(htmlCode);      //add a child to table body
 
 

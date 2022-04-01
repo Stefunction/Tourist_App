@@ -12,6 +12,8 @@ $firstname = $_SESSION["firstname"];  // get names into variable $username
 
 $lastname = $_SESSION["lastname"];
 
+$email = $_SESSION["email"];
+
 require "connect.php";                  // Establish a connection with the PDO object created
 
 /* SQL statement to select relevant user data from DB */
@@ -25,6 +27,11 @@ $gallery_query = "select uploadID, userName, uploadPath, description, categoryNa
 $gallery_query .= " WHERE uploads.categoryID = category.categoryID";
 
 $gallery_result = $connect->query($gallery_query);   //Execute SQL
+
+/* SQL statement to select time Input from DB */
+$time = "Select * from access ";
+
+$time_result = $connect->query($time);         //Execute SQL
 
 ?>
 
@@ -60,6 +67,8 @@ $gallery_result = $connect->query($gallery_query);   //Execute SQL
     <!-- DataTable JS -->
     <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
+    <link rel="stylesheet" href="assets/CSS/style.css">
+
     <!-- Sweet Alert plugin and stylesheet -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -82,36 +91,7 @@ $gallery_result = $connect->query($gallery_query);   //Execute SQL
     }
     ?>
 
-    <script>
-        // Script to open and close sidebar
-        function w3_open() {
-            document.getElementById("profile_Side").style.display = "block";
-            document.getElementById("profile_Overlay").style.display = "block";
-        }
 
-        function w3_close() {
-            document.getElementById("profile_Side").style.display = "none";
-            document.getElementById("profile_Overlay").style.display = "none";
-        }
-
-        // Script to include and exclude adventure and add section
-        function user_adventure() {
-            document.getElementById("user_gallery").style.display = "block";
-            document.getElementById("div_users").style.display = "none";
-        }
-
-        function all_users() {
-            document.getElementById("user_gallery").style.display = "none";
-            document.getElementById("div_users").style.display = "block";
-        }
-    </script>
-
-    <!-- Script to tabulate DataTable -->
-    <script>
-        $(document).ready(function() {
-            $('.userTable').DataTable();
-        });
-    </script>
 
     <!--Styling the header Body  -->
     <style>
@@ -134,34 +114,7 @@ $gallery_result = $connect->query($gallery_query);   //Execute SQL
     <div class="container-fluid">
 
         <!-- Header section -->
-        <header class="sticky-top">
-            <!--An opening horizontal line for decoration-->
-            <hr>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <!--Creating a logo with the span description-->
-                    <a class="navbar-brand" id="logo" href="#"><img src="" alt="Logo">
-                        <span title="Click logo for Home Page">Tanzanian Beauty</span>
-                    </a>
-                    <!--Creating a collapsible navigation button-->
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav_collapse" aria-controls="nav_collapse" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <!--Assigning the id of the buttion to the div class housing the varius links-->
-                    <div class="collapse navbar-collapse" id="nav_collapse">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
-                            <li class="nav-item"><a class="nav-link" href="logout.php">Login</a></li>
-                            <li class="nav-item"><a class="nav-link" href="admin.php">Admin Space</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-            <!--A closing horizontal line for decoration-->
-            <hr>
-        </header>
+        <?php include("navbar.php"); ?>
         <!-- End of Header Section -->
 
 
@@ -180,16 +133,15 @@ $gallery_result = $connect->query($gallery_query);   //Execute SQL
 
                 <div class="w3-bar-block">
                     <a href="#adventure" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>My Adventures</a>
-                    <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>My Personal Space</a>
-                    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>Contact</a>
+                    <a href="#about" onclick="w3_close(), admin_details()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>My Personal Space</a>
                     <a href="logout.php" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>Logout</a>
                 </div>
 
                 <div class="w3-panel w3-large">
-                    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-                    <i class="fa fa-instagram w3-hover-opacity"></i>
-                    <i class="fa fa-snapchat w3-hover-opacity"></i>
-                    <i class="fa fa-twitter w3-hover-opacity"></i>
+                    <a class="link-dark" href="https://www.facebook.com/stephanie.udejiofor" target="_blank"><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
+                    <a class="link-dark" href="https://twitter.com/Steph_nmanie" target="_blank"><i class="fa fa-twitter w3-hover-opacity"></i></a>
+                    <a class="link-dark" href="https://www.snapchat.com/add/cuteslinky/" target="_blank"><i class="fa fa-snapchat w3-hover-opacity"></i></a>
+                    <a class="link-dark" href="https://www.instagram.com/reina.shona/" target="_blank"><i class="fa fa-instagram w3-hover-opacity"></i></a>
                 </div>
             </nav>
 
@@ -208,11 +160,9 @@ $gallery_result = $connect->query($gallery_query);   //Execute SQL
                         <div class="w3-section w3-bottombar w3-padding-16">
                             <span class="w3-margin-right">Filter:</span>
 
-                            <!-- <a href="#adventure" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>My adventures</a> -->
-
-
-                            <button class="w3-button w3-black" onclick="all_users()">USERS REGISTERED</button>
-                            <button class="w3-button w3-white" onclick="user_adventure()"><i class="fa fa-diamond w3-margin-right"></i>User Adventure</button>
+                            <button class="w3-button w3-black" onclick="all_users()"><i class="fa fa-map w3-margin-right"></i>USERS REGISTERED</button>
+                            <button class="w3-button w3-white" onclick="all_entry()"><i class="fa fa-diamond w3-margin-right"></i>TIME LOG</button>
+                            <button class="w3-button w3-white" onclick="user_adventure()"><i class="fa fa-photo w3-margin-right"></i>USER ADVENTURE</button>
                         </div>
                     </div>
                 </header>
@@ -425,6 +375,57 @@ $gallery_result = $connect->query($gallery_query);   //Execute SQL
                 </div>
                 <!-- End of Users List Section -->
 
+                <div id="time_log" style="display: none;">
+                    <!-- Table Executions -->
+                    <div class="w3-row-padding">
+                        <!-- Table for Users-->
+                        <table class="logTable">
+
+                            <!-- Table Header -->
+                            <thead>
+                                <tr>
+                                    <th>accessID</th>
+                                    <th>User Name</th>
+                                    <th>Log-In Time</th>
+                                    <th>Log-Out Time</th>
+                                </tr>
+                            </thead>
+
+                            <!-- Table Body -->
+                            <tbody>
+                                <?php if ($time_result->rowCount() == 0) {           # If result count doesnt return anything
+                                ?>
+                                    <!-- Respond with the statement -->
+                                    <h5>No data Retrieved... Possibly No user has Logged in Yet</h5>
+
+                                    <?php
+                                } else {
+                                    foreach ($time_result as $user) {
+                                    ?>
+                                        <!-- Beginning of each row -->
+                                        <!-- Store the array of results as different variables -->
+                                        <tr>
+                                            <td> <?php echo $user["accessID"];   ?> </td>
+                                            <td> <?php echo $user["userName"]; ?> </td>
+                                            <td> <?php echo $user["login_Time"]; ?> </td>
+                                            <td> <?php echo $user["logout_Time"]; ?> </td>
+
+                                        </tr>
+                                        <!-- End of each row -->
+                                <?php }
+                                }
+                                $connect = null;    // Set the PDO object to null afterwards
+                                ?>
+                            </tbody>
+                            <!-- End of Table Body -->
+
+                        </table>
+                        <!-- End of Table for Users-->
+
+                    </div>
+                    <!-- End of Table Executions -->
+
+                </div>
 
 
                 <!-- User List gallery Section (Initially hidden) -->
@@ -488,10 +489,114 @@ $gallery_result = $connect->query($gallery_query);   //Execute SQL
                 </div>
                 <!-- End of User List gallery Section (Initially hidden) -->
 
+
+                <!-- Profile Section (Initially hidden) -->
+                <div class="w3-row-padding" id="edit_profile" style="display: none;">
+
+                    <div class="w3-container w3-yellow w3-margin-bottom">
+                        <h3>About Me</h3>
+                    </div>
+                    <div class="w3-row-padding">
+                        <div class="w3-third">
+                            <img src="https://www.w3schools.com/w3images/avatar_g.jpg" alt="Me" style="width:100%">
+                        </div>
+
+                        <div class="w3-twothird">
+                            <div class="w3-row-padding">
+                                <table class="w3-table w3-bordered w3-card-4">
+                                    <tr>
+                                        <th class="w3-red" style="width: 30%;">FirstName:</th>
+                                        <td class="w3-yellow" style="width: 50%;"><?php echo $firstname;   ?></td>
+
+                                    </tr>
+                                    <tr>
+                                        <th class="w3-red" style="width: 30%;">LastName:</th>
+                                        <td class="w3-yellow" style="width: 50%;"><?php echo $lastname;   ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="w3-red" style="width: 30%;">UserName:</th>
+                                        <td class="w3-yellow" style="width: 50%;"><?php echo $username;   ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="w3-red" style="width: 30%;">Email:</th>
+                                        <td class="w3-yellow" style="width: 50%;"><?php echo $email;   ?></td>
+                                    </tr>
+
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
             </div>
         </main>
         <!-- End of main tag -->
     </div>
+
+    <script>
+        // Script to open and close sidebar
+        function w3_open() {
+            document.getElementById("profile_Side").style.display = "block";
+            document.getElementById("profile_Overlay").style.display = "block";
+        }
+
+        function w3_close() {
+            document.getElementById("profile_Side").style.display = "none";
+            document.getElementById("profile_Overlay").style.display = "none";
+        }
+
+        // Script to view user adventures and exclude others
+        function user_adventure() {
+            document.getElementById("user_gallery").style.display = "block";
+            document.getElementById("div_users").style.display = "none";
+            document.getElementById("time_log").style.display = "none";
+            document.getElementById("edit_profile").style.display = "none";
+        }
+
+        // Script to view all users and exclude others
+        function all_users() {
+            document.getElementById("user_gallery").style.display = "none";
+            document.getElementById("div_users").style.display = "block";
+            document.getElementById("time_log").style.display = "none";
+            document.getElementById("edit_profile").style.display = "none";
+        }
+
+        // Script to view time log of everyone and exclude others
+        function all_entry() {
+            document.getElementById("user_gallery").style.display = "none";
+            document.getElementById("div_users").style.display = "none";
+            document.getElementById("time_log").style.display = "block";
+            document.getElementById("edit_profile").style.display = "none";
+        }
+
+        // Script to only view admin details excluding password and others
+        function admin_details() {
+            document.getElementById("user_gallery").style.display = "none";
+            document.getElementById("div_users").style.display = "none";
+            document.getElementById("time_log").style.display = "none";
+            document.getElementById("edit_profile").style.display = "block";
+        }
+    </script>
+
+    <!-- Script to tabulate User DataTable -->
+    <script>
+        $(document).ready(function() {
+            $('.userTable').DataTable();
+        });
+    </script>
+
+    <!-- Script to tabulate Time DataTable -->
+    <script>
+        $(document).ready(function() {
+            $('.logTable').DataTable();
+        });
+    </script>
+
 
 </body>
 <!-- End of the body Tag -->

@@ -17,9 +17,22 @@
                 <ul class="navbar-nav ms-auto fw-bold text-dark">
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.php">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="gallery.php">Gallery</a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
+
+                    <?php if (!isset($_SESSION["username"])) { ?>
+                        <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
+                    <?php } else { ?>
+
+                        <li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>
+                    <?php } ?>
+
                     <li class="nav-item"><a class="nav-link" href="signup.php">Signup</a></li>
-                    <li class="nav-item"><a class="nav-link" href="home.php">My Space</a></li>
+                    <?php if (isset($_SESSION["username"]) && $_SESSION["roleID"] == 1) { ?>
+                        <li class="nav-item"><a class="nav-link" href="home.php">My Space</a></li>
+                    <?php } ?>
+
+                    <?php if (isset($_SESSION["username"]) && $_SESSION["roleID"] == 2) { ?>
+                        <li class="nav-item"><a class="nav-link" href="admin.php">Admin Space</a></li>
+                    <?php } ?>
                 </ul>
             </div>
         </div>

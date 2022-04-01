@@ -58,24 +58,14 @@ $result = $connect->query($query);    //execute SQL
 
         <main class="container-fluid">
             <div class="w3-row">
-                <div class="w3-quarter">
 
-                    <!-- <form action="filter-gallery.php" method="POST" class="me-1"> -->
-                    <!-- <div class="row mb-3">
-                        <label for="date-input" class="col-sm-3 col-form-label">Date:</label>
-                        <div class="col-sm-9">
-                            <input type="date" name="date" class="form-control" id="dateInput">
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary" id="dateSearch">Search</button>
-                    </div> -->
 
-                    <div class="row mb-3 mt-5">
-                        <label for="category-input" class="col-sm-3 col-form-label">Category:</label>
+                <div class="row mb-3 my-1">
 
-                        <div class="col-sm-9">
-                            <input id="keyword" class="form-control" name="category" list="datalistOptions" placeholder="Type to search...">
+                    <div class="d-flex">
+                        <label for="category-input" class="me-2 col-form-label">Category:</label>
+                        <div class="me-3">
+                            <input id="keyword" class="me-2 form-control" name="category" list="datalistOptions" placeholder="Type to search...">
                             <datalist id="datalistOptions">
                                 <option value="Food">
                                 <option value="Culture">
@@ -84,17 +74,19 @@ $result = $connect->query($query);    //execute SQL
                                 <option value="Others">
                             </datalist>
                         </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary" id="searchButton">Search</button>
+                        </div>
                     </div>
 
-
-                    <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary" id="searchButton">Search</button>
-                    </div>
-                    <!-- </form> -->
 
                 </div>
 
-                <div class="w3-threequarter">
+
+
+
+
+                <div class="w3-row">
                     <div class="w3-row-padding">
                         <!--col for images-->
                         <?php
@@ -121,21 +113,15 @@ $result = $connect->query($query);    //execute SQL
                         <?php
                         } else { ?>
 
-                            <!-- foreach ($result as $img) {
+                            <div id="gallery-grid" class="row">
 
-                                $imgOwner = $img["userName"];
-                                $imgPath = $img["uploadPath"];
-                                $imgDescription = $img["description"];
-                                $imgCategory = $img["categoryName"];
-                                $imgdate = $img["date"];
-                                $imgurl = $img["url"]; -->
-                            <div id="gallery-grid">
+
+
+
+
 
 
                             </div>
-
-
-
 
                         <?php
 

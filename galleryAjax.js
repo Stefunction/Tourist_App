@@ -45,12 +45,11 @@ function populateGrid(keyword) {
                 htmlCode += "<div class='card-body'><h5 class='p-2'><b>" + gal["categoryName"] + "</b></h5><div class='row'>";
                 htmlCode += "<p class='col-md-6'>Owner: " + gal["userName"] + "</p>";
                 htmlCode += "<p class='col-md-6'>Date: " + gal["date"] + "</p>";
-                htmlCode += "<p class='col'><strong>Description:</strong> " + gal["description"] + "</p>";
+                htmlCode += "<p class='col'><strong>Description: </strong> " + gal["description"] + "</p>";
+                htmlCode += "<p class='col-md-12'><strong>URL: </strong> " + gal["url"] + "</p>";
+
                 htmlCode += "</div></div></div></div>";
                 $("#gallery-grid").append(htmlCode);      //add a child to table body
-
-
-
 
 
             }

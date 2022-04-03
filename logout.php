@@ -16,7 +16,7 @@ $time = "Update access SET logout_Time = '$logout_time' where userName = '$usern
 $time_query = $connect->query($time);
 
 // Store logout messages to display
-$_SESSION["del_account"] = "Logged Out " . $username;
+$_SESSION["del_account"] = "Bye for Now " . $username;
 $_SESSION["icon"] = "success";
 
 // Terminate session

@@ -77,6 +77,7 @@ $result = $connect->query($query);    //execute SQL
                         <div class="d-flex justify-content-center">
                             <button type="submit" class="btn btn-primary" id="searchButton">Search</button>
                         </div>
+                        <div class="p-2"><span class="text-muted">NB: Clear Field and Search to Refresh</span></div>
                     </div>
 
 

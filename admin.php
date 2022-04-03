@@ -43,7 +43,7 @@ $time_result = $connect->query($time);         //Execute SQL
 <!-- Beginning of head content Tag -->
 
 <head>
-    <title>User Home</title>
+    <title>Admin Page</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- w3 CSS -->
@@ -132,7 +132,7 @@ $time_result = $connect->query($time);         //Execute SQL
                 </div>
 
                 <div class="w3-bar-block">
-                    <a href="#adventure" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>My Adventures</a>
+                    <!-- <a href="#adventure" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>My Adventures</a> -->
                     <a href="#about" onclick="w3_close(), admin_details()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>My Personal Space</a>
                     <a href="logout.php" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>Logout</a>
                 </div>
@@ -156,7 +156,7 @@ $time_result = $connect->query($time);         //Execute SQL
                     <a href="#"><img src="Assets/Images/IMG_20200620_083445.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
                     <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
                     <div class="w3-container">
-                        <h1><b>My Adventures</b></h1>
+                        <h1><b>REGISTER</b></h1>
                         <div class="w3-section w3-bottombar w3-padding-16">
                             <span class="w3-margin-right">Filter:</span>
 
@@ -466,21 +466,34 @@ $time_result = $connect->query($time);         //Execute SQL
                             $imgurl = $img["url"];
 
                         ?>
-                            <div class="w3-card-4 w3-third w3-display-container w3-margin-bottom">
+
+
+
+                            <div class="w3-third w3-container w3-margin-bottom">
                                 <img src="<?php echo $imgPath ?>" alt="Uploaded_Pic Description" style="width:100%" class="w3-hover-opacity">
-                                <div class="w3-display-topleft w3-container w3-text-black">
-                                    <h5 style="color: white;"><?php echo $imgOwner ?></h5>
-                                </div>
+
                                 <div class="w3-container w3-white">
-                                    <h5><b>Lorem Ipsum</b></h5><span><?php echo $imgdate ?></span><br>
-                                    <p class="p-2"><?php echo $imgDescription ?>!</p>
+                                    <h4>Owner: <?php echo $imgOwner ?></h4>
+                                    <h5 class="w3-half"><b><?php echo $imgCategory ?></b></h5>
+                                    <p class="w3-half"><b>Date: </b> <?php echo $imgdate ?></p>
+                                    <p><b>Description: </b><?php echo $imgDescription ?></p>
+                                    <p><b>URL: </b><?php echo $imgurl ?></p>
+
+                                    <!-- Delete Story Button -->
+                                    <form class="d-flex justify-content-center" action="admin_reset.php" method="POST">
+                                        <button class="w3-button w3-inline w3-red w3-section w3-padding" type="submit" name="delete_story" value="<?php echo $imgID; ?>">Delete User Story</button>
+                                    </form>
                                 </div>
 
-                                <!-- Delete Story Button -->
-                                <form class="d-flex justify-content-center" action="admin_reset.php" method="POST">
-                                    <button class="w3-button w3-inline w3-red w3-section w3-padding" type="submit" name="delete_story" value="<?php echo $imgID; ?>">Delete User Story</button>
-                                </form>
+
+
                             </div>
+
+
+
+
+
+
 
                     <?php }
                     }

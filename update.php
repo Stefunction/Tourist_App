@@ -215,6 +215,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $delete = "DELETE FROM uploads WHERE uploadID = '$adventure_id' ";
         $result_delete = $connect->query($delete);
 
+
         if ($result_delete) {
 
             $_SESSION["status"] = "Adventure Deleted! ";

@@ -144,7 +144,9 @@ if (!empty($_POST["username"]) && !empty($_POST["password"])) {
         exit();
     }
 } else {
-    session_destroy();
-    header("Location: login.php");
+    $_SESSION["status"] = "Please fill Username and Password";   ##passed in
+    $_SESSION["icon"] = "warning";
+    $location = "Location: login.php";
+    header($location);
     exit();
 }

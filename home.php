@@ -204,7 +204,7 @@ if (isset($_SESSION["status"])) {
 
                             <button class="w3-button w3-white" onclick="add_adventure()"><i class="fa fa-diamond w3-margin-right"></i>Add Adventure</button>
                             <button class="w3-button w3-white" onclick="advent_edit()"><i class="fa fa-photo w3-margin-right"></i>Edit Adventure</button>
-                            <button class="w3-button w3-white w3-hide-small"><i class="fa fa-map-pin w3-margin-right"></i>Art</button>
+
                         </div>
                     </div>
 
@@ -247,12 +247,12 @@ if (isset($_SESSION["status"])) {
                                     <img src="<?php echo $imgPath ?>" alt="Uploaded_Pic Description" style="width:100%" class="w3-hover-opacity">
 
                                     <div class="w3-container w3-white">
-                                        <h5><b><?php echo $imgCategory ?></b></h5><span><?php echo $imgdate ?></span><br>
-                                        <p class="p-2"><?php echo $imgDescription ?></p><span><?php echo $imgurl ?></span>
-                                        <!-- <div><input type="hidden" name="img-id" value="<?php echo $imgID;   ?>">
-                    <button id="come_on" onclick="document.getElementById('redo').style.display='block'" class=" btn btn-sm btn-info" type="submit">Edit</button>
-                    <button id="come_on" onclick="document.getElementById('edit').style.display='block'" class=" btn btn-sm btn-danger" type="submit">Delete</button>
-                </div> -->
+
+                                        <h5><b><?php echo $imgCategory ?></b></h5>
+                                        <p><b>Date: </b> <?php echo $imgdate ?></p>
+                                        <p><b>Description: </b><?php echo $imgDescription ?></p>
+                                        <p><b>URL: </b><?php echo $imgurl ?></p>
+
                                     </div>
 
                                 </div>
@@ -306,8 +306,10 @@ if (isset($_SESSION["status"])) {
                                     <img src="<?php echo $imgPath ?>" alt="Uploaded_Pic Description" style="width:100%" class="w3-hover-opacity">
 
                                     <div class="w3-container w3-white">
-                                        <h5><b><?php echo $imgCategory ?></b></h5><span><?php echo $imgdate ?></span><br>
-                                        <p class="p-2"><?php echo $imgDescription ?></p><span><?php echo $imgurl ?></span>
+                                        <h5><b><?php echo $imgCategory ?></b></h5>
+                                        <p><b>Date: </b> <?php echo $imgdate ?></p>
+                                        <p><b>Description: </b><?php echo $imgDescription ?></p>
+                                        <p><b>URL: </b><?php echo $imgurl ?></p>
                                         <div>
                                             <button onclick="launchRedo(<?php echo $imgID; ?>)" class=" btn btn-sm btn-info" type="submit">Edit</button>
                                             <button onclick="launchDelete(<?php echo $imgID; ?>)" class=" btn btn-sm btn-danger" type="submit">Delete</button>
@@ -315,6 +317,11 @@ if (isset($_SESSION["status"])) {
                                     </div>
 
                                 </div>
+
+
+
+
+
 
                         <?php
                             }
@@ -365,7 +372,9 @@ if (isset($_SESSION["status"])) {
                                         <label for="change_date" class="form-label w3-col m4"><b>Change Date Entered: </b></label>
                                         <input class="w3-input w3-animate-input" name="change_date" type="date" value="<?php echo $imgdate ?>" style="width: 100px;">
                                     </div>
-
+                                    <div class="text-muted">
+                                        <p>Please make sure to refill form before submission</p>
+                                    </div>
                                     <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit" name="update_adventure">Update Details</button>
 
                                 </div>
@@ -465,7 +474,7 @@ if (isset($_SESSION["status"])) {
 
                                     <div class=" w3-row-padding">
                                         <div class="w3-half">
-                                            <input class="w3-input w3-animate-input" name="date" type="date" placeholder="Date Experienced" style="width: 100px;">
+                                            <input class="w3-input w3-animate-input" name="date" type="date" placeholder="Date Experienced" style="width: 100px;" required>
                                         </div>
                                         <div class="w3-half">
                                             <select class="w3-select" name="category" required>

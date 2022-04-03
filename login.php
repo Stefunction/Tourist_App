@@ -1,7 +1,7 @@
 <?php
 session_start();            #retrieve session		
 
-if (isset($_SESSION["username"]))        # if logged on	
+if (isset($_SESSION["username"]) && $_SESSION["username"] == 1)        # if logged on	
 {
     $_SESSION["status"] = "Already signed in ";     // Prompt user to remind 
     $_SESSION["icon"] = "info";
@@ -95,9 +95,8 @@ if (isset($_SESSION["del_account"])) {
                 <div class="col-md-6 d-flex align-items-center justify-content-center pe-4">
                     <!--col 1-->
                     <div class="p-4">
-                        <p class="login-left-text text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat facilis dolore ipsa officiis
-                            natus ex nam
-                            odio tempora in.
+                        <p class="login-left-text text-center">Dare to Dream...., Dare to Speak...., <br> Tell your Story and let us pick.<br> Remember,<br> "I am You"
+                            and "You are Me", <br>Hop Right in and lets paint our Space.....
                         </p>
                     </div>
 
@@ -135,7 +134,7 @@ if (isset($_SESSION["del_account"])) {
 
                             <div class="mb-3">
                                 <label for="username-input-2" class="form-label text-muted">Username</label>
-                                <input type="text" name="username" class="form-control" id="username-input-2">
+                                <input type="text" name="username" class="form-control" id="username-input-2" required>
                             </div>
 
                             <div class="row">
@@ -158,33 +157,6 @@ if (isset($_SESSION["del_account"])) {
                             </div>
                         </form>
                     </div>
-
-                    <!-- <div class="row">
-                        <form id="login" method="post" action="verify.php">
-
-                            <hr>
-                            <input type="text" name="username" placeholder="Username">
-                            <input type="password" name="password" placeholder="Password">
-
-                            <button type="submit">Login</button>
-
-                        </form>
-                    </div>
-                    <div class="row">
-                        <h4>Forgot Password??</h4>
-                        <form method="POST" action="verify.php">
-                            <input type="text" name="username" placeholder="Username">
-
-
-                            <input type="password" class="form-control" id="newpass" name="newpass" placeholder="New Password" required>
-                            <input type="password" class="form-control" id="cnewpass" name="cnewpass" placeholder="Confirm New Password" required>
-
-
-                            <button type="submit" name="resetPass">
-                                Reset Password
-                            </button>
-                        </form>
-                    </div> -->
 
                 </div>
 

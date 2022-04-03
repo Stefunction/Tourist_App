@@ -5,7 +5,7 @@ require "connect.php";          #Establish a connection with the PDO object crea
 
 session_start();
 
-if (isset($_SESSION["username"])) {   //if  logged on
+if (isset($_SESSION["username"]) && $_SESSION["roleID"] == 1) {   //if  logged on
 
     $_SESSION["status"] = "Already signed in ";
     $_SESSION["icon"] = "info";
@@ -13,7 +13,15 @@ if (isset($_SESSION["username"])) {   //if  logged on
     $location = "Location: home.php";
     header($location);
     exit();
+} else if (isset($_SESSION["username"]) && $_SESSION["roleID"] == 2) {
+    $_SESSION["status"] = "Already signed in ";
+    $_SESSION["icon"] = "info";
+    $_SESSION["display"] = "Redirecting....";
+    $location = "Location: admin.php";
+    header($location);
+    exit();
 }
+
 
 function _checkInput($data)
 { #to validate input
@@ -42,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
 
 
         if ($probeEmailResult->rowCount() > 0) {
-            $_SESSION["status"] = "Email already Registered";
+            $_SESSION["status"] = "Email already Registered ";
             $_SESSION["icon"] = "error";
             $_SESSION["display"] = "Thank you...";
             $location = "Location: signup.php";
@@ -54,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
             $probeNameResult = $connect->query($probeName);
 
             if ($probeNameResult->rowCount() > 0) {
-                $_SESSION["status"] = "Username already Taken";
+                $_SESSION["status"] = "Username already Taken ";
                 $_SESSION["icon"] = "info";
                 $_SESSION["display"] = "Pick another one";
                 header("Location: signup.php");
@@ -157,7 +165,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
                         form.classList.add('was-validated')
                     }, false)
                 })
-        })()
+        })
     </script>
 
     <title>Aventura</title>
@@ -169,14 +177,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
         <?php include("navbar.php") ?>
 
 
-        <main class="container">
+        <main class="container-fluid me-2 mx-2">
 
             <div class="row text-white">
-                <div class="col-7">
+                <div class="col-lg-7 col-md-6">
                     <div class="d-flex flex-column">
                         <form class="form_contain needs-validation" novalidate method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
-                            <div class="row text-center">
+                            <div class="row text-center my-4">
                                 <h3>SIGNUP HERE</h3>
                             </div>
 
@@ -222,16 +230,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
 
                                 <div class="col-md-6">
                                     <label for="password" class="form-label">Password: </label>
-                                    <input type="password" class="form-control" id="password" name="password" required>
-                                    <div class="invalid-feedback">Input a password</div>
+                                    <input type="password" class="form-control" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                                    <div class="invalid-feedback">Password does not meet requirements<br>Hover for more</div>
                                     <br>
                                 </div>
 
                                 <div class="col-md-6">
                                     <label for="Cpassword" class="form-label">Confirm Password: </label>
                                     <input type="password" class="form-control" id="Cpassword" name="Cpassword" required>
-                                    <div class="alert" id="checkpassword"></div>
-                                    <div class="invalid-feedback">Confirm Password</div>
+                                    <!-- <div class="alert" ></div> -->
+                                    <div class="invalid-feedback" id="checkpassword">Confirm Password</div>
                                     <br>
                                 </div>
                                 <div class="col-8">
@@ -256,18 +264,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
 
                 </div>
 
-                <div class="col-5">
-                    <aside>
-                        <!-- <img src="#" alt="Video/slideshow"> -->
-                        <!--add a slideshow-->
+                <div class="col-lg-5 col-md-6 d-sm-none d-md-block">
+                    <!-- <aside> -->
+                    <!-- <img src="#" alt="Video/slideshow"> -->
+                    <!--add a slideshow-->
 
-                        <div class="w3-content w3-section" style="max-width:500px">
-                            <img class="mySlides signup_Image" src="assets/Images/test2.jpg" style="width:100%">
-                            <img class="mySlides signup_Image" src="assets/Images/test3.jpg" style="width:100%">
-                            <img class="mySlides signup_Image" src="assets/Images/mountain_top.jpg" style="width:100%">
-                        </div>
-                        <p>add some smal captions that explains the video </p>
-                    </aside>
+                    <div class="w3-content w3-section" style="max-width:500px">
+                        <img class="mySlides signup_Image" src="assets/Images/test2.jpg" style="width:100%">
+                        <img class="mySlides signup_Image" src="assets/Images/test3.jpg" style="width:100%">
+                        <img class="mySlides signup_Image" src="assets/Images/mountain_top.jpg" style="width:100%">
+                    </div>
+                    <p>add some smal captions that explains the video </p>
+                    <!-- </aside> -->
 
                 </div>
             </div>

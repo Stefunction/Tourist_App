@@ -1,7 +1,7 @@
 <header class="sticky-top">
     <!--An opening horizontal line for decoration-->
     <hr>
-    <nav class="navbar navbar-expand-lg navbar-light bg-secondary text-dark fw-bold">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="bars container-fluid">
             <!--Creating a logo with the span description-->
             <a class="navbar-brand" id="logo" href="index.php">

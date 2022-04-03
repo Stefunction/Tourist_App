@@ -66,7 +66,7 @@ $time_result = $connect->query($time);         //Execute SQL
     <link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <!-- DataTable JS -->
     <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-
+    <!-- CSS Stylesheets -->
     <link rel="stylesheet" href="assets/CSS/style.css">
 
     <!-- Sweet Alert plugin and stylesheet -->

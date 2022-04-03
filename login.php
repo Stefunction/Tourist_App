@@ -81,7 +81,7 @@ if (isset($_SESSION["del_account"])) {
 
 </head>
 
-<body>
+<body class="log">
     <div class="container-fluid">
         <!-- Header section -->
         <?php include("navbar.php") ?>
@@ -95,7 +95,7 @@ if (isset($_SESSION["del_account"])) {
                 <div class="col-md-6 d-flex align-items-center justify-content-center pe-4">
                     <!--col 1-->
                     <div class="p-4">
-                        <p class="login-left-text text-center">Dare to Dream...., Dare to Speak...., <br> Tell your Story and let us pick.<br> Remember,<br> "I am You"
+                        <p class="login-left-text text-center text-white">Dare to Dream...., Dare to Speak...., <br> Tell your Story and let us pick.<br> Remember,<br> "I am You"
                             and "You are Me", <br>Hop Right in and lets paint our Space.....
                         </p>
                     </div>
@@ -112,12 +112,12 @@ if (isset($_SESSION["del_account"])) {
 
                     <form method="POST" action="verify.php">
                         <div class="mb-3">
-                            <label for="username-input-1" class="form-label text-muted">Username</label>
+                            <label for="username-input-1" class="form-label text-white">Username</label>
                             <input type="text" name="username" class="form-control" id="username-input-1">
                         </div>
 
                         <div class="mb-3">
-                            <label for="password-input-1" class="form-label">Password</label>
+                            <label for="password-input-1" class="form-label text-white">Password</label>
                             <input type="password" name="password" class="form-control" id="password-input-1">
                         </div>
 
@@ -128,19 +128,21 @@ if (isset($_SESSION["del_account"])) {
 
                     <hr>
 
-                    <div class="row">
+                    <div class="row text-white">
+
                         <h4>Forgot Password??</h4>
+
                         <form method="POST" action="verify.php">
 
                             <div class="mb-3">
-                                <label for="username-input-2" class="form-label text-muted">Username</label>
+                                <label for="username-input-2" class="form-label ">Username</label>
                                 <input type="text" name="username" class="form-control" id="username-input-2" required>
                             </div>
 
                             <div class="row">
                                 <div class="mb-3 col-md-6">
                                     <label for="password-input-1" class="form-label">New Password</label>
-                                    <input type="password" class="form-control" id="password-input-2" name="newpass" placeholder="New Password" required>
+                                    <input type="password" class="form-control" id="password-input-2" name="newpass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
                                 </div>
 
                                 <div class="mb-3 col-md-6">

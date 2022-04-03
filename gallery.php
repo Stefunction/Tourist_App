@@ -7,7 +7,7 @@ $query = "select userName, uploadPath, description, categoryName, date, url from
 $query .= " WHERE uploads.categoryID = category.categoryID";
 
 
-$result = $connect->query($query);    //execute SQL
+$result2 = $connect->query($query);    //execute SQL
 
 ?>
 
@@ -41,6 +41,7 @@ $result = $connect->query($query);    //execute SQL
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> <!-- Bootstrap with Popper -->
 
     <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <link rel="stylesheet" href="assets/CSS/style.css">
 
     <!-- Load the JavaScript which set up the event handler, etc. -->
     <script src="galleryAjax.js"></script>
@@ -48,10 +49,9 @@ $result = $connect->query($query);    //execute SQL
 
 
 
-
 </head>
 
-<body>
+<body class="gall">
     <!-- Header section -->
     <div class="container-fluid">
         <?php include("navbar.php") ?>
@@ -62,23 +62,25 @@ $result = $connect->query($query);    //execute SQL
 
                 <div class="row mb-3 my-1">
 
-                    <div class="d-flex">
-                        <label for="category-input" class="me-2 col-form-label">Category:</label>
-                        <div class="me-3">
-                            <input id="keyword" class="me-2 form-control" name="category" list="datalistOptions" placeholder="Type to search...">
-                            <datalist id="datalistOptions">
-                                <option value="Food">
-                                <option value="Culture">
-                                <option value="Adventure">
-                                <option value="History">
-                                <option value="Others">
-                            </datalist>
+                    <form action="">
+                        <div class="d-flex">
+                            <label for="category-input" class="me-2 col-form-label text-white">Category:</label>
+                            <div class="me-3">
+                                <input id="keyword" class="me-2 form-control" name="category" list="datalistOptions" placeholder="Type to search...">
+                                <datalist id="datalistOptions">
+                                    <option value="Food">
+                                    <option value="Culture">
+                                    <option value="Adventure">
+                                    <option value="History">
+                                    <option value="Others">
+                                </datalist>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button type="reset" class="btn btn-primary" id="clear">Reset</button>
+                            </div>
+                            <div class="p-2"><span class="text-white">NB: Type a Keyword or Click on input Tab to select an Option</span></div>
                         </div>
-                        <div class="d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary" id="searchButton">Search</button>
-                        </div>
-                        <div class="p-2"><span class="text-muted">NB: Clear Field and Search to Refresh</span></div>
-                    </div>
+                    </form>
 
 
                 </div>
@@ -92,7 +94,7 @@ $result = $connect->query($query);    //execute SQL
                         <!--col for images-->
                         <?php
 
-                        if ($result->rowCount() == 0) {
+                        if ($result2->rowCount() == 0) {
 
                         ?>
 
@@ -112,23 +114,36 @@ $result = $connect->query($query);    //execute SQL
                             </div>
 
                         <?php
-                        } else { ?>
+                        } else {
+                        ?><div id="gallery-grid" class="row">
+                                <?php
 
-                            <div id="gallery-grid" class="row">
-
-
-
-
-
+                                foreach ($result2 as $row) {
+                                ?>
 
 
-                            </div>
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <img src="<?php echo $row["uploadPath"]  ?>" alt='Uploaded_Pic Description' style='width:100%' class='w3-hover-opacity card-img-top'>
+                                            <div class="card-body">
+                                                <h5 class="p-2"><b><?php echo $row["categoryName"] ?></b></h5>
+                                                <div class="row">
+                                                    <p class="col-md-6">Owner: <?php echo $row["userName"] ?></p>
+                                                    <p class="col-md-6">Date: <?php echo $row["date"] ?></p>
+                                                    <p class="col"><strong>Description: </strong> <?php echo $row["description"] ?></p>
+                                                    <p class="col-md-12"><strong>URL: </strong> <?php echo $row["url"] ?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                        <?php
+                                <?php
+                                } ?>
+                            </div><?php
 
-                        }
-                        $connect = null;
-                        ?>
+                                }
+                                $connect = null;
+                                    ?>
 
 
 
@@ -148,5 +163,25 @@ $result = $connect->query($query);    //execute SQL
 
     </div>
 </body>
+
+<script>
+    // function clear() {
+    // $("#keyword").on('keyup', function() {
+    // var keyword = document.querySelector("#keyword");
+    // keyword.val() = reset();
+    // var keyword = $(this).val();
+
+    $("#clear").on("click", function() {
+        var keyword = document.querySelector("#keyword");
+        // console.log(keyword);
+        keyword.value = '';
+        $("#keyword").trigger("keyup");
+
+
+    });
+
+
+    // }
+</script>
 
 </html>

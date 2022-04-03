@@ -17,7 +17,7 @@
 
 <footer class="mt-5">
     <hr>
-    <div class="container-fluid p-2 bg-secondary text-white text-center">
+    <div class="container-fluid p-2  text-white text-center">
 
 
         <div class="row footer-inner">
@@ -26,30 +26,29 @@
             </div>
 
             <div class="col-sm-3">
-                <h5 class="text-dark">Section</h5>
+                <h5 class="text-light">Section</h5>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, commodi.</p>
                 <p>&copy; 2021 Company, Inc</p>
             </div>
 
             <div class="col-sm-6 ">
 
-                <h5 class="p-3 text-dark">Socials</h5>
+                <h5 class="p-3 text-light">Socials</h5>
                 <ul class="nav d-flex justify-content-center">
-                    <li class="ms-5"><a class="link-dark" href="https://twitter.com/Steph_nmanie" target="_blank"><svg class="bi me-2" width="24" height="24">
+                    <li class="ms-5"><a class="link-light" href="https://twitter.com/Steph_nmanie" target="_blank"><svg class="bi me-2" width="24" height="24">
                                 <use xlink:href="#twitter" />
                             </svg><span>Twitter</span></a></li>
-                    <li class="ms-5"><a class="link-dark" href="#"><svg class="bi me-2" width="24" height="24">
+                    <li class="ms-5"><a class="link-light" href="https://www.instagram.com/reina.shona/" target="_blank"><svg class="bi me-2" width="24" height="24">
                                 <use xlink:href="#instagram" />
                             </svg><span>Instagram</span></a></li>
-                    <li class="ms-5"><a class="link-dark" href="#"><svg class="bi me-2" width="24" height="24">
+                    <li class="ms-5"><a class="link-light" href="https://www.facebook.com/stephanie.udejiofor" target="_blank"><svg class="bi me-2" width="24" height="24">
                                 <use xlink:href="#facebook" />
                             </svg><span>Facebook</span></a></li>
-
                 </ul>
             </div>
 
             <div class="col-sm-3">
-                <h5 class="text-dark">Section</h5>
+                <h5 class="text-light">Section</h5>
                 <ul class="nav justify-content-center">
                     <li class="nav-item"><a class="nav-link px-3 link-light w3-hoverable" aria-current="page" href="#">Home</a></li>
                     <li class="nav-item"><a class="nav-link px-3 link-light" href="gallery.php">Gallery</a></li>

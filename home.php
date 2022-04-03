@@ -67,7 +67,7 @@ if (isset($_SESSION["status"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="assets/CSS/style.css">
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <!-- <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet"> style font -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -77,7 +77,7 @@ if (isset($_SESSION["status"])) {
 
     <script src="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.js"></script> <!-- Preview JS for file Upload -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> <!-- Bootstrap with Popper -->
-
+    <link rel="stylesheet" href="assets/CSS/style.css">
 
     <script>
         // Script to open and close sidebar
@@ -157,6 +157,7 @@ if (isset($_SESSION["status"])) {
 <body class="w3-light-grey w3-content" style="max-width:1600px">
     <div class="container-fluid">
         <!-- Header section -->
+
         <?php include("navbar.php") ?>
 
         <main>
@@ -619,8 +620,6 @@ if (isset($_SESSION["status"])) {
                     </div>
 
 
-
-
                     <!-- CHANGE PASSWORD MODAL -->
                     <div id="change_pass" class="w3-modal">
                         <div class="w3-modal-content w3-card-4 w3-animate-left" style="max-width:500px">
@@ -660,7 +659,9 @@ if (isset($_SESSION["status"])) {
                     </div>
                 </div>
             </div>
+
         </main>
+
     </div>
 
 </body>

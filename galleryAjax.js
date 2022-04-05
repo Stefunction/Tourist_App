@@ -15,7 +15,7 @@ $(document).ready(function () {
                 {
                     var gal = result[index];                      //get a single  from result array             
 
-                    var htmlCode = "<div class='col-md-4'><div class='card'>";
+                    var htmlCode = "<div class='col-md-4'><div class='card mt-3'>";
                     htmlCode += "<img src=" + gal["uploadPath"] + " alt='Uploaded_Pic Description' style='width:100%' class='w3-hover-opacity card-img-top'>";
                     htmlCode += "<div class='card-body'><h5 class='p-2'><b>" + gal["categoryName"] + "</b></h5><div class='row'>";
                     htmlCode += "<p class='col-md-6'>Owner: " + gal["userName"] + "</p>";

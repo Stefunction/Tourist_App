@@ -129,7 +129,7 @@ $result2 = $connect->query($query);    //execute SQL
                                 ?>
 
                                     <div class="col-md-4">
-                                        <div class="card">
+                                        <div class="card mt-3">
                                             <img src="<?php echo $row["uploadPath"]  ?>" alt='Uploaded_Pic Description' style='width:100%' class='w3-hover-opacity card-img-top'>
 
                                             <div class="card-body">

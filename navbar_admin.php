@@ -1,4 +1,4 @@
-<header class="sticky-top">
+<header class="sticky-top w3-black">
     <!--An opening horizontal line for decoration-->
     <hr>
     <nav class="navbar navbar-expand-lg navbar-dark">

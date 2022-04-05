@@ -1,18 +1,18 @@
 <?php
-error_reporting(E_ALL);     #Errors encountered are reported
+error_reporting(E_ALL);     # Errors encountered are reported
 
-require "connect.php";      #Establish a connection with the PDO object created
+require "connect.php";      # Establish a connection with the PDO object created
 
-session_start();            #Begin a Session   
+session_start();            # Begin a Session   
 
-htmlspecialchars($_SERVER["PHP_SELF"]);    #To protect against XSS injection
+htmlspecialchars($_SERVER["PHP_SELF"]);    # To protect against XSS injection
 
-if (!isset($_SESSION["username"]))              # if not logged on	
+if (!isset($_SESSION["username"]))         # if not logged on	
 {
-    header("Location: login.php");          # redirect to login page
+    header("Location: login.php");         # redirect to login page
 }
 
-$username = $_SESSION["username"];
+$username = $_SESSION["username"];         # Store session name in variable
 
 
 #Function to ascertain input is not an sql injection by removing characters and spaces

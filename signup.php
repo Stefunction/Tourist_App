@@ -1,11 +1,12 @@
 <?php
-error_reporting(E_ALL);         #Errors encountered are reported
+error_reporting(E_ALL);         # Errors encountered are reported
 
-require "connect.php";          #Establish a connection with the PDO object created
+require "connect.php";          # Establish a connection with the PDO object created
 
 session_start();
 
-if (isset($_SESSION["username"]) && $_SESSION["roleID"] == 1) {   //if  logged on
+// If Logged On to the system, redirect to either
+if (isset($_SESSION["username"]) && $_SESSION["roleID"] == 1) {         # User Home Page
 
     $_SESSION["status"] = "Already signed in ";
     $_SESSION["icon"] = "info";
@@ -13,7 +14,8 @@ if (isset($_SESSION["username"]) && $_SESSION["roleID"] == 1) {   //if  logged o
     $location = "Location: home.php";
     header($location);
     exit();
-} else if (isset($_SESSION["username"]) && $_SESSION["roleID"] == 2) {
+} else if (isset($_SESSION["username"]) && $_SESSION["roleID"] == 2) {      # Admin Home Page
+
     $_SESSION["status"] = "Already signed in ";
     $_SESSION["icon"] = "info";
     $_SESSION["display"] = "Redirecting....";
@@ -22,20 +24,19 @@ if (isset($_SESSION["username"]) && $_SESSION["roleID"] == 1) {   //if  logged o
     exit();
 }
 
-
+// Function to validate input to the system
 function _checkInput($data)
-{ #to validate input
+{
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
 }
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {             # To check if form was submitted
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
-
-
-    $firstname = _checkInput($_POST["firstname"]); #to get the usernam input from login form
+    // Assign the various inputs to variables
+    $firstname = _checkInput($_POST["firstname"]);
     $lastname = _checkInput($_POST["lastname"]);
     $username = _checkInput($_POST["username"]);
     $gender = _checkInput($_POST["gender"]);
@@ -43,11 +44,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
     $password = _checkInput($_POST["password"]);
     $Cpassword = _checkInput($_POST["Cpassword"]);
 
+    // Confirm Password and Confirm are the same
     if ($password == $Cpassword) {
 
-        $probeEmail = "Select email FROM Users where email = '$email' ";
-        $probeEmailResult = $connect->query($probeEmail);
-
+        $probeEmail = "Select email FROM Users where email = '$email' ";        # check if email exists in database
+        $probeEmailResult = $connect->query($probeEmail);                       # SQL statement to query database
 
         if ($probeEmailResult->rowCount() > 0) {
             $_SESSION["status"] = "Email already Registered ";
@@ -58,8 +59,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
             exit();
         } else {
 
-            $probeName = "Select username FROM Users where username = '$username'";
-            $probeNameResult = $connect->query($probeName);
+            $probeName = "Select username FROM Users where username = '$username'";        # check if username exists in database
+            $probeNameResult = $connect->query($probeName);                                # SQL statement to query database
 
             if ($probeNameResult->rowCount() > 0) {
                 $_SESSION["status"] = "Username already Taken ";
@@ -75,12 +76,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
                 ];
                 $hashed_password = password_hash($password, PASSWORD_BCRYPT, $options);
 
-
+                // Insert / Register User into the Database
                 $query = "Insert into Users (firstname, lastname, username, genderID, email, password)";
                 $query .= "Values ('$firstname', '$lastname', '$username', '$gender', '$email', '$hashed_password')";
 
                 $result = $connect->exec($query);    //execute SQL
 
+                // If Registration goes through
                 if ($result) {
                     $_SESSION["status"] = "Registration Successful!!!";
                     $_SESSION["icon"] = "success";
@@ -99,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
             }
         }
     } else {
-        $_SESSION["status"] = "Both Passwords are not the same";
+        $_SESSION["status"] = "Both Passwords are not the same";        # If passwords are different
         $_SESSION["icon"] = "warning";
         $_SESSION["display"] = "Retype please";
         $location = "Location: signup.php";
@@ -107,7 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
         exit();
     }
 
-    $connect = null;
+    $connect = null;            # Terminate PDO object
 }
 
 ?>
@@ -120,31 +122,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
 <!-- Linking the stylesheet-->
 
 <head>
+    <title>SignUp page</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel|Fauna+One">
-
-    <!-- <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet"> -->
+    <!-- Font Styling -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Boostrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Ajax JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+    <!-- w3 CSS -->
     <link rel="stylesheet" href="Assets/CSS/w3.css">
+    <!-- CSS Stylesheets -->
     <link rel="stylesheet" href="Assets/CSS/style.css">
-    <title>SignUp page</title>
 
-
+    <!-- Script to check if passwords are the same-->
     <script>
         $(function() {
             $("#Cpassword").keyup(function() {
                 var match = $("#password").val();
                 $("#checkpassword").html(match == $(this).val() ?
                     "Password matches" :
-                    "Both password combinatination must be same"
+                    "Both password combination must be same"
                 );
             });
         });
     </script>
+
     <script>
         // Function to disable form submission if there are empty fields
         $(function() {
@@ -168,20 +175,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
         })
     </script>
 
-    <title>Aventura</title>
 </head>
 
+
 <body id="signup">
+
     <div class="container-fluid">
         <!-- Header section -->
         <?php include("navbar.php") ?>
 
-
+        <!-- Beginning of main header -->
         <main class="container-fluid me-2 mx-2">
 
             <div class="row text-white">
+
                 <div class="col-lg-7 col-md-6">
+
                     <div class="d-flex flex-column">
+
+                        <!-- Sign Up Form -->
                         <form class="form_contain needs-validation" novalidate method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
                             <div class="row text-center my-4">
@@ -201,7 +213,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
                                     <div class="invalid-feedback">Last name Please</div><br>
                                 </div>
 
-
                                 <div class="col-md-5">
                                     <label for="username" class="form-label">Username</label>
                                     <div class="input-group has-validation">
@@ -219,7 +230,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
                                         <option value='M'>Male</option>
                                     </select>
                                     <div class="invalid-feedback">Please select an option</div><br>
-
                                 </div>
 
                                 <div class="col-md-12">
@@ -242,6 +252,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
                                     <div class="invalid-feedback" id="checkpassword">Confirm Password</div>
                                     <br>
                                 </div>
+
                                 <div class="col-8">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
@@ -251,43 +262,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
                                         <div class="invalid-feedback">Do agree to the terms and conditions stated</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <button type="submit" class="btn btn-primary">SignUp</button>
                                 </div>
 
-
                             </div>
-                        </form>
 
+                        </form>
 
                     </div>
 
                 </div>
 
                 <div class="col-lg-5 col-md-6 d-sm-none d-md-block">
-                    <!-- <aside> -->
-                    <!-- <img src="#" alt="Video/slideshow"> -->
-                    <!--add a slideshow-->
 
                     <div class="w3-content w3-section" style="max-width:500px">
+
                         <img class="mySlides signup_Image" src="assets/Images/test2.jpg" style="width:100%">
                         <img class="mySlides signup_Image" src="assets/Images/test3.jpg" style="width:100%">
                         <img class="mySlides signup_Image" src="assets/Images/mountain_top.jpg" style="width:100%">
+
                     </div>
-                    <p>add some smal captions that explains the video </p>
-                    <!-- </aside> -->
 
                 </div>
+
             </div>
 
         </main>
 
-
     </div>
+
 </body>
 
-<!-- Sweet Alert plugin and stylesheet -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<!-- Side Picture Carousel -->
 <script>
     var myIndex = 0;
     carousel();
@@ -307,6 +316,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
     }
 </script>
 
+<!-- Sweet Alert plugin and stylesheet -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <?php
 if (isset($_SESSION["status"])) {

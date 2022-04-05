@@ -1,3 +1,8 @@
+<?php
+
+session_start();    # To change navigation bar tabs when user logs in
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +14,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Font Styling -->
-    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel|Fauna+One"> -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -44,12 +48,12 @@
                 <!-- Second half of Column -->
                 <div class=" col-4 col-md-4">
                         <div class="share d-flex flex-column align-items-center ">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat facilis
+                            <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat facilis
                                 dolore ipsa
                                 officiis
                                 natus ex nam
                                 odio tempora in.</p>
-                            <a href="gallery.php" class="btn btn-outline-info btn-lg">Gallery</a>
+                            <a href="gallery.php" class="btn btn-info btn-lg">Gallery</a>
                         </div>
                     </div>
                 </div>
@@ -64,6 +68,3 @@
 </body>
 
 </html>
-
-<!-- References -->
-<!-- 1.  -->

@@ -22,7 +22,7 @@
 
         <div class="row footer-inner">
             <div class="text-center">
-                <h3>FOOTER</h3>
+                <h3 class="mt-2">FOOTER</h3>
             </div>
 
             <div class="col-sm-3">

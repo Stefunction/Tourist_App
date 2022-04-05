@@ -114,7 +114,7 @@ $time_result = $connect->query($time);         //Execute SQL
     <div class="container-fluid">
 
         <!-- Header section -->
-        <?php include("navbar.php"); ?>
+        <?php include("navbar_admin.php"); ?>
         <!-- End of Header Section -->
 
 
@@ -138,9 +138,9 @@ $time_result = $connect->query($time);         //Execute SQL
                 </div>
 
                 <div class="w3-panel w3-large">
-                    <a class="link-dark" href="https://www.facebook.com/stephanie.udejiofor" target="_blank"><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
-                    <a class="link-dark" href="https://twitter.com/Steph_nmanie" target="_blank"><i class="fa fa-twitter w3-hover-opacity"></i></a>
-                    <a class="link-dark" href="https://www.snapchat.com/add/cuteslinky/" target="_blank"><i class="fa fa-snapchat w3-hover-opacity"></i></a>
+                    <a class="link-dark me-2" href="https://www.facebook.com/stephanie.udejiofor" target="_blank"><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
+                    <a class="link-dark me-2" href="https://twitter.com/Steph_nmanie" target="_blank"><i class="fa fa-twitter w3-hover-opacity"></i></a>
+                    <a class="link-dark me-2" href="https://www.snapchat.com/add/cuteslinky/" target="_blank"><i class="fa fa-snapchat w3-hover-opacity"></i></a>
                     <a class="link-dark" href="https://www.instagram.com/reina.shona/" target="_blank"><i class="fa fa-instagram w3-hover-opacity"></i></a>
                 </div>
             </nav>
@@ -256,7 +256,7 @@ $time_result = $connect->query($time);         //Execute SQL
                                             <!-- New Role Designation -->
                                             <div class="mb-3">
                                                 <select class="form-select" name="user_role">
-                                                    <option disabled selected>Choose Category</option>
+                                                    <option disabled selected>Choose Role</option>
                                                     <option value="Admin">Administrator</option>
                                                     <option value="User">User</option>
                                                 </select>
@@ -484,15 +484,7 @@ $time_result = $connect->query($time);         //Execute SQL
                                         <button class="w3-button w3-inline w3-red w3-section w3-padding" type="submit" name="delete_story" value="<?php echo $imgID; ?>">Delete User Story</button>
                                     </form>
                                 </div>
-
-
-
                             </div>
-
-
-
-
-
 
 
                     <?php }

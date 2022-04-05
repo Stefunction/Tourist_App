@@ -63,8 +63,8 @@ $result2 = $connect->query($query);    //execute SQL
                 <div class="row mb-3 my-1">
 
                     <form action="">
-                        <div class="d-flex">
-                            <label for="category-input" class="me-2 col-form-label text-white">Category:</label>
+                        <div class="d-flex bg-white p-3">
+                            <label for="category-input" class="me-2 col-form-label text-black">Category:</label>
                             <div class="me-3">
                                 <input id="keyword" class="me-2 form-control" name="category" list="datalistOptions" placeholder="Type to search...">
                                 <datalist id="datalistOptions">
@@ -76,9 +76,11 @@ $result2 = $connect->query($query);    //execute SQL
                                 </datalist>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <button type="reset" class="btn btn-primary" id="clear">Reset</button>
+                                <!-- <a href="#adventure" onclick="w3_close(), all_content()" class="w3-bar-item w3-button w3-padding w3-text-orange"><i class="fa fa-th-large fa-fw w3-margin-right"></i>My Adventures</a> -->
+                                <!-- <button type="reset" class="btn btn-primary" id="clear">Reset</button> -->
+                                <button id="clear" class="w3-xlarge w3-amber"><i class="fa fa-refresh fa-fw"></i></button>
                             </div>
-                            <div class="p-2"><span class="text-white">NB: Type a Keyword or Click on input Tab to select an Option</span></div>
+                            <div class="p-2"><span class="text-black">NB: Type a Keyword or Click on input Tab to select an Option</span></div>
                         </div>
                     </form>
 

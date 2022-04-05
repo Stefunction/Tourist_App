@@ -1,9 +1,11 @@
 <?php
+
 session_start();            #retrieve session		
 
-if (isset($_SESSION["username"]) && $_SESSION["username"] == 1)        # if logged on	
+if (isset($_SESSION["username"]) && $_SESSION["username"] == 1)        # if user is logged on	
+
 {
-    $_SESSION["status"] = "Already signed in ";     // Prompt user to remind 
+    $_SESSION["status"] = "Already signed in ";     // Prompt user to remind of logged in session
     $_SESSION["icon"] = "info";
     $location = "Location: home.php";
     header($location);
@@ -11,12 +13,7 @@ if (isset($_SESSION["username"]) && $_SESSION["username"] == 1)        # if logg
 }
 ?>
 
-<head>
-    <!-- Sweet Alert plugin and stylesheet -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-</head>
-
+<!-- SweetAlert PHP message Scripts -->
 <?php
 if (isset($_SESSION["status"])) {
 ?>
@@ -49,11 +46,9 @@ if (isset($_SESSION["del_account"])) {
     </script>
 
 <?php
-    session_destroy();
+    session_destroy();          # Destroy session after delete activity
 }
 ?>
-
-
 
 
 
@@ -65,51 +60,57 @@ if (isset($_SESSION["del_account"])) {
 <!-- Linking the stylesheet-->
 
 <head>
+
+    <title>Login Page</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Assets/CSS/w3.css">
-    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <!-- Font Styling -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <!-- Boostrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    <!-- bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- Sweet Alert plugin and stylesheet -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- w3 CSS -->
+    <link rel="stylesheet" href="Assets/CSS/w3.css">
+    <!-- CSS Stylesheets -->
     <link rel="stylesheet" href="Assets/CSS/style.css">
-    <title>Login Page</title>
-
-
 
 </head>
 
 <body class="log">
+
     <div class="container-fluid">
         <!-- Header section -->
         <?php include("navbar.php") ?>
 
-
+        <!-- Main Body Content -->
         <main class="container">
-            <!--content-->
-            <div class="row g-5">
-                <!--row-->
 
+            <div class="row g-5">
+
+                <!-- Side Notes on Login Page -->
                 <div class="col-md-6 d-flex align-items-center justify-content-center pe-4">
-                    <!--col 1-->
                     <div class="p-4">
-                        <p class="login-left-text text-center text-white">Dare to Dream...., Dare to Speak...., <br> Tell your Story and let us pick.<br> Remember,<br> "I am You"
+                        <p class="login-left-text text-center text-white fw-bold">Dare to Dream...., Dare to Speak...., <br> Tell your Story and let us pick.<br> Remember,<br> "I am You"
                             and "You are Me", <br>Hop Right in and lets paint our Space.....
                         </p>
                     </div>
-
                 </div>
 
+                <!-- Other half of login Page -->
                 <div class="col-md-6">
-                    <div class="d-flex justify-content-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" fill="currentColor" class="mb-2 text-info" viewBox="0 0 16 16">
+                    <!-- Profile picture Icon -->
+                    <div class="d-flex justify-content-center ">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" fill="currentColor" class="mb-2 mt-3 text-info" viewBox="0 0 16 16">
                             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
                             <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
                         </svg>
                     </div>
 
+                    <!-- Login Form -->
                     <form method="POST" action="verify.php">
                         <div class="mb-3">
                             <label for="username-input-1" class="form-label text-white">Username</label>
@@ -128,6 +129,7 @@ if (isset($_SESSION["del_account"])) {
 
                     <hr>
 
+                    <!-- Forgot Password Form  -->
                     <div class="row text-white">
 
                         <h4>Forgot Password??</h4>
@@ -140,6 +142,7 @@ if (isset($_SESSION["del_account"])) {
                             </div>
 
                             <div class="row">
+
                                 <div class="mb-3 col-md-6">
                                     <label for="password-input-1" class="form-label">New Password</label>
                                     <input type="password" class="form-control" id="password-input-2" name="newpass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
@@ -149,15 +152,17 @@ if (isset($_SESSION["del_account"])) {
                                     <label for="password-input-1" class="form-label">Confirm New Password</label>
                                     <input type="password" class="form-control" id="password-input-3" name="cnewpass" required>
                                 </div>
-                            </div>
 
+                            </div>
 
                             <div class="d-flex justify-content-center">
                                 <button class="btn btn-lg btn-outline-primary" type="submit" name="resetPass">
                                     Reset Password
                                 </button>
                             </div>
+
                         </form>
+
                     </div>
 
                 </div>
@@ -166,16 +171,11 @@ if (isset($_SESSION["del_account"])) {
 
         </main>
 
-
         <!--Footer-->
         <?php include("footer.php") ?>
 
     </div>
 
-
 </body>
-
-
-
 
 </html>

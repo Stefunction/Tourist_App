@@ -46,21 +46,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
 
   if (isset($_POST['upload'])) {
 
-    if (!empty($_POST["MAX_FILE_SIZE"])) {
+    if (!empty($uploaded_tmp) && !empty($description) && !empty($date) && !empty($category)) {
 
-      // Is it an image?
+      // Is it an image
 
       if (getimagesize($uploaded_tmp) !== false) {
-        echo "File is an image - " . $check_Image["mime"] . ".";
         $imageOK = 1;
       } else {
         $imageOK = 0;
-        echo "Sorry, The file is not an image";
+        $_SESSION["status"] = "File must be an Image ";  ##passed in
+        $_SESSION["icon"] = "error";
+        $location = "Location: home.php";
+        header($location);
+        exit();
       }
 
       if ($uploaded_size > 2000000) {
-        echo "Sorry, your file is larger than 2MB";
         $imageOK = 0;
+        $_SESSION["status"] = "Sorry, your file is larger than 2MB ";  ##passed in
+        $_SESSION["icon"] = "info";
+        $location = "Location: home.php";
+        header($location);
+        exit();
       }
 
       if ((strtolower($uploaded_ext) == 'jpg' || strtolower($uploaded_ext) == 'jpeg' || strtolower($uploaded_ext) == 'png' || strtolower($uploaded_ext) == 'gif')
@@ -68,13 +75,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
       ) {
         $imageOK = 1;
       } else {
-        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
         $imageOK = 0;
+        $_SESSION["status"] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed ";  ##passed in
+        $_SESSION["icon"] = "info";
+        $location = "Location: home.php";
+        header($location);
+        exit();
       }
 
 
       if ($imageOK == 0) {
-        echo "File not Successfully uploaded";
+        $_SESSION["status"] = "File not Successfully uploaded ";  ##passed in
+        $_SESSION["icon"] = "error";
+        $location = "Location: home.php";
+        header($location);
+        exit();
       } else {
         $target_dir = $target_path . $target_file;
 
@@ -86,11 +101,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
           $query .= "Values ('$username', '$target_dir', '$description', '$category', '$date', '$url')";
 
           $result = $connect->exec($query);  //execute SQL
-          // echo "<pre><a href='${target_path}${target_file}'>${target_file}</a> succesfully uploaded!</pre>";
-          header("Location: home.php");
-        } else {
-          // No
-          echo '<pre>Your image was not uploaded.</pre>';
+          if ($result) {
+            $_SESSION["status"] = "Successfully uploaded ";  ##passed in
+            $_SESSION["icon"] = "success";
+            $location = "Location: home.php";
+            header($location);
+            exit();
+          } else {
+            $_SESSION["status"] = "Your image was not uploaded ";  ##passed in
+            $_SESSION["icon"] = "error";
+            $location = "Location: home.php";
+            header($location);
+            exit();
+          }
         }
 
         // Delete any temp files
@@ -98,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
           unlink($temp_file);
       }
     } else {
-      $_SESSION["status"] = "You must upload an Image!!! ";
+      $_SESSION["status"] = "Image, Description and Date must be filled!!! ";
       $_SESSION["icon"] = "warning";
       $location = "Location: home.php";
       header($location);

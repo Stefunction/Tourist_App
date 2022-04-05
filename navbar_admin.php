@@ -1,3 +1,4 @@
+<!-- Admin navigation bar -->
 <header class="sticky-top w3-black">
     <!--An opening horizontal line for decoration-->
     <hr>
@@ -12,12 +13,13 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav_collapse" aria-controls="nav_collapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <!--Assigning the id of the buttion to the dsiv class housing the varius links-->
+            <!--Assigning the id of the buttion to the divs class housing the various links-->
             <div class="collapse navbar-collapse" id="nav_collapse">
                 <ul class="navbar-nav ms-auto fw-bold text-dark">
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.php">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="gallery.php">Gallery</a></li>
 
+                    <!-- Switching states of navigation bars -->
                     <?php if (!isset($_SESSION["username"])) { ?>
                         <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
                     <?php } else { ?>
@@ -39,4 +41,5 @@
     </nav>
     <!--A closing horizontal line for decoration-->
     <hr>
+
 </header>

@@ -44,26 +44,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
   $temp_file    .= DIRECTORY_SEPARATOR . md5(uniqid() . $uploaded_name) . '.' . $uploaded_ext;
   $imageOK = 1;
 
-  if (isset($_POST['upload'])) {
+  if (isset($_POST['upload'])) {    #if upload is set
 
     if (!empty($uploaded_tmp) && !empty($description) && !empty($date) && !empty($category)) {
 
       // Is it an image
 
-      if (getimagesize($uploaded_tmp) !== false) {
+      if (getimagesize($uploaded_tmp) !== false) {     # if file is not an image
         $imageOK = 1;
       } else {
         $imageOK = 0;
-        $_SESSION["status"] = "File must be an Image ";  ##passed in
+        $_SESSION["status"] = "File must be an Image ";   # passed in status message
         $_SESSION["icon"] = "error";
         $location = "Location: home.php";
         header($location);
         exit();
       }
 
-      if ($uploaded_size > 2000000) {
+      if ($uploaded_size > 2000000) {             # if file is larger than 2mb
         $imageOK = 0;
-        $_SESSION["status"] = "Sorry, your file is larger than 2MB ";  ##passed in
+        $_SESSION["status"] = "Sorry, your file is larger than 2MB ";   # passed in status message
         $_SESSION["icon"] = "info";
         $location = "Location: home.php";
         header($location);
@@ -76,16 +76,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
         $imageOK = 1;
       } else {
         $imageOK = 0;
-        $_SESSION["status"] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed ";  ##passed in
+        $_SESSION["status"] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed ";    # passed in status message
         $_SESSION["icon"] = "info";
         $location = "Location: home.php";
         header($location);
         exit();
       }
 
-
+      // Check if any condition fails
       if ($imageOK == 0) {
-        $_SESSION["status"] = "File not Successfully uploaded ";  ##passed in
+        $_SESSION["status"] = "File not Successfully uploaded ";       # passed in status message
         $_SESSION["icon"] = "error";
         $location = "Location: home.php";
         header($location);
@@ -102,13 +102,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
 
           $result = $connect->exec($query);  //execute SQL
           if ($result) {
-            $_SESSION["status"] = "Successfully uploaded ";  ##passed in
+            $_SESSION["status"] = "Successfully uploaded ";      # passed in status message
             $_SESSION["icon"] = "success";
             $location = "Location: home.php";
             header($location);
             exit();
           } else {
-            $_SESSION["status"] = "Your image was not uploaded ";  ##passed in
+            $_SESSION["status"] = "Your image was not uploaded ";      # passed in status message
             $_SESSION["icon"] = "error";
             $location = "Location: home.php";
             header($location);
@@ -120,7 +120,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { #to check if form was submitted
         if (file_exists($temp_file))
           unlink($temp_file);
       }
-    } else {
+    }
+    // If any section is empty
+    else {
       $_SESSION["status"] = "Image, Description and Date must be filled!!! ";
       $_SESSION["icon"] = "warning";
       $location = "Location: home.php";

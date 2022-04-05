@@ -182,7 +182,7 @@ if (isset($_SESSION["status"])) {
                         <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z" />
                         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
                     </svg><br><br>
-                    <h4 class="w3-win8-lime p-2" style="text-shadow:1px 1px 0 #444"><b><?php print $username; ?>'s WALL</b></h4>
+                    <h4 class="w3-win8-lime p-2" style="text-shadow:1px 1px 0 #444"><b><?php print $username; ?>'s Wall</b></h4>
                     <p class="w3-text-aqua w3-win8-brown p-2"><?php print $firstname . " " . $lastname; ?></p>
                 </div>
 
@@ -223,13 +223,11 @@ if (isset($_SESSION["status"])) {
 
                             <button class="w3-button w3-lime" onclick="add_adventure()"><i class="fa fa-diamond w3-margin-right"></i>Add Adventure</button>
                             <button class="w3-button w3-brown" onclick="advent_edit()"><i class="fa fa-photo w3-margin-right"></i>Edit Adventure</button>
-
                         </div>
                     </div>
 
                 </header>
                 <!-- End of Body Header -->
-
 
 
                 <!-- Initial content to be displayed containing previous uploads-->
@@ -252,6 +250,7 @@ if (isset($_SESSION["status"])) {
                             <?php
                         } else {
 
+                            // Iterate over array and store variables
                             foreach ($result as $img) {
 
                                 $imgPath = $img["uploadPath"];
@@ -260,7 +259,6 @@ if (isset($_SESSION["status"])) {
                                 $imgdate = $img["date"];
                                 $imgurl = $img["url"];
                                 $imgID = $img["uploadID"] ?>
-
 
                                 <div class="w3-third w3-container w3-margin-bottom">
                                     <img src="<?php echo $imgPath ?>" alt="Uploaded_Pic Description" style="width:100%" class="w3-hover-opacity">
@@ -368,14 +366,14 @@ if (isset($_SESSION["status"])) {
 
                 <!--File Upload With Preview Initialization  -->
                 <script>
-                    let upload = new FileUploadWithPreview("imageFileID"); // use input id
+                    let upload = new FileUploadWithPreview("imageFileID"); //GetImageFileID
                 </script>
 
 
                 <!-- Edit Adventure Story Section -->
                 <div id="adventure_edit" class="pb-2" style="display: none;">
 
-                    <!-- Grid for Pictures-->
+                    <!-- Grid to display uploaded Pictures-->
                     <div class=" w3-row-padding">
 
                         <?php
@@ -419,11 +417,6 @@ if (isset($_SESSION["status"])) {
                                     </div>
 
                                 </div>
-
-
-
-
-
 
                         <?php
                             }
@@ -525,15 +518,8 @@ if (isset($_SESSION["status"])) {
                         </div>
                     </div>
 
-
-
-
                 </div>
                 <!-- End of Story Adventure Section -->
-
-                <br><br>
-
-
 
 
                 <!-- Profile Section (Initially hidden) -->
@@ -545,6 +531,7 @@ if (isset($_SESSION["status"])) {
 
                     <div class="w3-row-padding">
 
+                        <!-- Table with Information -->
                         <div class="w3-twothird">
                             <div class="w3-row-padding">
                                 <table class="w3-table w3-bordered w3-card-4">
@@ -565,17 +552,15 @@ if (isset($_SESSION["status"])) {
                                         <th style="width: 30%;">Email:</th>
                                         <td style="width: 50%;"><?php echo $email;   ?></td>
                                     </tr>
-                                    <!-- <tr>
-                                        <th style="width: 30%;">Change Password:</th>
-                                        <td hidden><?php echo $password;   ?></td>
-                                    </tr> -->
 
                                 </table>
                             </div>
 
                         </div>
 
+                        <!-- Action buttons -->
                         <div class="w3-third ">
+
                             <div class="w3-row-padding w3-margin-bottom">
                                 <button onclick="document.getElementById('edit').style.display='block'" class="btn btn-sm btn-info" type="submit">Edit Profile</button>
                             </div>
@@ -587,10 +572,10 @@ if (isset($_SESSION["status"])) {
                                     <button class=" btn btn-sm btn-danger" type="submit" name="delete">Delete Account</button>
                                 </form>
                             </div>
+
                         </div>
 
                     </div>
-
 
 
                     <!-- UPDATE PROFILE MODAL -->
@@ -628,7 +613,6 @@ if (isset($_SESSION["status"])) {
 
                             <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
                                 <button onclick="document.getElementById('edit').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
-
                             </div>
 
                         </div>
@@ -667,12 +651,14 @@ if (isset($_SESSION["status"])) {
 
                             <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
                                 <button onclick="document.getElementById('change_pass').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
-
                             </div>
 
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
 
         </main>

@@ -1,7 +1,7 @@
 
 $(document).ready(function () {
-    $("#keyword").on('keyup', function () {
-        var keyword = $(this).val();
+    $("#keyword").on('keyup', function () {         //Capture keyup on the id keyword
+        var keyword = $(this).val();                //return value to variable keyword
 
         $.ajax({
             url: "filter-gallery.php",
@@ -10,7 +10,7 @@ $(document).ready(function () {
                 $("#gallery-grid").html("<span>No associated Keyword Found, Try again...</span>");
             },
             success: function (result) {
-                $("#gallery-grid").empty();   //remove all children first
+                $("#gallery-grid").empty();   //empty grid
                 for (var index in result)       //iterate through the reply (in JSON)
                 {
                     var gal = result[index];                      //get a single  from result array             
@@ -24,9 +24,9 @@ $(document).ready(function () {
                     htmlCode += "<p class='col-md-12'><strong>URL: </strong> " + gal["url"] + "</p>";
                     htmlCode += "</div></div></div></div>";
 
-                    $("#gallery-grid").append(htmlCode);      //add a child to table body/add a child to table body
+                    $("#gallery-grid").append(htmlCode);      //append to gallery grid
                 }
-            } //end cal
+            }
         });
     });
 });

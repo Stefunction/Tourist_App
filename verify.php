@@ -7,12 +7,6 @@ session_start();            #Begin a Session
 
 htmlspecialchars($_SERVER["PHP_SELF"]);    #To protect against XSS injection
 
-// if (empty($_POST["username"]) && empty($_POST["password"])) {       # If username and password input is empty
-//     session_destroy();                                              # Terminate the session and
-//     header("Location: login.php");                                  # Redirect to the login page
-//     exit();                                                         # Exit from here, no continuation.
-// }
-
 #Function to ascertain input is not an sql injection by removing characters and spaces
 
 function _checkInput($data)
@@ -70,14 +64,14 @@ if (!empty($_POST["username"]) && !empty($_POST["password"])) {
 
 
             if ($_SESSION["roleID"] == 1) {        # If roleID variable is 1,
-                $_SESSION["status"] = "Welcome ";  ##passed in
+                $_SESSION["status"] = "Welcome ";    # passed in status message
                 $_SESSION["icon"] = "success";
                 $location = "Location: home.php";
                 header($location);
                 exit();
                 // header("Location: home.php");    # Forward to the user home page
             } else {
-                $_SESSION["status"] = "Admin Logged IN";  ##passed in
+                $_SESSION["status"] = "Admin Logged IN";   # passed in status message
                 $_SESSION["icon"] = "success";
                 $location = "Location: admin.php";     # Else forward to the admin Page
                 header($location);
@@ -85,15 +79,15 @@ if (!empty($_POST["username"]) && !empty($_POST["password"])) {
             }
 
             exit();                                # Exit from here, no continuation. 
+        } else {
+            $_SESSION["status"] = "User Not Found";      # passed in status message
+            $_SESSION["icon"] = "error";
+            $location = "Location: login.php";
+            header($location);
+            exit();
         }
-        # else{
-        #echo "User not found"; kit said must not have a generated output before header call, else header wont work
-        #   header("Location: login.html");
-        #  exit();
-        # }
-
     } else {
-        $_SESSION["status"] = "Incorrect Username or password";  ##passed in
+        $_SESSION["status"] = "Incorrect password";      # passed in status message
         $_SESSION["icon"] = "info";
         $location = "Location: login.php";
         header($location);

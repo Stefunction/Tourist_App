@@ -1,3 +1,4 @@
+<!-- User Navigation bars -->
 <header class="sticky-top">
     <!--An opening horizontal line for decoration-->
     <hr>
@@ -18,6 +19,7 @@
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.php">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="gallery.php">Gallery</a></li>
 
+                    <!-- Switching states of navigation bars -->
                     <?php if (!isset($_SESSION["username"])) { ?>
                         <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
                     <?php } else { ?>

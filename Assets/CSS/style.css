@@ -3,14 +3,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* font-family: Arial, Helvetica, sans-serif; */
 }
 
-/* body{
-    font-family: "Kulim Park", "sans-serif";
-    font-size: 18px;
-} */
-
+/* Styling the body */
 body {
   display: flex;
   margin: 0px;
@@ -20,16 +15,9 @@ body {
 
 /* Styling the navigation Bar */
 .bars {
-  /* font-family: Cinzel, serif; */
   font-size: 18px;
   font-weight: 100;
   background: hsla(59, 73%, 30%, 0.5);
-
-}
-
-.footer-inner {
-  background: hsla(59, 73%, 30%, 0.5);
-
 }
 
 /* Home Page */
@@ -39,35 +27,26 @@ body {
   background-size: inherit;
 }
 
-/* rgba(0, 0, 0, .5) */
-/* linear-gradient(rgba(0, 0, 0, 0.4),
-rgba(0, 0, 0, 0.4)), url(../avent/waterfall.jpeg); */
-
+/* Login page styling */
 .login-left-text {
   font-size: 24px;
 }
 
-/* logo */
-/* #logo         {
-  display: inline-block;
-  text-decoration: none;
-  width: 50%;
-} */
 #logo img {
-  /* width: 40px; */
   width: 70px;
-  /* border-radius: 70%; */
-  /* margin-right: 8px; */
-  /* vertical-align: middle; */
 }
 
-#logo span {
-  /* display: inline-block; */
+/* login background */
+.log {
+  background:
+    rgba(0, 0, 0, .5) url(../avent/waterfall.jpeg);
+  background-blend-mode: darken;
+  background-size: inherit;
 }
 
-/* Stling the Horizontal lines */
+
+/* Styling the Horizontal lines */
 hr {
-  /* height: 3px; */
   border: none;
   border-top: 3px dashed #ecf009;
   border-radius: 5px;
@@ -160,21 +139,8 @@ hr {
   fill: currentColor;
 }
 
-/* Styling the gallery */
-.gall {
-  background:
-    rgba(0, 0, 0, .4) url(../avent/woood.jpeg);
-  /* background-blend-mode: darken; */
-  background-size: inherit;
-  /* background-repeat: no-repeat; */
-}
-
-/* login background */
-.log {
-  background:
-    rgba(0, 0, 0, .5) url(../avent/waterfall.jpeg);
-  background-blend-mode: darken;
-  background-size: inherit;
+.footer-inner {
+  background: hsla(59, 73%, 30%, 0.5);
 }
 
 /* styling the sign up page */
@@ -195,7 +161,6 @@ hr {
   padding-right: 15px;
   border-top-left-radius: 50px;
   border-bottom-right-radius: 100px;
-  /* box-shadow: 10px, 10px, 2px, #000; */
 }
 
 .invalid-feedback {
@@ -208,6 +173,12 @@ hr {
 }
 
 /* Styling the gallery page */
+.gall {
+  background:
+    rgba(0, 0, 0, .4) url(../avent/woood.jpeg);
+  background-size: inherit;
+}
+
 .grid-container-gallery {
   display: grid;
   grid-template-columns: auto auto auto auto auto auto auto;

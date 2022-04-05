@@ -92,7 +92,6 @@ $time_result = $connect->query($time);         //Execute SQL
     ?>
 
 
-
     <!--Styling the header Body  -->
     <style>
         body,
@@ -127,12 +126,11 @@ $time_result = $connect->query($time);         //Execute SQL
                         <i class="fa fa-remove"></i>
                     </a>
                     <img src="Assets/Images/IMG_20200620_083445.jpg" style="width:45%;" class="w3-round"><br><br>
-                    <h4><b><?php print $username; ?>'s WALL</b></h4>
+                    <h4><b><?php print $username; ?>'s Wall</b></h4>
                     <p class="w3-text-grey"><?php print $firstname . " " . $lastname; ?></p>
                 </div>
 
                 <div class="w3-bar-block">
-                    <!-- <a href="#adventure" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>My Adventures</a> -->
                     <a href="#about" onclick="w3_close(), admin_details()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>My Personal Space</a>
                     <a href="logout.php" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>Logout</a>
                 </div>
@@ -174,6 +172,7 @@ $time_result = $connect->query($time);         //Execute SQL
 
                     <!-- Table Executions -->
                     <div class="w3-row-padding">
+
                         <!-- Table for Users-->
                         <table class="userTable">
 
@@ -467,8 +466,6 @@ $time_result = $connect->query($time);         //Execute SQL
 
                         ?>
 
-
-
                             <div class="w3-third w3-container w3-margin-bottom">
                                 <img src="<?php echo $imgPath ?>" alt="Uploaded_Pic Description" style="width:100%" class="w3-hover-opacity">
 
@@ -528,17 +525,17 @@ $time_result = $connect->query($time);         //Execute SQL
                                     </tr>
 
                                 </table>
+
                             </div>
 
                         </div>
 
                     </div>
 
-
                 </div>
 
-
             </div>
+
         </main>
         <!-- End of main tag -->
     </div>

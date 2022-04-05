@@ -279,9 +279,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {             # To check if form was s
 
                     <div class="w3-content w3-section" style="max-width:500px">
 
-                        <img class="mySlides signup_Image" src="assets/Images/test2.jpg" style="width:100%">
-                        <img class="mySlides signup_Image" src="assets/Images/test3.jpg" style="width:100%">
-                        <img class="mySlides signup_Image" src="assets/Images/mountain_top.jpg" style="width:100%">
+                        <img class="mySlides signup_Image" src="assets/Images/carousel/africa.webp" style="width:100%; height: 470px;">
+                        <img class="mySlides signup_Image" src="assets/Images/carousel/logo.png" style="width:100%">
+                        <img class="mySlides signup_Image" src="assets/Images/carousel/tanzania.jpg" style="width:100%; height: 470px">
+                        <img class="mySlides signup_Image" src="assets/Images/carousel/butterfly.avif" style="width:100%; height: 470px">
+                        <img class="mySlides signup_Image" src="assets/Images/carousel/camera.avif" style="width:100%; height: 480px;">
 
                     </div>
 

@@ -194,7 +194,7 @@ if (isset($_SESSION["status"])) {
 
                 <div class="w3-container w3-padding-top">
                     <h6 class="w3-text-orange">Follow Admin.....</h6>
-                    <img src="Assets/Images/IMG_20200620_083445.jpg" style="width:42%;" class="w3-round">
+                    <img src="Assets/Images/admin/IMG_20200620_083445.jpg" style="width:42%;" class="w3-round">
 
                     <div class="d-inline-flex">
                         <a class="link-light w3-xlarge" href="https://www.facebook.com/stephanie.udejiofor" target="_blank"><i class="fa fa-facebook-official w3-hover-opacity m-1"></i></a>
@@ -214,7 +214,7 @@ if (isset($_SESSION["status"])) {
                 <!-- Body Header -->
                 <header>
 
-                    <a href="#"><img src="Assets/Images/IMG_20200620_083445.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+                    <a href="#"><img src="Assets/Images/admin/IMG_20200620_083445.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
                     <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
                     <div class="w3-container">
                         <h1 class="w3-text-white mt-2"><b>My Adventures</b></h1>

@@ -21,7 +21,18 @@ session_start();    # To change navigation bar tabs when user logs in
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Styling CSS -->
     <link rel="stylesheet" href="Assets/CSS/style.css">
+    <link rel="stylesheet" href="assets/css/w3.css">
 
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h5,
+        h6 {
+            font-family: "Raleway", sans-serif
+        }
+    </style>
 </head>
 
 <!-- Beginning of Body Tag -->
@@ -39,9 +50,9 @@ session_start();    # To change navigation bar tabs when user logs in
                 <div class="col-8 col-md-8">
                     <!-- OverLaid Home grid pictures -->
                     <div class="grid-container">
-                        <img class="img-fluid img_1" src="Assets/Images/warm.jpeg" alt="Snow">
-                        <img class="img-fluid img_2" src="assets/avent/beads.jfif" alt="Snow"">
-                        <img class=" img-fluid img_3" src="Assets/images/elephants.jpg" alt="Snow"">
+                        <img class="img-fluid img_1" src="Assets/Images/overlay/elephants.jpg" alt="Snow">
+                        <img class="img-fluid img_2" src="assets/images/overlay/beads.jfif" alt="Snow"">
+                        <img class=" img-fluid img_3" src="Assets/images/overlay/tanzania.jpg" alt="Snow"">
                     </div>
                 </div>
 
@@ -53,7 +64,7 @@ session_start();    # To change navigation bar tabs when user logs in
                                 officiis
                                 natus ex nam
                                 odio tempora in.</p>
-                            <a href="gallery.php" class="btn btn-info btn-lg">Gallery</a>
+                            <a href="gallery.php" class="btn btn-info btn-lg w3-hover-lime">Gallery</a>
                         </div>
                     </div>
                 </div>

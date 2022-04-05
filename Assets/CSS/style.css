@@ -23,7 +23,7 @@ body {
 /* Home Page */
 .home {
   background:
-    rgba(0, 0, 0, .5) url(../avent/perfect.jpg);
+    rgba(0, 0, 0, .5) url(../Images/background/perfect.jpg);
   background-size: inherit;
 }
 
@@ -39,7 +39,7 @@ body {
 /* login background */
 .log {
   background:
-    rgba(0, 0, 0, .5) url(../avent/waterfall.jpeg);
+    rgba(0, 0, 0, .5) url(../Images/background/waterfall.jpeg);
   background-blend-mode: darken;
   background-size: inherit;
 }
@@ -147,7 +147,7 @@ hr {
 
 #signup {
   overflow: hidden;
-  background: url("../Images/1647785545105.jpg");
+  background: url("../Images//background/1647785545105.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: none;
@@ -175,7 +175,7 @@ hr {
 /* Styling the gallery page */
 .gall {
   background:
-    rgba(0, 0, 0, .4) url(../avent/woood.jpeg);
+    rgba(0, 0, 0, .4) url(../Images/background/woood.jpeg);
   background-size: inherit;
 }
 
@@ -204,7 +204,7 @@ hr {
 /* user home */
 .userHome {
   background:
-    rgba(0, 0, 0, .2) url(../Images/sunmount.jpeg);
+    rgba(0, 0, 0, .2) url(../Images/background/sunmount.jpeg);
   background-size: cover;
   background-blend-mode: darken;
 

@@ -19,21 +19,21 @@
 
     <div class="container-fluid p-2  text-white text-center">
 
-        <div class="row footer-inner">
+        <div class="row footer-inner" style="border-radius: 8px;">
 
-            <div class="text-center">
+            <div class="text-center fw-bold">
                 <h3 class="mt-2">FOOTER</h3>
             </div>
 
             <div class="col-sm-3">
-                <h5 class="text-light">Section</h5>
+                <h5 class="text-light fw-bold">Section</h5>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, commodi.</p>
                 <p>&copy; 2021 Company, Inc</p>
             </div>
 
             <div class="col-sm-6 ">
 
-                <h5 class="p-3 text-light">Socials</h5>
+                <h5 class="p-3 text-light fw-bold">Socials</h5>
                 <ul class="nav d-flex justify-content-center">
                     <li class="ms-5"><a class="link-light" href="https://twitter.com/Steph_nmanie" target="_blank"><svg class="bi me-2" width="24" height="24">
                                 <use xlink:href="#twitter" />
@@ -49,7 +49,7 @@
             </div>
 
             <div class="col-sm-3">
-                <h5 class="text-light">Section</h5>
+                <h5 class="text-light fw-bold">Section</h5>
                 <ul class="nav justify-content-center">
                     <li class="nav-item"><a class="nav-link px-3 link-light w3-hoverable" aria-current="page" href="#">Home</a></li>
                     <li class="nav-item"><a class="nav-link px-3 link-light" href="gallery.php">Gallery</a></li>

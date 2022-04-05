@@ -7,7 +7,7 @@ $(document).ready(function () {
             url: "filter-gallery.php",
             data: { "keyword": keyword },
             beforeSend: function () {
-                $("#gallery-grid").html("<span>No associated Keyword Found, Try again...</span>");
+                $("#gallery-grid").html("<span class='w3-lime p-2'>No associated Keyword Found, Try again...</span>");
             },
             success: function (result) {
                 $("#gallery-grid").empty();   //empty grid

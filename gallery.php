@@ -62,7 +62,7 @@ $result2 = $connect->query($query);    //execute SQL
                     <!-- To cature input keywords -->
                     <form action="">
 
-                        <div class="d-flex bg-white p-3">
+                        <div class="d-flex bg-white p-3" style="border-radius: 8px;">
                             <label for="category-input" class="me-2 col-form-label text-black">Category:</label>
 
                             <div class="me-3">

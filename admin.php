@@ -54,14 +54,10 @@ $time_result = $connect->query($time);         //Execute SQL
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Boostrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Image Preview CSS-->
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.css" />
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> <!-- Bootstrap with Popper -->
-    <!-- image preview JS -->
-    <script src="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.js"></script> <!-- Preview JS for file Upload -->
     <!-- DataTable CSS -->
     <link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <!-- DataTable JS -->
@@ -92,7 +88,7 @@ $time_result = $connect->query($time);         //Execute SQL
     ?>
 
 
-    <!--Styling the header Body  -->
+    <!--Styling the Body  -->
     <style>
         body,
         h1,
@@ -125,7 +121,7 @@ $time_result = $connect->query($time);         //Execute SQL
                     <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey" title="close menu">
                         <i class="fa fa-remove"></i>
                     </a>
-                    <img src="Assets/Images/IMG_20200620_083445.jpg" style="width:45%;" class="w3-round"><br><br>
+                    <img src="Assets/Images/admin/IMG_20200620_083445.jpg" style="width:45%;" class="w3-round"><br><br>
                     <h4><b><?php print $username; ?>'s Wall</b></h4>
                     <p class="w3-text-grey"><?php print $firstname . " " . $lastname; ?></p>
                 </div>
@@ -151,7 +147,7 @@ $time_result = $connect->query($time);         //Execute SQL
 
                 <!-- Body Header -->
                 <header id="adventure">
-                    <a href="#"><img src="Assets/Images/IMG_20200620_083445.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+                    <a href="#"><img src="Assets/Images/admin/IMG_20200620_083445.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
                     <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
                     <div class="w3-container">
                         <h1><b>REGISTER</b></h1>
